@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radio — Portals Style Guide</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script>
+    (function(){var t=localStorage.getItem('portals-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
+  </script>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="style-guide__topbar">
+    <a href="../index.html" class="style-guide__topbar-logo">
+      <img src="../portals-logo.svg" alt="Portals">
+    </a>
+    <nav class="style-guide__topbar-nav">
+      <a href="../index.html" class="topbar-link topbar-link--active">Style Guide</a>
+      <a href="#" class="topbar-link">Components</a>
+      <a href="#" class="topbar-link">Resources</a>
+    </nav>
+  </header>
+
+  <div class="style-guide">
+
+    <!-- Sidebar Navigation -->
+    <nav class="style-guide__sidebar">
+      <div class="style-guide__sidebar-nav">
+
+        <!-- Typography -->
+        <details class="sidebar-category">
+          <summary>Typography</summary>
+          <div class="sidebar-category__content">
+            <div class="sidebar-category__inner">
+              <a href="typography.html#headers" class="sidebar-link">Headers</a>
+              <a href="typography.html#paragraphs" class="sidebar-link">Paragraphs</a>
+            </div>
+          </div>
+        </details>
+
+        <!-- Components -->
+        <details class="sidebar-category">
+          <summary>Components</summary>
+          <div class="sidebar-category__content">
+            <div class="sidebar-category__inner">
+              <a href="buttons.html" class="sidebar-link">Buttons</a>
+            </div>
+          </div>
+        </details>
+
+        <!-- Input & Selection (active) -->
+        <details class="sidebar-category" open>
+          <summary>Input & Selection</summary>
+          <div class="sidebar-category__content">
+            <div class="sidebar-category__inner">
+              <a href="#check" class="sidebar-link">Check</a>
+              <a href="#date-picker" class="sidebar-link">Date picker</a>
+              <a href="#file-upload" class="sidebar-link">File upload</a>
+              <a href="#menu" class="sidebar-link">Menu</a>
+              <a href="radio.html" class="sidebar-link sidebar-link--active">Radio</a>
+              <a href="#segmented-control" class="sidebar-link">Segmented control</a>
+              <a href="#slider" class="sidebar-link">Slider</a>
+              <a href="#star-rating" class="sidebar-link">Star rating</a>
+              <a href="#stepper" class="sidebar-link">Stepper</a>
+              <a href="#switch" class="sidebar-link">Switch</a>
+              <a href="#time-picker" class="sidebar-link">Time picker</a>
+              <a href="#form-fields" class="sidebar-link">Form fields</a>
+            </div>
+          </div>
+        </details>
+
+        <!-- Foundation -->
+        <details class="sidebar-category">
+          <summary>Foundation</summary>
+          <div class="sidebar-category__content">
+            <div class="sidebar-category__inner">
+              <a href="colors.html" class="sidebar-link">Colors</a>
+            </div>
+          </div>
+        </details>
+
+      </div>
+
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-toggle__icon theme-toggle__sun">
+          <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M11 1v2M11 19v2M1 11h2M19 11h2M4.22 4.22l1.42 1.42M16.36 16.36l1.42 1.42M4.22 17.78l1.42-1.42M16.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="theme-toggle__icon theme-toggle__moon">
+          <svg viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 12.79A9 9 0 1 1 9.21 1a7 7 0 0 0 11.79 11.79z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="style-guide__content">
+
+      <!-- ==================== RADIO ==================== -->
+      <section class="style-guide__section" id="radio">
+
+        <!-- Page Header -->
+        <div class="page-header">
+          <h2 class="page-header__title">radio selection</h2>
+          <p class="page-header__description">A radio is a round control that allows users to choose one option from a set</p>
+        </div>
+
+        <!-- Behaviour -->
+        <div class="section-header">
+          <h3 class="section-header__title">behaviour</h3>
+          <p class="section-header__description">Users can tap or click a radio to toggle between filled and unfilled. Selecting a radio will automatically deselect the previously chosen item since only one can be active at a time. Tapping or clicking the label next to the radio should activate the control.</p>
+        </div>
+
+        <!-- Type 1: Boxed Radio Selection -->
+        <div class="component-display">
+          <div class="component-display__label">Type 1 &mdash; Boxed Radio Selection</div>
+          <div class="component-display__row">
+
+            <div class="component-display__column">
+              <div class="radio-group" role="radiogroup" aria-label="Plan selection">
+                <div>
+                  <input class="radio-input" type="radio" id="boxed-A" name="boxed" value="starter">
+                  <label class="radio-boxed" for="boxed-A">
+                    <div class="radio-boxed__text">
+                      <div class="radio-boxed__title">Starter Plan</div>
+                      <div class="radio-boxed__description">Best for individuals starting out with basic features and limited storage.</div>
+                    </div>
+                    <span class="radio-circle"></span>
+                  </label>
+                </div>
+                <div>
+                  <input class="radio-input" type="radio" id="boxed-B" name="boxed" value="pro" checked>
+                  <label class="radio-boxed" for="boxed-B">
+                    <div class="radio-boxed__text">
+                      <div class="radio-boxed__title">Pro Plan</div>
+                      <div class="radio-boxed__description">Great for growing teams with advanced collaboration tools and priority support.</div>
+                    </div>
+                    <span class="radio-circle"></span>
+                  </label>
+                </div>
+                <div>
+                  <input class="radio-input" type="radio" id="boxed-C" name="boxed" value="enterprise">
+                  <label class="radio-boxed" for="boxed-C">
+                    <div class="radio-boxed__text">
+                      <div class="radio-boxed__title">Enterprise Plan</div>
+                      <div class="radio-boxed__description">Designed for large organisations needing custom integrations and dedicated account management.</div>
+                    </div>
+                    <span class="radio-circle"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Type 2: Simple Radio Selection -->
+        <div class="component-display">
+          <div class="component-display__label">Type 2 &mdash; Simple Radio Selection</div>
+          <div class="component-display__row">
+
+            <div class="component-display__column">
+              <div class="radio-group" role="radiogroup" aria-label="Notification preference">
+                <div>
+                  <input class="radio-input" type="radio" id="simple-A" name="simple" value="all">
+                  <label class="radio-label" for="simple-A">
+                    <span class="radio-circle"></span>
+                    <span class="radio-label__text">All notifications</span>
+                  </label>
+                </div>
+                <div>
+                  <input class="radio-input" type="radio" id="simple-B" name="simple" value="important" checked>
+                  <label class="radio-label" for="simple-B">
+                    <span class="radio-circle"></span>
+                    <span class="radio-label__text">Important only</span>
+                  </label>
+                </div>
+                <div>
+                  <input class="radio-input" type="radio" id="simple-C" name="simple" value="none">
+                  <label class="radio-label" for="simple-C">
+                    <span class="radio-circle"></span>
+                    <span class="radio-label__text">None</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../sidebar.js"></script>
+</body>
+</html>
