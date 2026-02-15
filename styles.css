@@ -1,0 +1,701 @@
+/* ============================================================
+   PORTALS — Global Stylesheet
+   ============================================================ */
+
+
+/* ===== Reset ===== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Agrandir', sans-serif;
+  color: var(--ice-8);
+  background-color: var(--ice-1);
+  line-height: 1.5;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+
+/* ===== Color Tokens ===== */
+
+:root {
+  /* Blues */
+  --blue-1: #3496DC;
+  --blue-2: #6AC1FF;
+  --blue-3: #9FD7FF;
+  --blue-4: #BFE4FF;
+  --blue-5: #DFF2FF;
+
+  /* Violet */
+  --violet-1: #AB9EF5;
+  --violet-2: #B7ABFD;
+  --violet-3: #D8D1FF;
+
+  /* Ice Tones */
+  --ice-1: #F5FAFF;
+  --ice-2: #EEF4FF;
+  --ice-3: #CADBF7;
+  --ice-4: #A9BEE1;
+  --ice-5: #8499BD;
+  --ice-6: #6B83AB;
+  --ice-7: #4F5F79;
+  --ice-8: #2A3341;
+  --ice-9: #181C23;
+
+  /* Special */
+  --shadow-1: rgba(118, 156, 220, 0.32);
+}
+
+
+/* ===== Font Face Declarations ===== */
+
+/* Headers — Agrandir Wide family */
+@font-face {
+  font-family: 'Agrandir Wide';
+  src: url('./fonts/Agrandir-Wide.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Agrandir Wide';
+  src: url('./fonts/Agrandir-WideHeavy.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Paragraphs / Body — Agrandir family */
+@font-face {
+  font-family: 'Agrandir';
+  src: url('./fonts/Agrandir-Medium.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Agrandir';
+  src: url('./fonts/Agrandir-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* ===== Typography — Desktop ===== */
+
+/* H1 XL */
+.h1-xl {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 75px;
+  line-height: 75px;
+  margin-bottom: 72px;
+  letter-spacing: -0.5px;
+  font-weight: 400;
+}
+
+.h1-xl-bold {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 75px;
+  line-height: 75px;
+  margin-bottom: 72px;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+}
+
+/* H1 */
+.h1 {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 60px;
+  line-height: 64px;
+  margin-bottom: 72px;
+  letter-spacing: -0.5px;
+  font-weight: 400;
+}
+
+.h1-bold {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 60px;
+  line-height: 64px;
+  margin-bottom: 72px;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+}
+
+/* H2 */
+.h2 {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 48px;
+  line-height: 52px;
+  margin-bottom: 56px;
+  letter-spacing: -0.5px;
+  font-weight: 400;
+}
+
+.h2-bold {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 48px;
+  line-height: 52px;
+  margin-bottom: 56px;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+}
+
+/* H3 */
+.h3 {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 40px;
+  line-height: 43px;
+  margin-bottom: 48px;
+  letter-spacing: -0.5px;
+  font-weight: 400;
+}
+
+.h3-bold {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 40px;
+  line-height: 43px;
+  margin-bottom: 48px;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+}
+
+/* H4 */
+.h4 {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 32px;
+  line-height: 36px;
+  margin-bottom: 40px;
+  letter-spacing: -0.5px;
+  font-weight: 400;
+}
+
+.h4-bold {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 32px;
+  line-height: 36px;
+  margin-bottom: 40px;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+}
+
+/* H5 */
+.h5 {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 24px;
+  line-height: 27px;
+  margin-bottom: 28px;
+  letter-spacing: -0.5px;
+  font-weight: 400;
+}
+
+.h5-bold {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 24px;
+  line-height: 27px;
+  margin-bottom: 28px;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+}
+
+/* H6 */
+.h6 {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 20px;
+  line-height: 23px;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+  font-weight: 400;
+}
+
+.h6-bold {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 20px;
+  line-height: 23px;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+}
+
+/* P1 XL */
+.p1-xl {
+  font-family: 'Agrandir', sans-serif;
+  font-size: 18px;
+  line-height: 33px;
+  margin-bottom: 33px;
+  letter-spacing: 0.3px;
+  font-weight: 400;
+}
+
+.p1-xl-bold {
+  font-family: 'Agrandir', sans-serif;
+  font-size: 18px;
+  line-height: 33px;
+  margin-bottom: 33px;
+  letter-spacing: 0.3px;
+  font-weight: 700;
+}
+
+/* P1 */
+.p1 {
+  font-family: 'Agrandir', sans-serif;
+  font-size: 16px;
+  line-height: 28px;
+  margin-bottom: 28px;
+  letter-spacing: 0.3px;
+  font-weight: 400;
+}
+
+.p1-bold {
+  font-family: 'Agrandir', sans-serif;
+  font-size: 16px;
+  line-height: 28px;
+  margin-bottom: 28px;
+  letter-spacing: 0.3px;
+  font-weight: 700;
+}
+
+/* P2 */
+.p2 {
+  font-family: 'Agrandir', sans-serif;
+  font-size: 14px;
+  line-height: 23px;
+  margin-bottom: 18px;
+  letter-spacing: 0.3px;
+  font-weight: 400;
+}
+
+.p2-bold {
+  font-family: 'Agrandir', sans-serif;
+  font-size: 14px;
+  line-height: 23px;
+  margin-bottom: 18px;
+  letter-spacing: 0.3px;
+  font-weight: 700;
+}
+
+/* P3 */
+.p3 {
+  font-family: 'Agrandir', sans-serif;
+  font-size: 12px;
+  line-height: 24px;
+  margin-bottom: 24px;
+  letter-spacing: 0.4px;
+  font-weight: 400;
+}
+
+.p3-bold {
+  font-family: 'Agrandir', sans-serif;
+  font-size: 12px;
+  line-height: 24px;
+  margin-bottom: 24px;
+  letter-spacing: 0.4px;
+  font-weight: 700;
+}
+
+
+/* ===== Button Components ===== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+  font-family: 'Agrandir Wide', sans-serif;
+}
+
+/* Sizes */
+.btn-lg {
+  padding: 20px 35px;
+  border-radius: 999px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 23px;
+  letter-spacing: -0.5px;
+}
+
+.btn-md {
+  padding: 14px 25px;
+  border-radius: 999px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 23px;
+  letter-spacing: -0.5px;
+}
+
+.btn-sm {
+  padding: 7px 20px;
+  border-radius: 749px;
+  font-family: 'Agrandir', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 23px;
+  letter-spacing: 0.3px;
+}
+
+/* Primary */
+.btn-primary {
+  background-color: var(--blue-3);
+  color: var(--ice-8);
+}
+
+.btn-primary:hover {
+  background-color: var(--blue-4);
+}
+
+/* Secondary */
+.btn-secondary {
+  background-color: var(--ice-8);
+  color: var(--ice-2);
+}
+
+.btn-secondary:hover {
+  background-color: var(--ice-7);
+}
+
+/* Tertiary (Violet) */
+.btn-tertiary {
+  background-color: var(--violet-1);
+  color: var(--ice-8);
+}
+
+.btn-tertiary:hover {
+  background-color: var(--violet-2);
+}
+
+/* Subtle */
+.btn-subtle {
+  background-color: var(--ice-2);
+  color: var(--ice-5);
+}
+
+.btn-subtle:hover {
+  background-color: var(--ice-2);
+}
+
+/* Inactive */
+.btn-inactive {
+  background-color: var(--ice-1);
+  color: var(--ice-3);
+  border: 1px solid var(--ice-3);
+  cursor: default;
+}
+
+.btn-inactive:hover {
+  background-color: var(--ice-1);
+}
+
+
+/* ===== Responsive — Mobile ===== */
+
+@media (max-width: 768px) {
+  /* H1 XL */
+  .h1-xl, .h1-xl-bold {
+    font-size: 47px;
+    line-height: 52px;
+    margin-bottom: 55px;
+  }
+
+  /* H1 */
+  .h1, .h1-bold {
+    font-size: 40px;
+    line-height: 44px;
+    margin-bottom: 56px;
+  }
+
+  /* H2 */
+  .h2, .h2-bold {
+    font-size: 35px;
+    line-height: 40px;
+    margin-bottom: 48px;
+  }
+
+  /* H3 */
+  .h3, .h3-bold {
+    font-size: 28px;
+    line-height: 32px;
+    margin-bottom: 40px;
+  }
+
+  /* H4 */
+  .h4, .h4-bold {
+    font-size: 24px;
+    line-height: 28px;
+    margin-bottom: 32px;
+  }
+
+  /* H5 */
+  .h5, .h5-bold {
+    font-size: 21px;
+    line-height: 26px;
+    margin-bottom: 24px;
+  }
+
+  /* H6 */
+  .h6, .h6-bold {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 20px;
+  }
+
+  /* P1 XL */
+  .p1-xl, .p1-xl-bold {
+    font-size: 18px;
+    line-height: 33px;
+    margin-bottom: 30px;
+  }
+
+  /* P1 — unchanged */
+  .p1, .p1-bold {
+    font-size: 16px;
+    line-height: 28px;
+    margin-bottom: 28px;
+  }
+
+  /* P2 */
+  .p2, .p2-bold {
+    font-size: 14px;
+    line-height: 23px;
+    margin-bottom: 16px;
+  }
+
+  /* P3 — unchanged */
+  .p3, .p3-bold {
+    font-size: 12px;
+    line-height: 24px;
+    margin-bottom: 24px;
+  }
+}
+
+
+/* ===== Style Guide Page Layout ===== */
+
+.style-guide {
+  display: flex;
+  min-height: 100vh;
+}
+
+.style-guide__sidebar {
+  width: 260px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  padding: 40px 32px;
+  background-color: #ffffff;
+  box-shadow: 1px 11px 45.3px 0px var(--shadow-1);
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.style-guide__sidebar-brand {
+  margin-bottom: 48px;
+}
+
+.style-guide__sidebar-brand img {
+  width: 140px;
+  height: auto;
+}
+
+.style-guide__sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-link {
+  font-family: 'Agrandir', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.3px;
+  color: var(--ice-6);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar-link:hover {
+  color: var(--ice-8);
+  background-color: var(--ice-2);
+}
+
+.style-guide__content {
+  margin-left: 260px;
+  padding: 60px 80px;
+  flex: 1;
+  max-width: 1200px;
+}
+
+.style-guide__section {
+  margin-bottom: 100px;
+}
+
+.style-guide__section-title {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 40px;
+  line-height: 43px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  color: var(--ice-9);
+  margin-bottom: 48px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--ice-3);
+}
+
+.style-guide__subsection-title {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 24px;
+  line-height: 27px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  color: var(--ice-6);
+  margin-bottom: 24px;
+}
+
+/* Typography specimen */
+.type-specimen {
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--ice-2);
+}
+
+.type-specimen:last-child {
+  border-bottom: none;
+}
+
+.type-specimen__label {
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ice-4);
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.type-specimen__sample {
+  margin-bottom: 0;
+}
+
+.type-specimen__meta {
+  font-family: 'Agrandir', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ice-5);
+  letter-spacing: 0.4px;
+  margin-top: 12px;
+}
+
+/* Color swatches */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.color-swatch {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--ice-3);
+  background: white;
+}
+
+.color-swatch__preview {
+  height: 100px;
+}
+
+.color-swatch__label {
+  padding: 12px 14px;
+}
+
+.color-swatch__name {
+  font-family: 'Agrandir', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 23px;
+  color: var(--ice-8);
+  letter-spacing: 0.3px;
+  margin-bottom: 0;
+}
+
+.color-swatch__hex {
+  font-family: 'Agrandir', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--ice-5);
+  letter-spacing: 0.4px;
+  margin-bottom: 0;
+}
+
+/* Button display */
+.button-group {
+  margin-bottom: 48px;
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.button-row-label {
+  font-family: 'Agrandir', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ice-5);
+  letter-spacing: 0.4px;
+  margin-bottom: 8px;
+}
+
+/* Responsive style guide layout */
+@media (max-width: 768px) {
+  .style-guide__sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 24px 20px;
+    box-shadow: 0px 4px 20px 0px var(--shadow-1);
+  }
+
+  .style-guide__sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .style-guide__content {
+    margin-left: 0;
+    padding: 32px 20px;
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}
