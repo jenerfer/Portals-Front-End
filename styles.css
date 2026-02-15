@@ -47,7 +47,7 @@ img, svg {
 
   /* Ice Tones */
   --ice-1: #F5FAFF;
-  --ice-2: #EEF4FF;
+  --ice-2: #EAF2FF;
   --ice-3: #CADBF7;
   --ice-4: #A9BEE1;
   --ice-5: #8499BD;
@@ -110,6 +110,10 @@ img, svg {
 
   /* Shadow */
   --shadow-elevation:    rgba(118, 156, 220, 0.32);
+
+  /* Feedback */
+  --feedback-success:    #18AD79;
+  --feedback-error:      #CB3B36;
 }
 
 
@@ -119,7 +123,7 @@ img, svg {
   /* Surfaces */
   --surface-primary:    #12161C;
   --surface-elevated:   #111419;
-  --surface-sunken:     #222830;
+  --surface-sunken:     #1c2128;
 
   /* Text */
   --text-primary:       #E8ECF2;
@@ -164,6 +168,10 @@ img, svg {
 
   /* Shadow */
   --shadow-elevation:    rgba(0, 0, 0, 0.5);
+
+  /* Feedback */
+  --feedback-success:    #2ECC94;
+  --feedback-error:      #E05550;
 }
 
 /* Logo inversion for dark mode */
@@ -517,6 +525,59 @@ img, svg {
   background-color: var(--btn-inactive-bg);
 }
 
+/* Button with trailing icon */
+.btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-left: 15px;
+}
+
+.btn__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Link button */
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: 'Agrandir Wide', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 23px;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.btn-link__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.btn-link__arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-link:hover .btn-link__arrow {
+  transform: translateX(5px);
+}
+
 
 /* ===== Responsive — Mobile ===== */
 
@@ -652,6 +713,10 @@ img, svg {
   background-color: var(--accent-bg);
 }
 
+.topbar-link--active:hover {
+  text-decoration: none;
+}
+
 /* Layout */
 .style-guide {
   display: flex;
@@ -782,6 +847,10 @@ img, svg {
   font-weight: 700;
 }
 
+.sidebar-link--active:hover {
+  text-decoration: none;
+}
+
 .sidebar-link--active::before {
   content: '';
   position: absolute;
@@ -910,7 +979,7 @@ img, svg {
 
 .button-row {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 16px;
   margin-bottom: 16px;
   flex-wrap: wrap;
@@ -1139,6 +1208,236 @@ img, svg {
 }
 
 
+/* ===== Form Fields ===== */
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+}
+
+.form-field__label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 23px;
+  font-weight: 700;
+  letter-spacing: 0px;
+  color: var(--text-primary);
+  transition: color 0.2s ease;
+}
+
+.form-field__required {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--text-primary);
+}
+
+/* Input wrapper — holds input + optional enhancers */
+.form-field__input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.form-field__input {
+  width: 100%;
+  height: 52px;
+  padding: 12px 18px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background-color: var(--surface-sunken);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 28px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-field__input::placeholder {
+  color: var(--text-placeholder);
+  font-weight: 500;
+}
+
+.form-field__input:hover::placeholder {
+  color: var(--text-quaternary);
+}
+
+.form-field__input:focus {
+  border-color: var(--accent-heading);
+}
+
+.form-field__input:focus::placeholder {
+  color: var(--text-primary);
+}
+
+/* Label turns blue on focus */
+.form-field:focus-within .form-field__label {
+  color: var(--accent-primary);
+}
+
+/* Hint text */
+.form-field__hint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--text-placeholder);
+  transition: color 0.2s ease;
+}
+
+.form-field:hover .form-field__hint {
+  color: var(--text-quaternary);
+}
+
+.form-field:focus-within .form-field__hint {
+  color: var(--text-tertiary);
+}
+
+.form-field__hint-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-field__hint-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Validation states — success */
+.form-field--success .form-field__hint {
+  color: var(--feedback-success);
+}
+
+.form-field--success:hover .form-field__hint {
+  color: var(--feedback-success);
+}
+
+.form-field--success:focus-within .form-field__hint {
+  color: var(--feedback-success);
+}
+
+.form-field--success .form-field__hint-icon {
+  color: var(--feedback-success);
+}
+
+/* Validation states — error */
+.form-field--error .form-field__hint {
+  color: var(--feedback-error);
+}
+
+.form-field--error:hover .form-field__hint {
+  color: var(--feedback-error);
+}
+
+.form-field--error:focus-within .form-field__hint {
+  color: var(--feedback-error);
+}
+
+.form-field--error .form-field__hint-icon {
+  color: var(--feedback-error);
+}
+
+/* Enhancers — leading & trailing elements inside input */
+.form-field__enhancer {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  pointer-events: none;
+  color: var(--text-quaternary);
+}
+
+.form-field__enhancer--leading {
+  left: 18px;
+}
+
+.form-field__enhancer--trailing {
+  right: 18px;
+}
+
+.form-field__enhancer svg {
+  width: 20px;
+  height: 20px;
+}
+
+.form-field__enhancer-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 28px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--text-quaternary);
+}
+
+/* Input padding adjustments when enhancers are present */
+.form-field__input--with-leading {
+  padding-left: 48px;
+}
+
+.form-field__input--with-trailing {
+  padding-right: 58px;
+}
+
+/* Textarea variant */
+.form-field__textarea {
+  width: 100%;
+  height: 120px;
+  padding: 14px 18px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background-color: var(--surface-sunken);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 28px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--text-primary);
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.2s ease;
+}
+
+.form-field__textarea::placeholder {
+  color: var(--text-placeholder);
+  font-weight: 500;
+}
+
+.form-field__textarea:hover::placeholder {
+  color: var(--text-quaternary);
+}
+
+.form-field__textarea:focus {
+  border-color: var(--accent-heading);
+}
+
+.form-field__char-count {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--text-quaternary);
+  text-align: right;
+}
+
+
 /* ===== Component Display Helpers ===== */
 
 .component-display {
@@ -1205,13 +1504,13 @@ img, svg {
 
 /* Sun icon (light mode) */
 .theme-toggle__sun {
-  color: var(--text-placeholder);
+  color: var(--ice-4);
 }
 
 /* Moon icon (dark mode) — hidden by default */
 .theme-toggle__moon {
   display: none;
-  color: var(--text-quaternary);
+  color: var(--ice-4);
 }
 
 /* Dark mode toggle state */

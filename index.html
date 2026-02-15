@@ -29,23 +29,13 @@
     <nav class="style-guide__sidebar">
       <div class="style-guide__sidebar-nav">
 
-        <!-- Typography (default open) -->
+        <!-- Foundation (default open) -->
         <details class="sidebar-category" open>
-          <summary>Typography</summary>
+          <summary>Foundation</summary>
           <div class="sidebar-category__content">
             <div class="sidebar-category__inner">
-              <a href="pages/typography.html#headers" class="sidebar-link sidebar-link--active">Headers</a>
-              <a href="pages/typography.html#paragraphs" class="sidebar-link">Paragraphs</a>
-            </div>
-          </div>
-        </details>
-
-        <!-- Components -->
-        <details class="sidebar-category">
-          <summary>Components</summary>
-          <div class="sidebar-category__content">
-            <div class="sidebar-category__inner">
-              <a href="pages/buttons.html" class="sidebar-link">Buttons</a>
+              <a href="pages/typography.html" class="sidebar-link sidebar-link--active">Typography</a>
+              <a href="pages/colors.html" class="sidebar-link">Colors</a>
             </div>
           </div>
         </details>
@@ -55,9 +45,11 @@
           <summary>Input & Selection</summary>
           <div class="sidebar-category__content">
             <div class="sidebar-category__inner">
+              <a href="pages/buttons.html" class="sidebar-link">Buttons</a>
               <a href="#check" class="sidebar-link">Check</a>
               <a href="#date-picker" class="sidebar-link">Date picker</a>
               <a href="#file-upload" class="sidebar-link">File upload</a>
+              <a href="pages/form-fields.html" class="sidebar-link">Form fields</a>
               <a href="#menu" class="sidebar-link">Menu</a>
               <a href="pages/radio.html" class="sidebar-link">Radio</a>
               <a href="#segmented-control" class="sidebar-link">Segmented control</a>
@@ -66,17 +58,55 @@
               <a href="#stepper" class="sidebar-link">Stepper</a>
               <a href="#switch" class="sidebar-link">Switch</a>
               <a href="#time-picker" class="sidebar-link">Time picker</a>
-              <a href="#form-fields" class="sidebar-link">Form fields</a>
             </div>
           </div>
         </details>
 
-        <!-- Foundation -->
+        <!-- Navigation -->
         <details class="sidebar-category">
-          <summary>Foundation</summary>
+          <summary>Navigation</summary>
           <div class="sidebar-category__content">
             <div class="sidebar-category__inner">
-              <a href="pages/colors.html" class="sidebar-link">Colors</a>
+              <a href="#breadcrumbs" class="sidebar-link">Breadcrumbs</a>
+              <a href="#bottom-navigation" class="sidebar-link">Bottom navigation</a>
+              <a href="#link" class="sidebar-link">Link</a>
+              <a href="#navigation-header" class="sidebar-link">Navigation header</a>
+              <a href="#page-controls" class="sidebar-link">Page controls</a>
+              <a href="#pagination" class="sidebar-link">Pagination</a>
+              <a href="#side-navigation" class="sidebar-link">Side navigation</a>
+              <a href="#tabs" class="sidebar-link">Tabs</a>
+              <a href="#top-navigation" class="sidebar-link">Top navigation</a>
+            </div>
+          </div>
+        </details>
+
+        <!-- Indicators and status -->
+        <details class="sidebar-category">
+          <summary>Indicators and status</summary>
+          <div class="sidebar-category__content">
+            <div class="sidebar-category__inner">
+              <a href="#badge" class="sidebar-link">Badge</a>
+              <a href="#empty-state" class="sidebar-link">Empty state</a>
+              <a href="#placeholder" class="sidebar-link">Placeholder</a>
+              <a href="#progress-bar" class="sidebar-link">Progress bar</a>
+              <a href="#progress-circle" class="sidebar-link">Progress circle</a>
+              <a href="#progress-steps" class="sidebar-link">Progress steps</a>
+              <a href="#tag" class="sidebar-link">Tag</a>
+            </div>
+          </div>
+        </details>
+
+        <!-- Content display -->
+        <details class="sidebar-category">
+          <summary>Content display</summary>
+          <div class="sidebar-category__content">
+            <div class="sidebar-category__inner">
+              <a href="#accordion" class="sidebar-link">Accordion</a>
+              <a href="#avatar" class="sidebar-link">Avatar</a>
+              <a href="#draggable-list" class="sidebar-link">Draggable list</a>
+              <a href="#list-item" class="sidebar-link">List item</a>
+              <a href="#section-heading" class="sidebar-link">Section heading</a>
+              <a href="#tile" class="sidebar-link">Tile</a>
             </div>
           </div>
         </details>
@@ -87,13 +117,13 @@
       <button class="theme-toggle" aria-label="Toggle dark mode">
         <span class="theme-toggle__icon theme-toggle__sun">
           <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="11" cy="11" r="5" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M11 1v2M11 19v2M1 11h2M19 11h2M4.22 4.22l1.42 1.42M16.36 16.36l1.42 1.42M4.22 17.78l1.42-1.42M16.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M11.0128 18.0323C14.8858 18.0323 18.0255 14.8926 18.0255 11.0196C18.0255 7.14655 14.8858 4.00684 11.0128 4.00684C7.13972 4.00684 4 7.14655 4 11.0196C4 14.8926 7.13972 18.0323 11.0128 18.0323Z" fill="currentColor"/>
+            <path d="M11.02 22C10.469 22 10.0182 21.5893 10.0182 21.0383V20.9581C10.0182 20.4071 10.469 19.9563 11.02 19.9563C11.571 19.9563 12.0219 20.4071 12.0219 20.9581C12.0219 21.5091 11.571 22 11.02 22ZM18.173 19.1749C17.9126 19.1749 17.6621 19.0747 17.4617 18.8843L17.3315 18.7541C16.9408 18.3634 16.9408 17.7322 17.3315 17.3415C17.7222 16.9508 18.3534 16.9508 18.7441 17.3415L18.8743 17.4718C19.265 17.8625 19.265 18.4936 18.8743 18.8843C18.684 19.0747 18.4335 19.1749 18.173 19.1749ZM3.86703 19.1749C3.60656 19.1749 3.3561 19.0747 3.15574 18.8843C2.76503 18.4936 2.76503 17.8625 3.15574 17.4718L3.28597 17.3415C3.67669 16.9508 4.30783 16.9508 4.69854 17.3415C5.08925 17.7322 5.08925 18.3634 4.69854 18.7541L4.56831 18.8843C4.37796 19.0747 4.11749 19.1749 3.86703 19.1749ZM21.0383 12.0219H20.9581C20.4071 12.0219 19.9563 11.571 19.9563 11.02C19.9563 10.469 20.4071 10.0182 20.9581 10.0182C21.5091 10.0182 22 10.469 22 11.02C22 11.571 21.5893 12.0219 21.0383 12.0219ZM1.08197 12.0219H1.00182C0.45082 12.0219 0 11.571 0 11.02C0 10.469 0.45082 10.0182 1.00182 10.0182C1.55282 10.0182 2.04372 10.469 2.04372 11.02C2.04372 11.571 1.63297 12.0219 1.08197 12.0219ZM18.0428 4.99909C17.7823 4.99909 17.5319 4.89891 17.3315 4.70856C16.9408 4.31785 16.9408 3.6867 17.3315 3.29599L17.4617 3.16576C17.8525 2.77505 18.4836 2.77505 18.8743 3.16576C19.265 3.55647 19.265 4.18761 18.8743 4.57832L18.7441 4.70856C18.5537 4.89891 18.3033 4.99909 18.0428 4.99909ZM3.99727 4.99909C3.73679 4.99909 3.48634 4.89891 3.28597 4.70856L3.15574 4.56831C2.76503 4.1776 2.76503 3.54645 3.15574 3.15574C3.54645 2.76503 4.1776 2.76503 4.56831 3.15574L4.69854 3.28597C5.08925 3.67669 5.08925 4.30783 4.69854 4.69854C4.5082 4.89891 4.24772 4.99909 3.99727 4.99909ZM11.02 2.04372C10.469 2.04372 10.0182 1.63297 10.0182 1.08197V1.00182C10.0182 0.45082 10.469 0 11.02 0C11.571 0 12.0219 0.45082 12.0219 1.00182C12.0219 1.55282 11.571 2.04372 11.02 2.04372Z" fill="currentColor"/>
           </svg>
         </span>
         <span class="theme-toggle__icon theme-toggle__moon">
-          <svg viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 12.79A9 9 0 1 1 9.21 1a7 7 0 0 0 11.79 11.79z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.8215 15.3305C21.6399 15.0333 21.1291 14.5711 19.8577 14.7912C19.154 14.9122 18.4389 14.9673 17.7237 14.9342C15.0789 14.8242 12.6838 13.6466 11.0152 11.8306C9.53956 10.2348 8.63146 8.15465 8.62011 5.90946C8.62011 4.65479 8.86984 3.44415 9.38064 2.29954C9.88009 1.18795 9.5282 0.604643 9.27848 0.362515C9.0174 0.10938 8.40444 -0.242806 7.20122 0.241451C2.5586 2.13446 -0.313242 6.64685 0.0272929 11.4784C0.367827 16.0238 3.65966 19.9089 8.0185 21.3727C9.06281 21.7249 10.1639 21.934 11.299 21.978C11.4806 21.989 11.6622 22 11.8438 22C15.6465 22 19.2107 20.2611 21.4583 17.3005C22.2188 16.277 22.0145 15.6276 21.8215 15.3305Z" fill="currentColor"/>
           </svg>
         </span>
       </button>
