@@ -336,7 +336,7 @@
       justify-content: center;
       gap: 20px;
       cursor: pointer;
-      transition: opacity 0.2s ease;
+      transition: opacity 0.2s ease, background 0.25s ease;
       outline: none;
     }
 
@@ -346,6 +346,11 @@
 
     .register-btn--light {
       background: rgb(0 0 0 / 9%);
+    }
+
+    .register-btn--light:hover {
+      background: rgb(0 0 0 / 20%);
+      opacity: 1;
     }
 
     .register-btn__icon {
