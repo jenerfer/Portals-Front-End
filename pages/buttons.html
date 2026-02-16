@@ -46,6 +46,7 @@
           <div class="sidebar-category__content">
             <div class="sidebar-category__inner">
               <a href="buttons.html" class="sidebar-link sidebar-link--active">Buttons</a>
+              <a href="dropdowns.html" class="sidebar-link">Dropdowns</a>
               <a href="#check" class="sidebar-link">Check</a>
               <a href="#date-picker" class="sidebar-link">Date picker</a>
               <a href="#file-upload" class="sidebar-link">File upload</a>
@@ -243,23 +244,14 @@
 
         <!-- Single Toggle Selection -->
         <div class="component-display">
-          <div class="component-display__label">Single Toggle Selection</div>
+          <div class="component-display__label">single toggle selection</div>
           <div class="component-display__row">
             <div class="component-display__column">
-              <div class="toggle-group toggle-group--single" data-toggle-type="single">
-                <label class="toggle-item">
-                  <input type="checkbox" class="toggle" data-toggle="single">
-                  <span class="toggle-item__label">Ketchup</span>
-                </label>
-                <label class="toggle-item toggle-item--active">
-                  <input type="checkbox" class="toggle" data-toggle="single" checked>
-                  <span class="toggle-item__label">Mustard</span>
-                </label>
-                <label class="toggle-item">
-                  <input type="checkbox" class="toggle" data-toggle="single">
-                  <span class="toggle-item__label">Lettuce</span>
-                </label>
-              </div>
+              <p class="toggle-prompt">please turn this off and on</p>
+              <label class="toggle-item">
+                <input type="checkbox" class="toggle">
+                <span class="toggle-item__label">Label</span>
+              </label>
             </div>
           </div>
         </div>
@@ -297,26 +289,5 @@
   </div>
 
   <script src="../sidebar.js"></script>
-  <script>
-    // Single toggle selection — only one active at a time
-    document.querySelectorAll('.toggle-group--single').forEach(function(group) {
-      var toggles = group.querySelectorAll('.toggle');
-      toggles.forEach(function(toggle) {
-        toggle.addEventListener('change', function() {
-          if (this.checked) {
-            toggles.forEach(function(t) {
-              if (t !== toggle) {
-                t.checked = false;
-                t.closest('.toggle-item').classList.remove('toggle-item--active');
-              }
-            });
-            this.closest('.toggle-item').classList.add('toggle-item--active');
-          } else {
-            this.closest('.toggle-item').classList.remove('toggle-item--active');
-          }
-        });
-      });
-    });
-  </script>
 </body>
 </html>
