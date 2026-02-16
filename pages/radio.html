@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Radio — Portals Style Guide</title>
+  <title>Radio & Checkmarks — Portals Style Guide</title>
   <link rel="stylesheet" href="../styles.css">
   <script>
     (function(){var t=localStorage.getItem('portals-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
@@ -47,12 +47,11 @@
             <div class="sidebar-category__inner">
               <a href="buttons.html" class="sidebar-link">Buttons</a>
               <a href="dropdowns.html" class="sidebar-link">Dropdowns</a>
-              <a href="#check" class="sidebar-link">Check</a>
               <a href="#date-picker" class="sidebar-link">Date picker</a>
               <a href="#file-upload" class="sidebar-link">File upload</a>
               <a href="form-fields.html" class="sidebar-link">Form fields</a>
               <a href="#menu" class="sidebar-link">Menu</a>
-              <a href="radio.html" class="sidebar-link sidebar-link--active">Radio</a>
+              <a href="radio.html" class="sidebar-link sidebar-link--active">Radio & Checkmarks</a>
               <a href="#segmented-control" class="sidebar-link">Segmented control</a>
               <a href="#slider" class="sidebar-link">Slider</a>
               <a href="#star-rating" class="sidebar-link">Star rating</a>
@@ -138,8 +137,8 @@
 
         <!-- Page Header -->
         <div class="page-header">
-          <h2 class="page-header__title">radio selection</h2>
-          <p class="page-header__description">Users can tap or click a radio to toggle between filled and unfilled. Selecting a radio will automatically deselect the previously chosen item since only one can be active at a time. Tapping or clicking the label next to the radio should activate the control.</p>
+          <h2 class="page-header__title">radio & checkmarks</h2>
+          <p class="page-header__description">Radio buttons allow users to select a single option from a group — selecting one automatically deselects the rest. Checkmarks allow users to select multiple options independently. Tapping or clicking the label next to either control should activate it.</p>
         </div>
 
         <!-- Boxed Radio Selection -->
@@ -211,6 +210,40 @@
                   <label class="radio-label" for="simple-C">
                     <span class="radio-circle"></span>
                     <span class="radio-label__text">None</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Checkmark Selection -->
+        <div class="component-display">
+          <div class="component-display__label">Checkmark Selection</div>
+          <div class="component-display__row">
+
+            <div class="component-display__column">
+              <div class="check-group" role="group" aria-label="Feature preferences">
+                <div>
+                  <input class="check-input" type="checkbox" id="check-A" name="features" value="notifications">
+                  <label class="check-label" for="check-A">
+                    <span class="check-square"></span>
+                    <span class="check-label__text">All notifications</span>
+                  </label>
+                </div>
+                <div>
+                  <input class="check-input" type="checkbox" id="check-B" name="features" value="important" checked>
+                  <label class="check-label" for="check-B">
+                    <span class="check-square"></span>
+                    <span class="check-label__text">Important only</span>
+                  </label>
+                </div>
+                <div>
+                  <input class="check-input" type="checkbox" id="check-C" name="features" value="none">
+                  <label class="check-label" for="check-C">
+                    <span class="check-square"></span>
+                    <span class="check-label__text">None</span>
                   </label>
                 </div>
               </div>

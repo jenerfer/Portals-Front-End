@@ -47,12 +47,11 @@
             <div class="sidebar-category__inner">
               <a href="buttons.html" class="sidebar-link">Buttons</a>
               <a href="dropdowns.html" class="sidebar-link sidebar-link--active">Dropdowns</a>
-              <a href="#check" class="sidebar-link">Check</a>
               <a href="#date-picker" class="sidebar-link">Date picker</a>
               <a href="#file-upload" class="sidebar-link">File upload</a>
               <a href="form-fields.html" class="sidebar-link">Form fields</a>
               <a href="#menu" class="sidebar-link">Menu</a>
-              <a href="radio.html" class="sidebar-link">Radio</a>
+              <a href="radio.html" class="sidebar-link">Radio & Checkmarks</a>
               <a href="#segmented-control" class="sidebar-link">Segmented control</a>
               <a href="#slider" class="sidebar-link">Slider</a>
               <a href="#star-rating" class="sidebar-link">Star rating</a>
@@ -357,6 +356,40 @@
               </div>
             </div>
 
+          </div>
+        </div>
+
+        <!-- Simple Dropdown Selection -->
+        <div class="component-display">
+          <div class="component-display__label">simple dropdown selection</div>
+          <div class="component-display__row">
+            <div class="component-display__column">
+
+              <div class="select-dropdown" id="select-dropdown-demo">
+                <label class="select-dropdown__label">language</label>
+                <button class="select-dropdown__trigger" id="select-trigger">
+                  <span class="select-dropdown__trigger-text" id="select-trigger-text">select language</span>
+                  <span class="select-dropdown__trigger-icon">
+                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                </button>
+                <div class="select-dropdown__panel" id="select-panel">
+                  <button class="select-dropdown__option" data-value="bahasa">Bahasa Indonesia</button>
+                  <button class="select-dropdown__option" data-value="deutsch">Deutsch</button>
+                  <button class="select-dropdown__option select-dropdown__option--selected" data-value="english-us">English (United States)</button>
+                  <button class="select-dropdown__option" data-value="espanol">Español (España)</button>
+                  <button class="select-dropdown__option" data-value="francais">Français (France)</button>
+                  <button class="select-dropdown__option" data-value="italiano">Italiano</button>
+                  <button class="select-dropdown__option" data-value="polski">Polski</button>
+                  <button class="select-dropdown__option" data-value="portugues">Português (Brasil)</button>
+                  <button class="select-dropdown__option" data-value="tieng-viet">Tiếng Việt</button>
+                  <button class="select-dropdown__option" data-value="turkce">Türkçe</button>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
 
@@ -885,6 +918,69 @@
       // Click outside to close
       document.addEventListener('click', function (e) {
         if (isOpen && !dropdown.contains(e.target)) {
+          closePanel();
+        }
+      });
+    })();
+
+    // ===== Simple Dropdown Selection =====
+    (function () {
+      var wrapper = document.getElementById('select-dropdown-demo');
+      var trigger = document.getElementById('select-trigger');
+      var triggerText = document.getElementById('select-trigger-text');
+      var panel = document.getElementById('select-panel');
+      var options = panel.querySelectorAll('.select-dropdown__option');
+      var isOpen = false;
+
+      // Set initial selected value
+      var selectedOption = panel.querySelector('.select-dropdown__option--selected');
+      if (selectedOption) {
+        triggerText.textContent = selectedOption.textContent;
+        trigger.classList.add('select-dropdown__trigger--has-value');
+      }
+
+      function openPanel() {
+        closeAllDropdowns();
+        isOpen = true;
+        wrapper.classList.add('select-dropdown--open');
+        trigger.classList.add('select-dropdown__trigger--open');
+        panel.classList.add('select-dropdown__panel--open');
+      }
+
+      function closePanel() {
+        isOpen = false;
+        wrapper.classList.remove('select-dropdown--open');
+        trigger.classList.remove('select-dropdown__trigger--open');
+        panel.classList.remove('select-dropdown__panel--open');
+      }
+
+      registerDropdown(closePanel);
+
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (isOpen) {
+          closePanel();
+        } else {
+          openPanel();
+        }
+      });
+
+      // Option selection
+      options.forEach(function (option) {
+        option.addEventListener('click', function (e) {
+          e.stopPropagation();
+          // Remove selected from all
+          options.forEach(function (o) { o.classList.remove('select-dropdown__option--selected'); });
+          option.classList.add('select-dropdown__option--selected');
+          triggerText.textContent = option.textContent;
+          trigger.classList.add('select-dropdown__trigger--has-value');
+          closePanel();
+        });
+      });
+
+      // Click outside to close
+      document.addEventListener('click', function (e) {
+        if (isOpen && !wrapper.contains(e.target)) {
           closePanel();
         }
       });
