@@ -19,7 +19,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: var(--ice-1);
+      background-color: var(--ice-8);
       overflow: hidden;
     }
 
@@ -34,16 +34,20 @@
       background-position: center;
       filter: blur(0.7px);
       z-index: 0;
+      opacity: 0;
       transition: opacity 0.6s ease;
     }
 
-    .login-bg--login {
-      background-image: url('login-bg.png');
+.login-bg--login {
+      background-image: url('login-bg.jpeg');
     }
 
     .login-bg--register {
-      background-image: url('register-bg.png');
-      opacity: 0;
+      background-image: url('register-bg.jpeg');
+    }
+
+    .login-bg--recovery {
+      background-image: url('recovery-bg.jpeg');
     }
 
     .login-bg--active {
@@ -378,6 +382,208 @@
       margin-top: 34px;
     }
 
+    /* Register sub-views */
+    .register-methods {
+      width: 100%;
+      transition: opacity 0.35s ease, filter 0.35s ease;
+    }
+
+    .register-methods--hidden {
+      display: none;
+    }
+
+    .register-methods--fading {
+      opacity: 0;
+      filter: blur(5px);
+    }
+
+    .register-email {
+      width: 100%;
+      display: none;
+      opacity: 0;
+      filter: blur(5px);
+      transition: opacity 0.35s ease, filter 0.35s ease;
+    }
+
+    .register-email--visible {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .register-email--active {
+      opacity: 1;
+      filter: blur(0px);
+    }
+
+    /* Icon bar — back button + social icons */
+    .register-icon-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin-bottom: 28px;
+    }
+
+    .register-social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(0, 0, 0, 0.17);
+      cursor: pointer;
+      color: var(--ice-2);
+      transition: opacity 0.2s ease;
+      outline: none;
+    }
+
+    .register-social-icon:hover {
+      opacity: 0.7;
+    }
+
+    .register-social-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Error state */
+    .login-error {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      line-height: 20px;
+      font-weight: 500;
+      letter-spacing: 0px;
+      color: #ff9a9a;
+      text-align: center;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .login-error--visible {
+      display: block;
+    }
+
+    /* Forgotten password link */
+    .login-forgot {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      line-height: 24px;
+      font-weight: 500;
+      letter-spacing: 0px;
+      color: var(--ice-2);
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .login-forgot a {
+      color: var(--ice-1);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .login-forgot a:hover {
+      opacity: 0.8;
+    }
+
+    /* Recovery description text */
+    .recovery-description {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 26px;
+      font-weight: 400;
+      letter-spacing: -0.3px;
+      color: var(--ice-2);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .recovery-email-display {
+      font-weight: 700;
+      color: var(--ice-1);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* 6-digit code boxes */
+    .code-inputs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .code-box {
+      width: 52px;
+      height: 60px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      background: rgba(0, 0, 0, 0.06);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ice-1);
+      text-align: center;
+      outline: none;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      caret-color: var(--blue-3);
+    }
+
+    .code-box::placeholder {
+      color: transparent;
+    }
+
+    .code-box:hover {
+      background: rgba(0, 0, 0, 0.13);
+    }
+
+    .code-box:focus {
+      background: rgba(0, 0, 0, 0.3);
+      border-color: var(--blue-3);
+    }
+
+    .code-box--filled {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    /* Resend code — subtle text link */
+    .resend-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      line-height: 24px;
+      font-weight: 500;
+      letter-spacing: 0px;
+      color: var(--ice-2);
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    .resend-text a {
+      color: var(--ice-1);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .resend-text a:hover {
+      opacity: 0.8;
+    }
+
+    .resend-text--inactive a {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .resend-text--inactive a:hover {
+      opacity: 0.4;
+    }
+
     /* View switch animation */
     .login-view {
       transition: opacity 0.4s ease-out, filter 0.4s ease-out;
@@ -392,8 +598,9 @@
 <body>
 
   <!-- Blurred backgrounds -->
-  <div class="login-bg login-bg--login login-bg--active" id="bg-login"></div>
+  <div class="login-bg login-bg--login" id="bg-login"></div>
   <div class="login-bg login-bg--register" id="bg-register"></div>
+  <div class="login-bg login-bg--recovery" id="bg-recovery"></div>
 
   <!-- Glass container -->
   <div class="login-container">
@@ -418,59 +625,143 @@
             <div class="password-strength__text" id="strength-text"></div>
           </div>
 
-          <button type="submit" class="login-btn login-btn--inactive" id="login-btn">login</button>
+          <button type="submit" class="login-btn" id="login-btn">login</button>
+          <p class="login-error" id="login-error">incorrect email or password, please try again</p>
         </form>
 
-        <label class="terms-row">
-          <input type="checkbox" class="terms-checkbox" id="terms-checkbox">
-          <span class="terms-label">I agree to terms & conditions and privacy policy</span>
-        </label>
+        <p class="login-forgot">forgotten your password? <a id="switch-to-recovery">click here</a></p>
       </div>
 
       <!-- ===== Register View ===== -->
       <div class="login-view login-view--hidden" id="register-view">
-        <h2 class="login-heading">register</h2>
+        <h2 class="login-heading">sign up</h2>
         <p class="login-subtext">or <a id="switch-to-login">sign in</a></p>
 
-        <div class="register-buttons">
-          <!-- Google -->
-          <button class="register-btn register-btn--light">
-            <span class="register-btn__icon">
+        <!-- Sub-view 1: Method picker -->
+        <div class="register-methods" id="register-methods">
+          <div class="register-buttons">
+            <!-- Google -->
+            <button class="register-btn register-btn--light" id="register-google-btn">
+              <span class="register-btn__icon">
+                <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M25.48 14.32c0-.94-.08-1.84-.24-2.72H14v5.14h6.44c-.28 1.48-1.12 2.74-2.38 3.58v2.98h3.86c2.26-2.08 3.56-5.14 3.56-8.98z" fill="#4285F4"/>
+                  <path d="M14 26c3.24 0 5.96-1.08 7.94-2.9l-3.86-2.98c-1.08.72-2.46 1.14-4.08 1.14-3.14 0-5.8-2.12-6.74-4.98H3.28v3.08C5.24 23.28 9.32 26 14 26z" fill="#34A853"/>
+                  <path d="M7.26 16.28c-.24-.72-.38-1.48-.38-2.28s.14-1.56.38-2.28V8.64H3.28C2.46 10.28 2 12.08 2 14s.46 3.72 1.28 5.36l3.98-3.08z" fill="#FBBC05"/>
+                  <path d="M14 6.74c1.76 0 3.34.6 4.6 1.8l3.44-3.44C19.94 3.18 17.22 2 14 2 9.32 2 5.24 4.72 3.28 8.64l3.98 3.08c.94-2.86 3.6-4.98 6.74-4.98z" fill="#EA4335"/>
+                </svg>
+              </span>
+              <span class="register-btn__text">sign up with Google</span>
+            </button>
+
+            <!-- Email -->
+            <button class="register-btn register-btn--light" id="register-email-btn">
+              <span class="register-btn__icon">
+                <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22.167 5.833H5.833A2.333 2.333 0 003.5 8.167v11.666a2.333 2.333 0 002.333 2.334h16.334a2.333 2.333 0 002.333-2.334V8.167a2.333 2.333 0 00-2.333-2.334z" fill="var(--ice-2)"/>
+                  <path d="M24.5 8.167l-10.5 7-10.5-7" stroke="var(--ice-8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </svg>
+              </span>
+              <span class="register-btn__text">sign up with email</span>
+            </button>
+
+            <!-- Apple -->
+            <button class="register-btn register-btn--light" id="register-apple-btn">
+              <span class="register-btn__icon">
+                <svg width="28" height="28" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.4375 0.833496C12.4767 0.889329 11.3736 1.42462 10.7178 2.10628C10.1253 2.72628 9.6578 3.64709 9.84863 4.53792C10.8928 4.56542 11.9409 4.01627 12.5684 3.3221C13.1542 2.67294 13.5983 1.76683 13.4375 0.833496ZM13.4945 4.5363C11.987 4.5363 11.3567 5.4624 10.3125 5.4624C9.23833 5.4624 8.25638 4.59489 6.95638 4.59489C5.18805 4.59572 2.5 6.23377 2.5 10.0929C2.5 13.6038 5.68138 17.5002 7.47721 17.5002C8.56805 17.511 8.8325 16.8143 10.3125 16.8068C11.7942 16.796 12.1139 17.5093 13.2064 17.5002C14.4364 17.491 15.397 16.1394 16.0986 15.0685C16.602 14.3019 16.8089 13.9104 17.1989 13.0438C14.3047 12.3104 13.7289 7.64322 17.1989 6.67822C16.5439 5.56072 14.632 4.5363 13.4945 4.5363Z" fill="currentColor"/>
+                </svg>
+              </span>
+              <span class="register-btn__text">sign up with Apple</span>
+            </button>
+          </div>
+
+          <p class="register-disclaimer">Be vigilant for scams and always double check this is the official URL you are connecting to.</p>
+        </div>
+
+        <!-- Sub-view 2: Email sign-up form -->
+        <div class="register-email" id="register-email">
+          <!-- Icon bar: back + social icons -->
+          <div class="register-icon-bar">
+            <button class="register-social-icon" id="register-back-btn" aria-label="Back to sign up options">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <!-- Google icon (small) -->
+            <button class="register-social-icon" id="register-mini-google" aria-label="Sign up with Google">
               <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M25.48 14.32c0-.94-.08-1.84-.24-2.72H14v5.14h6.44c-.28 1.48-1.12 2.74-2.38 3.58v2.98h3.86c2.26-2.08 3.56-5.14 3.56-8.98z" fill="#4285F4"/>
                 <path d="M14 26c3.24 0 5.96-1.08 7.94-2.9l-3.86-2.98c-1.08.72-2.46 1.14-4.08 1.14-3.14 0-5.8-2.12-6.74-4.98H3.28v3.08C5.24 23.28 9.32 26 14 26z" fill="#34A853"/>
                 <path d="M7.26 16.28c-.24-.72-.38-1.48-.38-2.28s.14-1.56.38-2.28V8.64H3.28C2.46 10.28 2 12.08 2 14s.46 3.72 1.28 5.36l3.98-3.08z" fill="#FBBC05"/>
                 <path d="M14 6.74c1.76 0 3.34.6 4.6 1.8l3.44-3.44C19.94 3.18 17.22 2 14 2 9.32 2 5.24 4.72 3.28 8.64l3.98 3.08c.94-2.86 3.6-4.98 6.74-4.98z" fill="#EA4335"/>
               </svg>
-            </span>
-            <span class="register-btn__text">sign up with Google</span>
-          </button>
-
-          <!-- Email -->
-          <button class="register-btn register-btn--light">
-            <span class="register-btn__icon">
-              <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M22.167 5.833H5.833A2.333 2.333 0 003.5 8.167v11.666a2.333 2.333 0 002.333 2.334h16.334a2.333 2.333 0 002.333-2.334V8.167a2.333 2.333 0 00-2.333-2.334z" fill="var(--ice-2)"/>
-                <path d="M24.5 8.167l-10.5 7-10.5-7" stroke="var(--ice-8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </button>
+            <!-- Apple icon (small) -->
+            <button class="register-social-icon" id="register-mini-apple" aria-label="Sign up with Apple">
+              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.4375 0.833496C12.4767 0.889329 11.3736 1.42462 10.7178 2.10628C10.1253 2.72628 9.6578 3.64709 9.84863 4.53792C10.8928 4.56542 11.9409 4.01627 12.5684 3.3221C13.1542 2.67294 13.5983 1.76683 13.4375 0.833496ZM13.4945 4.5363C11.987 4.5363 11.3567 5.4624 10.3125 5.4624C9.23833 5.4624 8.25638 4.59489 6.95638 4.59489C5.18805 4.59572 2.5 6.23377 2.5 10.0929C2.5 13.6038 5.68138 17.5002 7.47721 17.5002C8.56805 17.511 8.8325 16.8143 10.3125 16.8068C11.7942 16.796 12.1139 17.5093 13.2064 17.5002C14.4364 17.491 15.397 16.1394 16.0986 15.0685C16.602 14.3019 16.8089 13.9104 17.1989 13.0438C14.3047 12.3104 13.7289 7.64322 17.1989 6.67822C16.5439 5.56072 14.632 4.5363 13.4945 4.5363Z" fill="currentColor"/>
               </svg>
-            </span>
-            <span class="register-btn__text">sign up with email</span>
-          </button>
+            </button>
+          </div>
 
-          <!-- Web3 Wallet -->
-          <button class="register-btn register-btn--light">
-            <span class="register-btn__icon">
-              <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24.5 11.667v-1.75a3.5 3.5 0 00-3.5-3.5H7a3.5 3.5 0 00-3.5 3.5v8.166a3.5 3.5 0 003.5 3.5h14a3.5 3.5 0 003.5-3.5v-1.75" fill="var(--ice-2)"/>
-                <path d="M24.5 11.667h-5.833a2.333 2.333 0 000 4.666H24.5v-4.666z" fill="var(--ice-3)"/>
-                <circle cx="19.25" cy="14" r="1.167" fill="var(--ice-8)"/>
-              </svg>
-            </span>
-            <span class="register-btn__text">sign up with web3 wallet</span>
-          </button>
+          <!-- Email form -->
+          <form class="login-form" onsubmit="return false;">
+            <input type="email" class="login-input" placeholder="enter email" autocomplete="email">
+            <input type="password" class="login-input" id="register-password-input" placeholder="create password" autocomplete="new-password">
+
+            <div class="password-strength" id="register-password-strength">
+              <div class="password-strength__track">
+                <div class="password-strength__fill" id="register-strength-fill"></div>
+              </div>
+              <div class="password-strength__text" id="register-strength-text"></div>
+            </div>
+
+            <button type="submit" class="login-btn login-btn--inactive" id="register-submit-btn">sign up</button>
+          </form>
+
+          <label class="terms-row">
+            <input type="checkbox" class="terms-checkbox" id="terms-checkbox">
+            <span class="terms-label">I agree to terms & conditions and privacy policy</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- ===== Account Recovery — Email ===== -->
+      <div class="login-view login-view--hidden" id="recovery-view">
+        <h2 class="login-heading">account recovery</h2>
+        <p class="login-subtext">enter your email to receive a verification code</p>
+
+        <form class="login-form" onsubmit="return false;">
+          <input type="email" class="login-input" id="recovery-email-input" placeholder="enter email" autocomplete="email">
+          <button type="submit" class="login-btn" id="recovery-next-btn">next</button>
+        </form>
+
+        <p class="login-forgot"><a id="switch-back-to-login">back to login</a></p>
+      </div>
+
+      <!-- ===== Account Recovery — Code ===== -->
+      <div class="login-view login-view--hidden" id="recovery-code-view">
+        <h2 class="login-heading">account recovery</h2>
+
+        <div class="recovery-description">
+          <span class="recovery-email-display" id="recovery-email-display"></span>
+          we just sent a 6-digit verification code to the email address you provided, if it's associated with an account. check all your folders, including spam.
         </div>
 
-        <p class="register-disclaimer">Be vigilant for scams and always double check this is the official URL you are connecting to.</p>
+        <form class="login-form" onsubmit="return false;">
+          <div class="code-inputs" id="code-inputs">
+            <input type="text" inputmode="numeric" class="code-box" maxlength="1" data-index="0" autocomplete="one-time-code">
+            <input type="text" inputmode="numeric" class="code-box" maxlength="1" data-index="1">
+            <input type="text" inputmode="numeric" class="code-box" maxlength="1" data-index="2">
+            <input type="text" inputmode="numeric" class="code-box" maxlength="1" data-index="3">
+            <input type="text" inputmode="numeric" class="code-box" maxlength="1" data-index="4">
+            <input type="text" inputmode="numeric" class="code-box" maxlength="1" data-index="5">
+          </div>
+          <p class="resend-text resend-text--inactive" id="resend-text"><a id="resend-btn">resend code</a> in <span id="resend-countdown">30</span>s</p>
+          <button type="button" class="login-btn login-btn--inactive" id="recovery-verify-btn">next</button>
+        </form>
+
+        <p class="login-forgot"><a id="switch-recovery-to-login">back to login</a></p>
       </div>
 
     </div>
@@ -478,23 +769,50 @@
 
   <script>
     (function () {
-      // --- Fade in on load ---
+      // --- Preload background images and fade in once ready ---
+      var bgLogin = document.getElementById('bg-login');
+      var bgRegister = document.getElementById('bg-register');
+      var bgRecovery = document.getElementById('bg-recovery');
       var fadeEl = document.getElementById('login-fade');
-      requestAnimationFrame(function () {
+
+      function preloadBg(src) {
+        var img = new Image();
+        img.src = src;
+      }
+
+      // Preload login bg first — it's the initial view
+      var loginImg = new Image();
+      loginImg.onload = function () {
+        bgLogin.classList.add('login-bg--active');
+        // Once login bg is visible, fade in the UI
         requestAnimationFrame(function () {
-          fadeEl.classList.add('login-fade--visible');
+          requestAnimationFrame(function () {
+            fadeEl.classList.add('login-fade--visible');
+          });
         });
-      });
+        // Preload the others in the background
+        preloadBg('register-bg.jpeg');
+        preloadBg('recovery-bg.jpeg');
+      };
+      loginImg.src = 'login-bg.jpeg';
+
+      // Fallback: if image takes too long, show UI anyway after 3s
+      setTimeout(function () {
+        if (!fadeEl.classList.contains('login-fade--visible')) {
+          bgLogin.classList.add('login-bg--active');
+          fadeEl.classList.add('login-fade--visible');
+        }
+      }, 3000);
 
       // --- View switching ---
       var loginView = document.getElementById('login-view');
       var registerView = document.getElementById('register-view');
       var switchToRegister = document.getElementById('switch-to-register');
       var switchToLogin = document.getElementById('switch-to-login');
-      var bgLogin = document.getElementById('bg-login');
-      var bgRegister = document.getElementById('bg-register');
 
       var fadeWrapper = document.getElementById('login-fade');
+
+      var allBgs = [bgLogin, bgRegister, bgRecovery];
 
       function switchView(hideEl, showEl, showBg, hideBg) {
         // Lock the current height so the container doesn't collapse
@@ -502,11 +820,16 @@
         fadeWrapper.style.height = startHeight + 'px';
 
         hideEl.classList.add('login-view--fading');
-        // Crossfade backgrounds
-        showBg.classList.add('login-bg--active');
-        showBg.classList.remove('login-bg--inactive');
-        hideBg.classList.add('login-bg--inactive');
-        hideBg.classList.remove('login-bg--active');
+        // Crossfade backgrounds — hide all others, show the target
+        allBgs.forEach(function (bg) {
+          if (bg === showBg) {
+            bg.classList.add('login-bg--active');
+            bg.classList.remove('login-bg--inactive');
+          } else {
+            bg.classList.add('login-bg--inactive');
+            bg.classList.remove('login-bg--active');
+          }
+        });
 
         setTimeout(function () {
           hideEl.classList.add('login-view--hidden');
@@ -540,8 +863,137 @@
 
       switchToLogin.addEventListener('click', function (e) {
         e.preventDefault();
+        // Reset register to methods view before switching away
+        resetRegisterToMethods();
         switchView(registerView, loginView, bgLogin, bgRegister);
       });
+
+      // --- Register email sub-view ---
+      var registerMethods = document.getElementById('register-methods');
+      var registerEmail = document.getElementById('register-email');
+      var registerEmailBtn = document.getElementById('register-email-btn');
+      var registerBackBtn = document.getElementById('register-back-btn');
+      var registerPasswordInput = document.getElementById('register-password-input');
+      var registerStrengthContainer = document.getElementById('register-password-strength');
+      var registerStrengthFill = document.getElementById('register-strength-fill');
+      var registerStrengthText = document.getElementById('register-strength-text');
+
+      function showEmailForm() {
+        var startHeight = fadeWrapper.offsetHeight;
+        fadeWrapper.style.height = startHeight + 'px';
+
+        // Fade out methods
+        registerMethods.classList.add('register-methods--fading');
+
+        setTimeout(function () {
+          registerMethods.classList.add('register-methods--hidden');
+          registerMethods.classList.remove('register-methods--fading');
+
+          // Show email form
+          registerEmail.classList.add('register-email--visible');
+
+          // Measure new height
+          fadeWrapper.style.height = 'auto';
+          var endHeight = fadeWrapper.offsetHeight;
+          fadeWrapper.style.height = startHeight + 'px';
+
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              fadeWrapper.style.height = endHeight + 'px';
+              registerEmail.classList.add('register-email--active');
+            });
+          });
+
+          setTimeout(function () {
+            fadeWrapper.style.height = 'auto';
+          }, 500);
+        }, 350);
+      }
+
+      function showMethodsPicker() {
+        var startHeight = fadeWrapper.offsetHeight;
+        fadeWrapper.style.height = startHeight + 'px';
+
+        // Fade out email form
+        registerEmail.classList.remove('register-email--active');
+
+        setTimeout(function () {
+          registerEmail.classList.remove('register-email--visible');
+
+          // Show methods
+          registerMethods.classList.remove('register-methods--hidden');
+          registerMethods.classList.add('register-methods--fading');
+
+          // Measure new height
+          fadeWrapper.style.height = 'auto';
+          var endHeight = fadeWrapper.offsetHeight;
+          fadeWrapper.style.height = startHeight + 'px';
+
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              fadeWrapper.style.height = endHeight + 'px';
+              registerMethods.classList.remove('register-methods--fading');
+            });
+          });
+
+          setTimeout(function () {
+            fadeWrapper.style.height = 'auto';
+          }, 500);
+        }, 350);
+      }
+
+      function resetRegisterToMethods() {
+        registerEmail.classList.remove('register-email--visible', 'register-email--active');
+        registerMethods.classList.remove('register-methods--hidden', 'register-methods--fading');
+        // Clear register form
+        registerPasswordInput.value = '';
+        registerStrengthContainer.classList.remove('password-strength--visible');
+        registerStrengthFill.style.width = '0%';
+        registerStrengthText.textContent = '';
+      }
+
+      registerEmailBtn.addEventListener('click', function () {
+        showEmailForm();
+      });
+
+      registerBackBtn.addEventListener('click', function () {
+        showMethodsPicker();
+      });
+
+      // Register password strength
+      registerPasswordInput.addEventListener('input', function () {
+        var val = this.value;
+        if (val.length > 0) {
+          registerStrengthContainer.classList.add('password-strength--visible');
+          var result = checkStrength(val);
+          registerStrengthFill.style.width = result.width + '%';
+          registerStrengthFill.style.backgroundColor = result.color || 'var(--blue-4)';
+          registerStrengthText.textContent = result.label;
+        } else {
+          registerStrengthContainer.classList.remove('password-strength--visible');
+          registerStrengthFill.style.width = '0%';
+          registerStrengthText.textContent = '';
+        }
+      });
+
+      // --- Login error demo ---
+      var loginBtn = document.getElementById('login-btn');
+      var loginError = document.getElementById('login-error');
+      var loginEmailInput = document.querySelector('#login-view .login-input[type="email"]');
+      var loginPasswordInput = document.getElementById('password-input');
+
+      loginBtn.addEventListener('click', function () {
+        // Demo: always show error
+        loginError.classList.add('login-error--visible');
+      });
+
+      // Clear error when user starts typing again
+      function clearLoginError() {
+        loginError.classList.remove('login-error--visible');
+      }
+
+      loginEmailInput.addEventListener('input', clearLoginError);
+      loginPasswordInput.addEventListener('input', clearLoginError);
 
       // --- Password strength ---
       var passwordInput = document.getElementById('password-input');
@@ -579,23 +1031,155 @@
         }
       });
 
-      // --- Terms checkbox → login button state ---
+      // --- Terms checkbox → register sign up button state ---
       var termsCheckbox = document.getElementById('terms-checkbox');
-      var loginBtn = document.getElementById('login-btn');
+      var registerSubmitBtn = document.getElementById('register-submit-btn');
 
       termsCheckbox.addEventListener('change', function () {
         if (this.checked) {
-          loginBtn.classList.remove('login-btn--inactive');
+          registerSubmitBtn.classList.remove('login-btn--inactive');
         } else {
-          loginBtn.classList.add('login-btn--inactive');
+          registerSubmitBtn.classList.add('login-btn--inactive');
         }
       });
 
-      // Prevent submit when inactive
-      loginBtn.addEventListener('click', function (e) {
-        if (loginBtn.classList.contains('login-btn--inactive')) {
+      registerSubmitBtn.addEventListener('click', function (e) {
+        if (registerSubmitBtn.classList.contains('login-btn--inactive')) {
           e.preventDefault();
         }
+      });
+
+      // --- Account Recovery Flow ---
+      var recoveryView = document.getElementById('recovery-view');
+      var recoveryCodeView = document.getElementById('recovery-code-view');
+      var switchToRecovery = document.getElementById('switch-to-recovery');
+      var switchBackToLogin = document.getElementById('switch-back-to-login');
+      var switchRecoveryToLogin = document.getElementById('switch-recovery-to-login');
+      var recoveryEmailInput = document.getElementById('recovery-email-input');
+      var recoveryNextBtn = document.getElementById('recovery-next-btn');
+      var recoveryEmailDisplay = document.getElementById('recovery-email-display');
+      var codeInputs = document.getElementById('code-inputs');
+      var codeBoxes = codeInputs.querySelectorAll('.code-box');
+      var recoveryVerifyBtn = document.getElementById('recovery-verify-btn');
+      var resendText = document.getElementById('resend-text');
+      var resendBtn = document.getElementById('resend-btn');
+      var resendCountdown = document.getElementById('resend-countdown');
+      var countdownTimer = null;
+
+      // --- 6-digit code box logic ---
+      function checkCodeComplete() {
+        var allFilled = true;
+        codeBoxes.forEach(function (box) {
+          if (box.value.length === 0) allFilled = false;
+          if (box.value.length > 0) {
+            box.classList.add('code-box--filled');
+          } else {
+            box.classList.remove('code-box--filled');
+          }
+        });
+        if (allFilled) {
+          recoveryVerifyBtn.classList.remove('login-btn--inactive');
+        } else {
+          recoveryVerifyBtn.classList.add('login-btn--inactive');
+        }
+      }
+
+      codeBoxes.forEach(function (box, i) {
+        box.addEventListener('input', function (e) {
+          // Only allow digits
+          this.value = this.value.replace(/[^0-9]/g, '');
+          if (this.value.length === 1 && i < 5) {
+            codeBoxes[i + 1].focus();
+          }
+          checkCodeComplete();
+        });
+
+        box.addEventListener('keydown', function (e) {
+          if (e.key === 'Backspace' && this.value.length === 0 && i > 0) {
+            codeBoxes[i - 1].focus();
+            codeBoxes[i - 1].value = '';
+            checkCodeComplete();
+          }
+        });
+
+        // Handle paste — distribute digits across boxes
+        box.addEventListener('paste', function (e) {
+          e.preventDefault();
+          var paste = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '');
+          for (var j = 0; j < 6 && j < paste.length; j++) {
+            codeBoxes[j].value = paste[j];
+          }
+          var focusIndex = Math.min(paste.length, 5);
+          codeBoxes[focusIndex].focus();
+          checkCodeComplete();
+        });
+      });
+
+      recoveryVerifyBtn.addEventListener('click', function () {
+        if (recoveryVerifyBtn.classList.contains('login-btn--inactive')) return;
+        // Demo: just show it works
+      });
+
+      // Login → Recovery (email step)
+      switchToRecovery.addEventListener('click', function (e) {
+        e.preventDefault();
+        switchView(loginView, recoveryView, bgRecovery, bgLogin);
+      });
+
+      // Recovery → Login
+      switchBackToLogin.addEventListener('click', function (e) {
+        e.preventDefault();
+        recoveryEmailInput.value = '';
+        switchView(recoveryView, loginView, bgLogin, bgRecovery);
+      });
+
+      // Recovery code → Login
+      switchRecoveryToLogin.addEventListener('click', function (e) {
+        e.preventDefault();
+        codeBoxes.forEach(function (box) { box.value = ''; box.classList.remove('code-box--filled'); });
+        recoveryVerifyBtn.classList.add('login-btn--inactive');
+        if (countdownTimer) clearInterval(countdownTimer);
+        switchView(recoveryCodeView, loginView, bgLogin, bgRecovery);
+      });
+
+      // Recovery email → Code step
+      recoveryNextBtn.addEventListener('click', function () {
+        var email = recoveryEmailInput.value.trim();
+        if (!email) return;
+
+        recoveryEmailDisplay.textContent = email;
+        switchView(recoveryView, recoveryCodeView, bgRecovery, bgRecovery);
+
+        // Start countdown
+        startResendCountdown();
+      });
+
+      function startResendCountdown() {
+        var seconds = 30;
+        resendText.classList.add('resend-text--inactive');
+        resendText.innerHTML = '<a id="resend-btn">resend code</a> in <span id="resend-countdown">' + seconds + '</span>s';
+        resendBtn = document.getElementById('resend-btn');
+        resendCountdown = document.getElementById('resend-countdown');
+
+        if (countdownTimer) clearInterval(countdownTimer);
+        countdownTimer = setInterval(function () {
+          seconds--;
+          resendCountdown.textContent = seconds;
+          if (seconds <= 0) {
+            clearInterval(countdownTimer);
+            resendText.classList.remove('resend-text--inactive');
+            resendText.innerHTML = '<a id="resend-btn">resend code</a>';
+            resendBtn = document.getElementById('resend-btn');
+            resendBtn.addEventListener('click', function () {
+              startResendCountdown();
+            });
+          }
+        }, 1000);
+      }
+
+      resendBtn.addEventListener('click', function () {
+        if (resendText.classList.contains('resend-text--inactive')) return;
+        startResendCountdown();
       });
     })();
   </script>
