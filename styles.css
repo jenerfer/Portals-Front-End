@@ -470,7 +470,7 @@ img, svg {
   font-size: 14px;
   font-weight: 700;
   line-height: 23px;
-  letter-spacing: 0.3px;
+  letter-spacing: 0px;
 }
 
 /* Primary */
@@ -877,12 +877,24 @@ img, svg {
 
 .style-guide__section-title {
   font-family: 'Agrandir Wide', sans-serif;
-  font-size: 24px;
-  line-height: 27px;
+  font-size: 40px;
+  line-height: 43px;
   font-weight: 700;
   letter-spacing: -0.5px;
-  color: var(--accent-heading);
+  color: var(--text-primary);
+  margin-bottom: 3px;
+  text-transform: lowercase;
+}
+
+.style-guide__section-description {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 23px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: var(--text-secondary);
   margin-bottom: 48px;
+  max-width: 600px;
 }
 
 .style-guide__subsection-title {
@@ -893,6 +905,7 @@ img, svg {
   letter-spacing: -0.5px;
   color: var(--text-tertiary);
   margin-bottom: 24px;
+  text-transform: lowercase;
 }
 
 /* Typography specimen */
@@ -1008,6 +1021,7 @@ img, svg {
   letter-spacing: -0.5px;
   color: var(--text-primary);
   margin-bottom: 3px;
+  text-transform: lowercase;
 }
 
 .page-header__description {
@@ -1438,6 +1452,95 @@ img, svg {
 }
 
 
+/* ===== Toggles ===== */
+
+.toggle {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  flex-shrink: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--border-default);
+  border: none;
+  border-radius: 999px;
+  outline: none;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle:hover {
+  background-color: var(--border-strong);
+}
+
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
+}
+
+.toggle:hover::after {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.toggle:checked {
+  background-color: var(--accent-primary);
+}
+
+.toggle:checked:hover {
+  background-color: var(--accent-heading);
+}
+
+.toggle:checked::after {
+  transform: translateX(24px);
+}
+
+/* Toggle with label */
+.toggle-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 6px 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-item__label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  transition: color 0.2s ease;
+}
+
+/* Toggle group — for single selection behaviour */
+.toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.toggle-group--single .toggle-item__label {
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.toggle-group--single .toggle-item--active .toggle-item__label {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+
 /* ===== Component Display Helpers ===== */
 
 .component-display {
@@ -1446,9 +1549,10 @@ img, svg {
 
 .component-display__label {
   font-family: 'Agrandir Wide', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-placeholder);
+  font-size: 24px;
+  line-height: 27px;
+  font-weight: 400;
+  color: var(--ice-5);
   letter-spacing: -0.5px;
   margin-bottom: 16px;
   text-transform: lowercase;
@@ -1539,6 +1643,9 @@ img, svg {
   .radio-boxed,
   .radio-label,
   .radio-label__text,
+  .toggle,
+  .toggle::after,
+  .toggle-item__label,
   .theme-toggle {
     transition: none;
   }

@@ -140,7 +140,6 @@
 
       <!-- ==================== BUTTONS ==================== -->
       <section class="style-guide__section" id="buttons">
-        <div class="style-guide__section-title">Buttons</div>
 
         <!-- Primary -->
         <div class="button-group">
@@ -237,9 +236,87 @@
         </div>
       </section>
 
+      <!-- ==================== TOGGLES ==================== -->
+      <section class="style-guide__section" id="toggles">
+        <div class="style-guide__section-title">Toggles</div>
+        <p class="style-guide__section-description">A toggle is a control that allows users to quickly switch between two states — on or off. Toggles can be used individually or in groups. In a single selection group, activating one toggle will automatically deactivate the others.</p>
+
+        <!-- Single Toggle Selection -->
+        <div class="component-display">
+          <div class="component-display__label">Single Toggle Selection</div>
+          <div class="component-display__row">
+            <div class="component-display__column">
+              <div class="toggle-group toggle-group--single" data-toggle-type="single">
+                <label class="toggle-item">
+                  <input type="checkbox" class="toggle" data-toggle="single">
+                  <span class="toggle-item__label">Ketchup</span>
+                </label>
+                <label class="toggle-item toggle-item--active">
+                  <input type="checkbox" class="toggle" data-toggle="single" checked>
+                  <span class="toggle-item__label">Mustard</span>
+                </label>
+                <label class="toggle-item">
+                  <input type="checkbox" class="toggle" data-toggle="single">
+                  <span class="toggle-item__label">Lettuce</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Multiple Toggle Selection -->
+        <div class="component-display">
+          <div class="component-display__label">Multiple Toggle Selection</div>
+          <div class="component-display__row">
+            <div class="component-display__column">
+              <div class="toggle-group" data-toggle-type="multiple">
+                <label class="toggle-item">
+                  <input type="checkbox" class="toggle">
+                  <span class="toggle-item__label">Ketchup</span>
+                </label>
+                <label class="toggle-item">
+                  <input type="checkbox" class="toggle" checked>
+                  <span class="toggle-item__label">Pickles</span>
+                </label>
+                <label class="toggle-item">
+                  <input type="checkbox" class="toggle">
+                  <span class="toggle-item__label">Lettuce</span>
+                </label>
+                <label class="toggle-item">
+                  <input type="checkbox" class="toggle" checked>
+                  <span class="toggle-item__label">Cheese</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
     </main>
   </div>
 
   <script src="../sidebar.js"></script>
+  <script>
+    // Single toggle selection — only one active at a time
+    document.querySelectorAll('.toggle-group--single').forEach(function(group) {
+      var toggles = group.querySelectorAll('.toggle');
+      toggles.forEach(function(toggle) {
+        toggle.addEventListener('change', function() {
+          if (this.checked) {
+            toggles.forEach(function(t) {
+              if (t !== toggle) {
+                t.checked = false;
+                t.closest('.toggle-item').classList.remove('toggle-item--active');
+              }
+            });
+            this.closest('.toggle-item').classList.add('toggle-item--active');
+          } else {
+            this.closest('.toggle-item').classList.remove('toggle-item--active');
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
