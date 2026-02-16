@@ -195,6 +195,16 @@
       color: var(--ice-1);
     }
 
+    /* Override Chrome autofill background */
+    .login-input:-webkit-autofill,
+    .login-input:-webkit-autofill:hover,
+    .login-input:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.06) inset;
+      -webkit-text-fill-color: rgba(255, 255, 255, 0.6);
+      border: 1px solid #56444429;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+
     /* Password strength */
     .password-strength {
       display: none;
