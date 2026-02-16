@@ -111,6 +111,11 @@ img, svg {
   /* Shadow */
   --shadow-elevation:    rgba(118, 156, 220, 0.32);
 
+  /* Dropdown triggers */
+  --dropdown-trigger-bg:       var(--ice-2);
+  --dropdown-trigger-hover:    var(--ice-3);
+  --dropdown-trigger-pill:     var(--ice-3);
+
   /* Feedback */
   --feedback-success:    #18AD79;
   --feedback-error:      #CB3B36;
@@ -168,6 +173,11 @@ img, svg {
 
   /* Shadow */
   --shadow-elevation:    rgba(0, 0, 0, 0.5);
+
+  /* Dropdown triggers */
+  --dropdown-trigger-bg:       #252C36;
+  --dropdown-trigger-hover:    #2E3642;
+  --dropdown-trigger-pill:     #3A4554;
 
   /* Feedback */
   --feedback-success:    #2ECC94;
@@ -1557,14 +1567,14 @@ img, svg {
   padding: 10px 13px;
   border-radius: 999px;
   border: none;
-  background-color: var(--surface-sunken);
+  background-color: var(--dropdown-trigger-bg);
   cursor: pointer;
   transition: background-color 0.2s ease;
   outline: none;
 }
 
 .dropdown-trigger:hover {
-  background-color: var(--border-subtle);
+  background-color: var(--dropdown-trigger-hover);
 }
 
 .dropdown-trigger__text {
@@ -1601,7 +1611,7 @@ img, svg {
   width: 24px;
   height: 20px;
   border-radius: 999px;
-  background-color: var(--ice-3);
+  background-color: var(--dropdown-trigger-pill);
   transition: background-color 0.2s ease;
 }
 
@@ -1695,8 +1705,8 @@ img, svg {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 32px;
+  height: 32px;
   padding: 0;
   border: none;
   background: none;
@@ -1710,8 +1720,8 @@ img, svg {
 }
 
 .dropdown-panel__close svg {
-  width: 16px;
-  height: 16px;
+  width: 26px;
+  height: 26px;
 }
 
 /* Category items */
@@ -1891,6 +1901,129 @@ img, svg {
 
 .dropdown-apply--inactive:hover {
   background-color: var(--btn-inactive-bg);
+}
+
+/* Search input inside dropdown panel */
+.dropdown-search-input {
+  width: 100%;
+  height: 44px;
+  padding: 10px 18px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background-color: var(--surface-sunken);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.dropdown-search-input::placeholder {
+  color: var(--text-placeholder);
+  font-weight: 500;
+}
+
+.dropdown-search-input:focus {
+  border-color: var(--accent-heading);
+}
+
+/* Horizontal filter bar layout */
+.dropdown-filter-bar {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* Price dropdown — wider panel */
+.dropdown-panel--wide {
+  width: 310px;
+}
+
+/* Price range row */
+.dropdown-price-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  width: 100%;
+}
+
+/* Price input wrapper (input + token icon) */
+.dropdown-price-field {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.dropdown-price-input {
+  width: 100%;
+  height: 44px;
+  padding: 10px 38px 10px 10px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background-color: var(--surface-sunken);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 23px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.dropdown-price-input::placeholder {
+  color: var(--text-placeholder);
+  font-weight: 500;
+}
+
+.dropdown-price-input:focus {
+  border-color: var(--accent-heading);
+}
+
+/* Token icon inside price input */
+.dropdown-price-token {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 23px;
+  opacity: 0.44;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-price-input:focus ~ .dropdown-price-token {
+  opacity: 1;
+}
+
+/* "any price" item row inside price panel */
+.dropdown-price-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.dropdown-price-item:hover {
+  opacity: 0.8;
+}
+
+.dropdown-price-item__text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 23px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: var(--text-secondary);
 }
 
 

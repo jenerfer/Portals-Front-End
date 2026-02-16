@@ -142,133 +142,221 @@
       <!-- ==================== DROPDOWNS ==================== -->
       <section class="style-guide__section" id="dropdowns">
 
-        <!-- Dropdown Filter -->
+        <!-- Dropdown Filters -->
         <div class="component-display">
-          <div class="component-display__label">dropdown filter</div>
-          <div class="component-display__row">
-            <div class="component-display__column">
+          <div class="component-display__label">dropdown filters</div>
+          <div class="dropdown-filter-bar">
 
-              <div class="dropdown" id="dropdown-demo">
-                <!-- Trigger button -->
-                <button class="dropdown-trigger" id="dropdown-trigger">
-                  <span class="dropdown-trigger__text">all</span>
-                  <span class="dropdown-trigger__icon">
-                    <span class="dropdown-trigger__icon-pill">
-                      <!-- Chevron down -->
-                      <svg class="dropdown-chevron" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                    <!-- Close ✕ (hidden by default) -->
-                    <svg class="dropdown-close-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                      <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- ===== Category Dropdown ===== -->
+            <div class="dropdown" id="dropdown-demo">
+              <!-- Trigger button -->
+              <button class="dropdown-trigger" id="dropdown-trigger">
+                <span class="dropdown-trigger__text">all</span>
+                <span class="dropdown-trigger__icon">
+                  <span class="dropdown-trigger__icon-pill">
+                    <!-- Chevron down -->
+                    <svg class="dropdown-chevron" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   </span>
-                </button>
+                  <!-- Close ✕ (hidden by default) -->
+                  <svg class="dropdown-close-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
 
-                <!-- Dropdown panel -->
-                <div class="dropdown-panel" id="dropdown-panel">
-                  <div class="dropdown-panel__header">
-                    <span class="dropdown-panel__title">category</span>
-                    <button class="dropdown-panel__close" id="dropdown-close">
-                      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </button>
-                  </div>
-
-                  <!-- "all" option -->
-                  <div class="dropdown-item" data-category="all">
-                    <span class="dropdown-item__text">all</span>
-                    <span class="dropdown-radio dropdown-radio--selected"></span>
-                  </div>
-
-                  <!-- Parent: body (has children) -->
-                  <div class="dropdown-item" data-category="body" data-has-children="true">
-                    <span class="dropdown-item__text">body</span>
-                    <span class="dropdown-radio"></span>
-                  </div>
-                  <div class="dropdown-subcategory" data-parent="body">
-                    <div class="dropdown-subcategory__parent">
-                      <span class="dropdown-subcategory__parent-text">body</span>
-                      <span class="dropdown-radio"></span>
-                    </div>
-                    <div class="dropdown-subcategory__children">
-                      <div class="dropdown-subcategory__item" data-child="full body items">
-                        <span class="dropdown-subcategory__text">full body items</span>
-                        <span class="dropdown-radio"></span>
-                      </div>
-                      <div class="dropdown-subcategory__item" data-child="hair">
-                        <span class="dropdown-subcategory__text">hair</span>
-                        <span class="dropdown-radio"></span>
-                      </div>
-                      <div class="dropdown-subcategory__item" data-child="heads">
-                        <span class="dropdown-subcategory__text">heads</span>
-                        <span class="dropdown-radio"></span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Parent: clothing (has children) -->
-                  <div class="dropdown-item" data-category="clothing" data-has-children="true">
-                    <span class="dropdown-item__text">clothing</span>
-                    <span class="dropdown-radio"></span>
-                  </div>
-                  <div class="dropdown-subcategory" data-parent="clothing">
-                    <div class="dropdown-subcategory__parent">
-                      <span class="dropdown-subcategory__parent-text">clothing</span>
-                      <span class="dropdown-radio"></span>
-                    </div>
-                    <div class="dropdown-subcategory__children">
-                      <div class="dropdown-subcategory__item" data-child="tops">
-                        <span class="dropdown-subcategory__text">tops</span>
-                        <span class="dropdown-radio"></span>
-                      </div>
-                      <div class="dropdown-subcategory__item" data-child="bottoms">
-                        <span class="dropdown-subcategory__text">bottoms</span>
-                        <span class="dropdown-radio"></span>
-                      </div>
-                      <div class="dropdown-subcategory__item" data-child="shoes">
-                        <span class="dropdown-subcategory__text">shoes</span>
-                        <span class="dropdown-radio"></span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- accessories (has children) -->
-                  <div class="dropdown-item" data-category="accessories" data-has-children="true">
-                    <span class="dropdown-item__text">accessories</span>
-                    <span class="dropdown-radio"></span>
-                  </div>
-                  <div class="dropdown-subcategory" data-parent="accessories">
-                    <div class="dropdown-subcategory__parent">
-                      <span class="dropdown-subcategory__parent-text">accessories</span>
-                      <span class="dropdown-radio"></span>
-                    </div>
-                    <div class="dropdown-subcategory__children">
-                      <div class="dropdown-subcategory__item" data-child="back">
-                        <span class="dropdown-subcategory__text">back</span>
-                        <span class="dropdown-radio"></span>
-                      </div>
-                      <div class="dropdown-subcategory__item" data-child="waist">
-                        <span class="dropdown-subcategory__text">waist</span>
-                        <span class="dropdown-radio"></span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- animations (no children) -->
-                  <div class="dropdown-item" data-category="animations">
-                    <span class="dropdown-item__text">animations</span>
-                    <span class="dropdown-radio"></span>
-                  </div>
-
-                  <!-- Apply button -->
-                  <button class="dropdown-apply dropdown-apply--inactive" id="dropdown-apply">Apply</button>
+              <!-- Dropdown panel -->
+              <div class="dropdown-panel" id="dropdown-panel">
+                <div class="dropdown-panel__header">
+                  <span class="dropdown-panel__title">category</span>
+                  <button class="dropdown-panel__close" id="dropdown-close">
+                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
                 </div>
-              </div>
 
+                <!-- "all" option -->
+                <div class="dropdown-item" data-category="all">
+                  <span class="dropdown-item__text">all</span>
+                  <span class="dropdown-radio dropdown-radio--selected"></span>
+                </div>
+
+                <!-- Parent: body (has children) -->
+                <div class="dropdown-item" data-category="body" data-has-children="true">
+                  <span class="dropdown-item__text">body</span>
+                  <span class="dropdown-radio"></span>
+                </div>
+                <div class="dropdown-subcategory" data-parent="body">
+                  <div class="dropdown-subcategory__parent">
+                    <span class="dropdown-subcategory__parent-text">body</span>
+                    <span class="dropdown-radio"></span>
+                  </div>
+                  <div class="dropdown-subcategory__children">
+                    <div class="dropdown-subcategory__item" data-child="full body items">
+                      <span class="dropdown-subcategory__text">full body items</span>
+                      <span class="dropdown-radio"></span>
+                    </div>
+                    <div class="dropdown-subcategory__item" data-child="hair">
+                      <span class="dropdown-subcategory__text">hair</span>
+                      <span class="dropdown-radio"></span>
+                    </div>
+                    <div class="dropdown-subcategory__item" data-child="heads">
+                      <span class="dropdown-subcategory__text">heads</span>
+                      <span class="dropdown-radio"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Parent: clothing (has children) -->
+                <div class="dropdown-item" data-category="clothing" data-has-children="true">
+                  <span class="dropdown-item__text">clothing</span>
+                  <span class="dropdown-radio"></span>
+                </div>
+                <div class="dropdown-subcategory" data-parent="clothing">
+                  <div class="dropdown-subcategory__parent">
+                    <span class="dropdown-subcategory__parent-text">clothing</span>
+                    <span class="dropdown-radio"></span>
+                  </div>
+                  <div class="dropdown-subcategory__children">
+                    <div class="dropdown-subcategory__item" data-child="tops">
+                      <span class="dropdown-subcategory__text">tops</span>
+                      <span class="dropdown-radio"></span>
+                    </div>
+                    <div class="dropdown-subcategory__item" data-child="bottoms">
+                      <span class="dropdown-subcategory__text">bottoms</span>
+                      <span class="dropdown-radio"></span>
+                    </div>
+                    <div class="dropdown-subcategory__item" data-child="shoes">
+                      <span class="dropdown-subcategory__text">shoes</span>
+                      <span class="dropdown-radio"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- accessories (has children) -->
+                <div class="dropdown-item" data-category="accessories" data-has-children="true">
+                  <span class="dropdown-item__text">accessories</span>
+                  <span class="dropdown-radio"></span>
+                </div>
+                <div class="dropdown-subcategory" data-parent="accessories">
+                  <div class="dropdown-subcategory__parent">
+                    <span class="dropdown-subcategory__parent-text">accessories</span>
+                    <span class="dropdown-radio"></span>
+                  </div>
+                  <div class="dropdown-subcategory__children">
+                    <div class="dropdown-subcategory__item" data-child="back">
+                      <span class="dropdown-subcategory__text">back</span>
+                      <span class="dropdown-radio"></span>
+                    </div>
+                    <div class="dropdown-subcategory__item" data-child="waist">
+                      <span class="dropdown-subcategory__text">waist</span>
+                      <span class="dropdown-radio"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- animations (no children) -->
+                <div class="dropdown-item" data-category="animations">
+                  <span class="dropdown-item__text">animations</span>
+                  <span class="dropdown-radio"></span>
+                </div>
+
+                <!-- Apply button -->
+                <button class="dropdown-apply dropdown-apply--inactive" id="dropdown-apply">Apply</button>
+              </div>
             </div>
+
+            <!-- ===== Search Dropdown (Creator) ===== -->
+            <div class="dropdown" id="dropdown-search">
+              <!-- Trigger button -->
+              <button class="dropdown-trigger" id="search-trigger">
+                <span class="dropdown-trigger__text">all creators</span>
+                <span class="dropdown-trigger__icon">
+                  <span class="dropdown-trigger__icon-pill">
+                    <svg class="dropdown-chevron" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  <svg class="dropdown-close-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+
+              <!-- Dropdown panel -->
+              <div class="dropdown-panel" id="search-panel">
+                <div class="dropdown-panel__header">
+                  <span class="dropdown-panel__title">creator</span>
+                  <button class="dropdown-panel__close" id="search-close">
+                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <input type="text" class="dropdown-search-input" id="search-input" placeholder="search for a creator">
+
+                <button class="dropdown-apply dropdown-apply--inactive" id="search-apply">Apply</button>
+              </div>
+            </div>
+
+            <!-- ===== Price Dropdown ===== -->
+            <div class="dropdown" id="dropdown-price">
+              <!-- Trigger button -->
+              <button class="dropdown-trigger" id="price-trigger">
+                <span class="dropdown-trigger__text">any price</span>
+                <span class="dropdown-trigger__icon">
+                  <span class="dropdown-trigger__icon-pill">
+                    <svg class="dropdown-chevron" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  <svg class="dropdown-close-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+
+              <!-- Dropdown panel -->
+              <div class="dropdown-panel dropdown-panel--wide" id="price-panel">
+                <div class="dropdown-panel__header">
+                  <span class="dropdown-panel__title">price</span>
+                  <button class="dropdown-panel__close" id="price-close">
+                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Any price option -->
+                <div class="dropdown-price-item" id="price-any">
+                  <span class="dropdown-price-item__text">any price</span>
+                  <span class="dropdown-radio dropdown-radio--selected" id="price-any-radio"></span>
+                </div>
+
+                <!-- Price range row -->
+                <div class="dropdown-price-row">
+                  <div class="dropdown-price-field">
+                    <input type="text" inputmode="numeric" class="dropdown-price-input" id="price-min" placeholder="min">
+                    <span class="dropdown-price-token">
+                      <img src="../coin.png" alt="" width="22" height="23">
+                    </span>
+                  </div>
+                  <div class="dropdown-price-field">
+                    <input type="text" inputmode="numeric" class="dropdown-price-input" id="price-max" placeholder="max">
+                    <span class="dropdown-price-token">
+                      <img src="../coin.png" alt="" width="22" height="23">
+                    </span>
+                  </div>
+                  <span class="dropdown-radio" id="price-range-radio"></span>
+                </div>
+
+                <button class="dropdown-apply dropdown-apply--inactive" id="price-apply">Apply</button>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -279,6 +367,11 @@
 
   <script src="../sidebar.js"></script>
   <script>
+    // Shared registry — only one dropdown open at a time
+    var dropdownClosers = [];
+    function registerDropdown(closeFn) { dropdownClosers.push(closeFn); }
+    function closeAllDropdowns() { dropdownClosers.forEach(function (fn) { fn(); }); }
+
     (function () {
       var dropdown = document.getElementById('dropdown-demo');
       var trigger = document.getElementById('dropdown-trigger');
@@ -298,6 +391,7 @@
       // --- Helpers ---
 
       function openPanel() {
+        closeAllDropdowns();
         isOpen = true;
         panel.classList.add('dropdown-panel--open');
         trigger.classList.add('dropdown-trigger--open');
@@ -308,6 +402,8 @@
         panel.classList.remove('dropdown-panel--open');
         trigger.classList.remove('dropdown-trigger--open');
       }
+
+      registerDropdown(closePanel);
 
       function collapseAllSubcategories() {
         var subs = panel.querySelectorAll('.dropdown-subcategory');
@@ -544,6 +640,254 @@
 
       // Default open on page load
       openPanel();
+    })();
+
+    // ===== Search Dropdown (Creator) =====
+    (function () {
+      var dropdown = document.getElementById('dropdown-search');
+      var trigger = document.getElementById('search-trigger');
+      var panel = document.getElementById('search-panel');
+      var closeBtn = document.getElementById('search-close');
+      var applyBtn = document.getElementById('search-apply');
+      var searchInput = document.getElementById('search-input');
+      var triggerText = trigger.querySelector('.dropdown-trigger__text');
+      var chevronPill = trigger.querySelector('.dropdown-trigger__icon-pill');
+      var closeIcon = trigger.querySelector('.dropdown-close-icon');
+
+      var isOpen = false;
+
+      function openPanel() {
+        closeAllDropdowns();
+        isOpen = true;
+        panel.classList.add('dropdown-panel--open');
+        trigger.classList.add('dropdown-trigger--open');
+        searchInput.focus();
+      }
+
+      function closePanel() {
+        isOpen = false;
+        panel.classList.remove('dropdown-panel--open');
+        trigger.classList.remove('dropdown-trigger--open');
+      }
+
+      registerDropdown(closePanel);
+
+      function setSelectedState(name) {
+        trigger.classList.remove('dropdown-trigger--open');
+        trigger.classList.add('dropdown-trigger--selected');
+        triggerText.textContent = 'by \u201C' + name + '\u201D';
+        chevronPill.style.display = 'none';
+        closeIcon.style.display = 'block';
+      }
+
+      function resetToDefault() {
+        trigger.classList.remove('dropdown-trigger--selected');
+        trigger.classList.remove('dropdown-trigger--open');
+        triggerText.textContent = 'all creators';
+        chevronPill.style.display = 'inline-flex';
+        closeIcon.style.display = 'none';
+        searchInput.value = '';
+        applyBtn.classList.add('dropdown-apply--inactive');
+        closePanel();
+      }
+
+      // Trigger click
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (trigger.classList.contains('dropdown-trigger--selected')) {
+          resetToDefault();
+          return;
+        }
+        if (isOpen) {
+          closePanel();
+        } else {
+          openPanel();
+        }
+      });
+
+      // Close button in panel
+      closeBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        closePanel();
+      });
+
+      // Input — toggle apply button
+      searchInput.addEventListener('input', function () {
+        if (searchInput.value.trim().length > 0) {
+          applyBtn.classList.remove('dropdown-apply--inactive');
+        } else {
+          applyBtn.classList.add('dropdown-apply--inactive');
+        }
+      });
+
+      // Prevent panel close when clicking inside input
+      searchInput.addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+
+      // Apply button
+      applyBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (applyBtn.classList.contains('dropdown-apply--inactive')) return;
+        var value = searchInput.value.trim();
+        if (value) {
+          setSelectedState(value);
+        }
+        closePanel();
+      });
+
+      // Click outside to close
+      document.addEventListener('click', function (e) {
+        if (isOpen && !dropdown.contains(e.target)) {
+          closePanel();
+        }
+      });
+    })();
+
+    // ===== Price Dropdown =====
+    (function () {
+      var dropdown = document.getElementById('dropdown-price');
+      var trigger = document.getElementById('price-trigger');
+      var panel = document.getElementById('price-panel');
+      var closeBtn = document.getElementById('price-close');
+      var applyBtn = document.getElementById('price-apply');
+      var triggerText = trigger.querySelector('.dropdown-trigger__text');
+      var chevronPill = trigger.querySelector('.dropdown-trigger__icon-pill');
+      var closeIcon = trigger.querySelector('.dropdown-close-icon');
+
+      var priceAny = document.getElementById('price-any');
+      var priceAnyRadio = document.getElementById('price-any-radio');
+      var priceRangeRadio = document.getElementById('price-range-radio');
+      var priceMin = document.getElementById('price-min');
+      var priceMax = document.getElementById('price-max');
+
+      var isOpen = false;
+      var isAnyPrice = true;
+
+      function openPanel() {
+        closeAllDropdowns();
+        isOpen = true;
+        panel.classList.add('dropdown-panel--open');
+        trigger.classList.add('dropdown-trigger--open');
+      }
+
+      function closePanel() {
+        isOpen = false;
+        panel.classList.remove('dropdown-panel--open');
+        trigger.classList.remove('dropdown-trigger--open');
+        // Reset inputs when closing without apply (if still on "any price")
+        if (isAnyPrice) {
+          priceMin.value = '';
+          priceMax.value = '';
+        }
+      }
+
+      registerDropdown(closePanel);
+
+      function selectAnyPrice() {
+        isAnyPrice = true;
+        priceAnyRadio.classList.add('dropdown-radio--selected');
+        priceRangeRadio.classList.remove('dropdown-radio--selected');
+        applyBtn.classList.add('dropdown-apply--inactive');
+      }
+
+      function selectRange() {
+        isAnyPrice = false;
+        priceAnyRadio.classList.remove('dropdown-radio--selected');
+        priceRangeRadio.classList.add('dropdown-radio--selected');
+      }
+
+      function updateApplyFromInputs() {
+        var minVal = priceMin.value.trim();
+        var maxVal = priceMax.value.trim();
+        if (minVal.length > 0 || maxVal.length > 0) {
+          selectRange();
+          applyBtn.classList.remove('dropdown-apply--inactive');
+        } else {
+          if (!isAnyPrice) {
+            applyBtn.classList.add('dropdown-apply--inactive');
+          }
+        }
+      }
+
+      function setSelectedState(display) {
+        trigger.classList.remove('dropdown-trigger--open');
+        trigger.classList.add('dropdown-trigger--selected');
+        triggerText.textContent = display;
+        chevronPill.style.display = 'none';
+        closeIcon.style.display = 'block';
+      }
+
+      function resetToDefault() {
+        trigger.classList.remove('dropdown-trigger--selected');
+        trigger.classList.remove('dropdown-trigger--open');
+        triggerText.textContent = 'any price';
+        chevronPill.style.display = 'inline-flex';
+        closeIcon.style.display = 'none';
+        priceMin.value = '';
+        priceMax.value = '';
+        selectAnyPrice();
+        closePanel();
+      }
+
+      // Trigger click
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (trigger.classList.contains('dropdown-trigger--selected')) {
+          resetToDefault();
+          return;
+        }
+        if (isOpen) {
+          closePanel();
+        } else {
+          openPanel();
+        }
+      });
+
+      // Close button in panel
+      closeBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        closePanel();
+      });
+
+      // "Any price" click
+      priceAny.addEventListener('click', function (e) {
+        e.stopPropagation();
+        selectAnyPrice();
+      });
+
+      // Price inputs
+      priceMin.addEventListener('input', updateApplyFromInputs);
+      priceMax.addEventListener('input', updateApplyFromInputs);
+
+      priceMin.addEventListener('click', function (e) { e.stopPropagation(); });
+      priceMax.addEventListener('click', function (e) { e.stopPropagation(); });
+
+      // Apply button
+      applyBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (applyBtn.classList.contains('dropdown-apply--inactive')) return;
+
+        var minVal = priceMin.value.trim();
+        var maxVal = priceMax.value.trim();
+
+        if (minVal && maxVal) {
+          setSelectedState(minVal + '-' + maxVal);
+        } else if (minVal) {
+          setSelectedState(minVal + '+');
+        } else if (maxVal) {
+          setSelectedState('0-' + maxVal);
+        }
+
+        closePanel();
+      });
+
+      // Click outside to close
+      document.addEventListener('click', function (e) {
+        if (isOpen && !dropdown.contains(e.target)) {
+          closePanel();
+        }
+      });
     })();
   </script>
 </body>

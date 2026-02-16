@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Portals</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ===== Login Page Styles ===== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--ice-1);
+      overflow: hidden;
+    }
+
+    /* Background images with blur */
+    .login-bg {
+      position: fixed;
+      top: -40px;
+      left: -40px;
+      right: -40px;
+      bottom: -40px;
+      background-size: cover;
+      background-position: center;
+      filter: blur(5px);
+      z-index: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .login-bg--login {
+      background-image: url('login-bg.png');
+    }
+
+    .login-bg--register {
+      background-image: url('register-bg.png');
+      opacity: 0;
+    }
+
+    .login-bg--active {
+      opacity: 1;
+    }
+
+    .login-bg--inactive {
+      opacity: 0;
+    }
+
+    /* Glass container */
+    .login-container {
+      position: relative;
+      z-index: 1;
+      background: rgb(71 71 71 / 28%);
+      backdrop-filter: blur(17px) saturate(1.8) brightness(1.1);
+      -webkit-backdrop-filter: blur(24px) saturate(1.8) brightness(1.1);
+      border-radius: 50px;
+      border: 0px solid rgba(255, 255, 255, 0.25);
+      padding: 50px;
+      max-width: 500px;
+      min-width: 370px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow:
+        inset 1px 1px 20px 0px rgb(255 255 255 / 10%),
+        inset 0px 0px 0 1px rgb(255 255 255 / 26%),
+        -1px -1px 32px 5px rgb(0 0 0 / 20%),
+        0 2px 16px 0 rgb(31 71 135 / 0%);
+    }
+
+    /* Fade-in animation (ReactBits FadeContent adaptation) */
+    .login-fade {
+      opacity: 0;
+      filter: blur(10px);
+      transition: opacity 1s ease-out, filter 1s ease-out;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .login-fade--visible {
+      opacity: 1;
+      filter: blur(0px);
+    }
+
+    /* Logo */
+    .login-logo {
+      width: 108px;
+      height: auto;
+      margin-bottom: 30px;
+      filter: brightness(0) invert(1);
+    }
+
+    /* View containers */
+    .login-view {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .login-view--hidden {
+      display: none;
+    }
+
+    /* Heading */
+    .login-heading {
+      font-family: 'Agrandir Wide', sans-serif;
+      font-size: 48px;
+      line-height: 52px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--ice-1);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    /* Subtext */
+    .login-subtext {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 18px;
+      line-height: 33px;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      color: var(--ice-1);
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .login-subtext a {
+      color: var(--ice-1);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .login-subtext a:hover {
+      opacity: 0.8;
+    }
+
+    /* Form */
+    .login-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    /* Inputs */
+    .login-input {
+      width: 100%;
+      height: 60px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      background: rgba(0, 0, 0, 0.06);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 28px;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      color: rgba(255, 255, 255, 0.6);
+      outline: none;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .login-input::placeholder {
+      color: var(--ice-2);
+    }
+
+    .login-input:hover {
+      background: rgba(0, 0, 0, 0.13);
+    }
+
+    .login-input:focus {
+      background: rgba(0, 0, 0, 0.3);
+      border-color: var(--blue-3);
+      color: var(--ice-1);
+    }
+
+    /* Password strength */
+    .password-strength {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      margin-top: 1px;
+    }
+
+    .password-strength--visible {
+      display: flex;
+    }
+
+    .password-strength__track {
+      width: 100%;
+      height: 6px;
+      border-radius: 46px;
+      background: rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+    }
+
+    .password-strength__fill {
+      height: 100%;
+      border-radius: 46px;
+      background-color: var(--blue-4);
+      width: 0%;
+      transition: width 0.4s ease, background-color 0.4s ease;
+    }
+
+    .password-strength__text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      line-height: 24px;
+      font-weight: 500;
+      letter-spacing: 0px;
+      color: var(--ice-1);
+      text-align: center;
+      min-height: 24px;
+    }
+
+    /* Login button */
+    .login-btn {
+      width: 100%;
+      padding: 20px 35px;
+      border-radius: 999px;
+      border: none;
+      background-color: var(--blue-3);
+      font-family: 'Agrandir Wide', sans-serif;
+      font-size: 20px;
+      line-height: 23px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--ice-8);
+      cursor: pointer;
+      transition: background-color 0.2s ease, opacity 0.2s ease;
+      margin-top: 19px;
+      outline: none;
+    }
+
+    .login-btn:hover {
+      background-color: var(--blue-2);
+    }
+
+    .login-btn--inactive {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .login-btn--inactive:hover {
+      background-color: var(--blue-3);
+    }
+
+    /* Terms checkbox row */
+    .terms-row {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .terms-checkbox {
+      position: relative;
+      width: 25px;
+      height: 24px;
+      flex-shrink: 0;
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.2s ease;
+    }
+
+    .terms-checkbox:checked {
+      background: var(--blue-3);
+    }
+
+    .terms-checkbox:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%) rotate(45deg);
+      width: 6px;
+      height: 11px;
+      border: solid var(--ice-8);
+      border-width: 0 2px 2px 0;
+    }
+
+    .terms-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      line-height: 24px;
+      font-weight: 500;
+      letter-spacing: 0px;
+      color: var(--ice-1);
+    }
+
+    /* ===== Register View ===== */
+
+    .register-buttons {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .register-btn {
+      width: 100%;
+      height: 72px;
+      border-radius: 999px;
+      border: none;
+      padding: 12px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      outline: none;
+    }
+
+    .register-btn:hover {
+      opacity: 0.85;
+    }
+
+    .register-btn--light {
+      background: rgba(0, 0, 0, 0.17);
+    }
+
+    .register-btn__icon {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .register-btn__icon svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .register-btn__text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 18px;
+      line-height: 33px;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      color: var(--ice-2);
+    }
+
+    .register-disclaimer {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      line-height: 24px;
+      font-weight: 500;
+      letter-spacing: 0px;
+      color: var(--ice-2);
+      text-align: center;
+      margin-top: 34px;
+    }
+
+    /* View switch animation */
+    .login-view {
+      transition: opacity 0.4s ease-out, filter 0.4s ease-out;
+    }
+
+    .login-view--fading {
+      opacity: 0;
+      filter: blur(5px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Blurred backgrounds -->
+  <div class="login-bg login-bg--login login-bg--active" id="bg-login"></div>
+  <div class="login-bg login-bg--register" id="bg-register"></div>
+
+  <!-- Glass container -->
+  <div class="login-container">
+    <div class="login-fade" id="login-fade">
+
+      <!-- Portals logo -->
+      <img src="portals-logo.svg" alt="Portals" class="login-logo">
+
+      <!-- ===== Login View ===== -->
+      <div class="login-view" id="login-view">
+        <h2 class="login-heading">login</h2>
+        <p class="login-subtext">or register for a <a id="switch-to-register">new account</a></p>
+
+        <form class="login-form" onsubmit="return false;">
+          <input type="email" class="login-input" placeholder="enter email" autocomplete="email">
+          <input type="password" class="login-input" id="password-input" placeholder="enter password" autocomplete="current-password">
+
+          <div class="password-strength" id="password-strength">
+            <div class="password-strength__track">
+              <div class="password-strength__fill" id="strength-fill"></div>
+            </div>
+            <div class="password-strength__text" id="strength-text"></div>
+          </div>
+
+          <button type="submit" class="login-btn login-btn--inactive" id="login-btn">login</button>
+        </form>
+
+        <label class="terms-row">
+          <input type="checkbox" class="terms-checkbox" id="terms-checkbox">
+          <span class="terms-label">I agree to terms & conditions and privacy policy</span>
+        </label>
+      </div>
+
+      <!-- ===== Register View ===== -->
+      <div class="login-view login-view--hidden" id="register-view">
+        <h2 class="login-heading">register</h2>
+        <p class="login-subtext">or <a id="switch-to-login">sign in</a></p>
+
+        <div class="register-buttons">
+          <!-- Google -->
+          <button class="register-btn register-btn--light">
+            <span class="register-btn__icon">
+              <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25.48 14.32c0-.94-.08-1.84-.24-2.72H14v5.14h6.44c-.28 1.48-1.12 2.74-2.38 3.58v2.98h3.86c2.26-2.08 3.56-5.14 3.56-8.98z" fill="#4285F4"/>
+                <path d="M14 26c3.24 0 5.96-1.08 7.94-2.9l-3.86-2.98c-1.08.72-2.46 1.14-4.08 1.14-3.14 0-5.8-2.12-6.74-4.98H3.28v3.08C5.24 23.28 9.32 26 14 26z" fill="#34A853"/>
+                <path d="M7.26 16.28c-.24-.72-.38-1.48-.38-2.28s.14-1.56.38-2.28V8.64H3.28C2.46 10.28 2 12.08 2 14s.46 3.72 1.28 5.36l3.98-3.08z" fill="#FBBC05"/>
+                <path d="M14 6.74c1.76 0 3.34.6 4.6 1.8l3.44-3.44C19.94 3.18 17.22 2 14 2 9.32 2 5.24 4.72 3.28 8.64l3.98 3.08c.94-2.86 3.6-4.98 6.74-4.98z" fill="#EA4335"/>
+              </svg>
+            </span>
+            <span class="register-btn__text">sign up with Google</span>
+          </button>
+
+          <!-- Email -->
+          <button class="register-btn register-btn--light">
+            <span class="register-btn__icon">
+              <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.167 5.833H5.833A2.333 2.333 0 003.5 8.167v11.666a2.333 2.333 0 002.333 2.334h16.334a2.333 2.333 0 002.333-2.334V8.167a2.333 2.333 0 00-2.333-2.334z" fill="var(--ice-2)"/>
+                <path d="M24.5 8.167l-10.5 7-10.5-7" stroke="var(--ice-8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              </svg>
+            </span>
+            <span class="register-btn__text">sign up with email</span>
+          </button>
+
+          <!-- Web3 Wallet -->
+          <button class="register-btn register-btn--light">
+            <span class="register-btn__icon">
+              <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24.5 11.667v-1.75a3.5 3.5 0 00-3.5-3.5H7a3.5 3.5 0 00-3.5 3.5v8.166a3.5 3.5 0 003.5 3.5h14a3.5 3.5 0 003.5-3.5v-1.75" fill="var(--ice-2)"/>
+                <path d="M24.5 11.667h-5.833a2.333 2.333 0 000 4.666H24.5v-4.666z" fill="var(--ice-3)"/>
+                <circle cx="19.25" cy="14" r="1.167" fill="var(--ice-8)"/>
+              </svg>
+            </span>
+            <span class="register-btn__text">sign up with web3 wallet</span>
+          </button>
+        </div>
+
+        <p class="register-disclaimer">Be vigilant for scams and always double check this is the official URL you are connecting to.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // --- Fade in on load ---
+      var fadeEl = document.getElementById('login-fade');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          fadeEl.classList.add('login-fade--visible');
+        });
+      });
+
+      // --- View switching ---
+      var loginView = document.getElementById('login-view');
+      var registerView = document.getElementById('register-view');
+      var switchToRegister = document.getElementById('switch-to-register');
+      var switchToLogin = document.getElementById('switch-to-login');
+      var bgLogin = document.getElementById('bg-login');
+      var bgRegister = document.getElementById('bg-register');
+
+      function switchView(hideEl, showEl, showBg, hideBg) {
+        hideEl.classList.add('login-view--fading');
+        // Crossfade backgrounds
+        showBg.classList.add('login-bg--active');
+        showBg.classList.remove('login-bg--inactive');
+        hideBg.classList.add('login-bg--inactive');
+        hideBg.classList.remove('login-bg--active');
+
+        setTimeout(function () {
+          hideEl.classList.add('login-view--hidden');
+          hideEl.classList.remove('login-view--fading');
+          showEl.classList.remove('login-view--hidden');
+          showEl.classList.add('login-view--fading');
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              showEl.classList.remove('login-view--fading');
+            });
+          });
+        }, 400);
+      }
+
+      switchToRegister.addEventListener('click', function (e) {
+        e.preventDefault();
+        switchView(loginView, registerView, bgRegister, bgLogin);
+      });
+
+      switchToLogin.addEventListener('click', function (e) {
+        e.preventDefault();
+        switchView(registerView, loginView, bgLogin, bgRegister);
+      });
+
+      // --- Password strength ---
+      var passwordInput = document.getElementById('password-input');
+      var strengthContainer = document.getElementById('password-strength');
+      var strengthFill = document.getElementById('strength-fill');
+      var strengthText = document.getElementById('strength-text');
+
+      function checkStrength(password) {
+        var score = 0;
+        if (password.length === 0) return { score: 0, label: '', width: 0 };
+        if (password.length >= 4) score++;
+        if (password.length >= 8) score++;
+        if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++;
+        if (/[0-9]/.test(password)) score++;
+        if (/[^a-zA-Z0-9]/.test(password)) score++;
+
+        if (score <= 1) return { score: 1, label: 'weak - use 8 or more characters with a mix of letters numbers and symbols', width: 17, color: 'var(--blue-4)' };
+        if (score === 2) return { score: 2, label: 'fair - try adding numbers or symbols', width: 40, color: 'var(--blue-3)' };
+        if (score === 3) return { score: 3, label: 'good - looking better', width: 65, color: 'var(--blue-2)' };
+        if (score >= 4) return { score: 4, label: 'strong - excellent password', width: 100, color: 'var(--blue-1)' };
+      }
+
+      passwordInput.addEventListener('input', function () {
+        var val = this.value;
+        if (val.length > 0) {
+          strengthContainer.classList.add('password-strength--visible');
+          var result = checkStrength(val);
+          strengthFill.style.width = result.width + '%';
+          strengthFill.style.backgroundColor = result.color || 'var(--blue-4)';
+          strengthText.textContent = result.label;
+        } else {
+          strengthContainer.classList.remove('password-strength--visible');
+          strengthFill.style.width = '0%';
+          strengthText.textContent = '';
+        }
+      });
+
+      // --- Terms checkbox → login button state ---
+      var termsCheckbox = document.getElementById('terms-checkbox');
+      var loginBtn = document.getElementById('login-btn');
+
+      termsCheckbox.addEventListener('change', function () {
+        if (this.checked) {
+          loginBtn.classList.remove('login-btn--inactive');
+        } else {
+          loginBtn.classList.add('login-btn--inactive');
+        }
+      });
+
+      // Prevent submit when inactive
+      loginBtn.addEventListener('click', function (e) {
+        if (loginBtn.classList.contains('login-btn--inactive')) {
+          e.preventDefault();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
