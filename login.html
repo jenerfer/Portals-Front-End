@@ -593,6 +593,57 @@
       opacity: 0;
       filter: blur(5px);
     }
+
+    /* ===== Entering Portals — Loading Sequence ===== */
+
+    .entering-content {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      opacity: 0;
+      filter: blur(8px);
+      transition: opacity 0.6s ease, filter 0.6s ease;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .entering-content--visible {
+      display: flex;
+    }
+
+    .entering-content--active {
+      opacity: 1;
+      filter: blur(0px);
+    }
+
+    /* Spinner ring */
+    .entering-spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(255, 255, 255, 0.15);
+      border-top-color: var(--blue-3);
+      border-radius: 50%;
+      animation: entering-spin 0.9s linear infinite;
+    }
+
+    @keyframes entering-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .entering-text {
+      font-family: 'Agrandir Wide', sans-serif;
+      font-size: 32px;
+      line-height: 36px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--ice-1);
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -611,11 +662,11 @@
 
       <!-- ===== Login View ===== -->
       <div class="login-view" id="login-view">
-        <h2 class="login-heading">login</h2>
+        <h2 class="login-heading">sign in</h2>
         <p class="login-subtext">or register for a <a id="switch-to-register">new account</a></p>
 
         <form class="login-form" onsubmit="return false;">
-          <input type="email" class="login-input" placeholder="enter email" autocomplete="email">
+          <input type="text" class="login-input" placeholder="enter email" autocomplete="email">
           <input type="password" class="login-input" id="password-input" placeholder="enter password" autocomplete="current-password">
 
           <div class="password-strength" id="password-strength">
@@ -625,7 +676,7 @@
             <div class="password-strength__text" id="strength-text"></div>
           </div>
 
-          <button type="submit" class="login-btn" id="login-btn">login</button>
+          <button type="submit" class="login-btn login-btn--inactive" id="login-btn">sign in</button>
           <p class="login-error" id="login-error">incorrect email or password, please try again</p>
         </form>
 
@@ -706,7 +757,7 @@
 
           <!-- Email form -->
           <form class="login-form" onsubmit="return false;">
-            <input type="email" class="login-input" placeholder="enter email" autocomplete="email">
+            <input type="text" class="login-input" placeholder="enter email" autocomplete="email">
             <input type="password" class="login-input" id="register-password-input" placeholder="create password" autocomplete="new-password">
 
             <div class="password-strength" id="register-password-strength">
@@ -732,8 +783,8 @@
         <p class="login-subtext">enter your email to receive a verification code</p>
 
         <form class="login-form" onsubmit="return false;">
-          <input type="email" class="login-input" id="recovery-email-input" placeholder="enter email" autocomplete="email">
-          <button type="submit" class="login-btn" id="recovery-next-btn">next</button>
+          <input type="text" class="login-input" id="recovery-email-input" placeholder="enter email" autocomplete="email">
+          <button type="submit" class="login-btn login-btn--inactive" id="recovery-next-btn">next</button>
         </form>
 
         <p class="login-forgot"><a id="switch-back-to-login">back to login</a></p>
@@ -765,6 +816,13 @@
       </div>
 
     </div>
+
+    <!-- Entering Portals loading content -->
+    <div class="entering-content" id="entering-content">
+      <div class="entering-spinner"></div>
+      <p class="entering-text">entering portals</p>
+    </div>
+
   </div>
 
   <script>
@@ -976,24 +1034,139 @@
         }
       });
 
-      // --- Login error demo ---
+      // --- Login button + entering portals sequence ---
       var loginBtn = document.getElementById('login-btn');
       var loginError = document.getElementById('login-error');
-      var loginEmailInput = document.querySelector('#login-view .login-input[type="email"]');
+      var loginEmailInput = document.querySelector('#login-view .login-input[placeholder="enter email"]');
       var loginPasswordInput = document.getElementById('password-input');
+      var loginContainer = document.querySelector('.login-container');
+      var enteringContent = document.getElementById('entering-content');
+      var isEntering = false;
 
-      loginBtn.addEventListener('click', function () {
-        // Demo: always show error
-        loginError.classList.add('login-error--visible');
+      function startEnteringSequence() {
+        if (isEntering) return;
+        isEntering = true;
+
+        // Step 1: Fade out login content
+        fadeWrapper.style.transition = 'opacity 0.4s ease, filter 0.4s ease, height 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        fadeWrapper.style.opacity = '0';
+        fadeWrapper.style.filter = 'blur(8px)';
+
+        setTimeout(function () {
+          // Hide login content entirely
+          fadeWrapper.style.display = 'none';
+
+          // Show entering content (still invisible)
+          enteringContent.classList.add('entering-content--visible');
+
+          // Capture current box position so we can animate from it
+          var rect = loginContainer.getBoundingClientRect();
+          loginContainer.style.position = 'fixed';
+          loginContainer.style.top = rect.top + 'px';
+          loginContainer.style.left = rect.left + 'px';
+          loginContainer.style.right = (window.innerWidth - rect.right) + 'px';
+          loginContainer.style.bottom = (window.innerHeight - rect.bottom) + 'px';
+          loginContainer.style.width = 'auto';
+          loginContainer.style.maxWidth = 'none';
+          loginContainer.style.minWidth = '0';
+          loginContainer.style.padding = '50px';
+
+          // Force reflow so browser registers the starting position
+          void loginContainer.offsetHeight;
+
+          // Step 2: Animate to near-fullscreen
+          loginContainer.style.transition = 'top 0.6s cubic-bezier(0.4, 0, 0.2, 1), left 0.6s cubic-bezier(0.4, 0, 0.2, 1), right 0.6s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.6s cubic-bezier(0.4, 0, 0.2, 1), padding 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+          loginContainer.style.top = '25px';
+          loginContainer.style.left = '25px';
+          loginContainer.style.right = '25px';
+          loginContainer.style.bottom = '25px';
+          loginContainer.style.borderRadius = '30px';
+          loginContainer.style.padding = '0';
+
+          // Step 3: After expansion, fade in the spinner + text
+          setTimeout(function () {
+            enteringContent.classList.add('entering-content--active');
+
+            // Demo: after 5 seconds, reverse everything
+            setTimeout(function () {
+              reverseEnteringSequence();
+            }, 5000);
+          }, 650);
+        }, 400);
+      }
+
+      function reverseEnteringSequence() {
+        // Fade out entering content
+        enteringContent.classList.remove('entering-content--active');
+
+        setTimeout(function () {
+          enteringContent.classList.remove('entering-content--visible');
+
+          // Shrink container back to centered box
+          // Calculate centered position for a 500px wide box
+          var boxWidth = 500;
+          var boxLeft = (window.innerWidth - boxWidth) / 2;
+          var boxRight = boxLeft;
+          // Approximate the original height — let the content define it after
+          var approxHeight = 450;
+          var boxTop = (window.innerHeight - approxHeight) / 2;
+          var boxBottom = boxTop;
+
+          loginContainer.style.top = boxTop + 'px';
+          loginContainer.style.left = boxLeft + 'px';
+          loginContainer.style.right = boxRight + 'px';
+          loginContainer.style.bottom = boxBottom + 'px';
+          loginContainer.style.borderRadius = '50px';
+          loginContainer.style.padding = '50px';
+
+          setTimeout(function () {
+            // Reset all inline styles to return to CSS-defined layout
+            loginContainer.style.cssText = '';
+
+            // Show login content again
+            fadeWrapper.style.display = 'flex';
+
+            // Force reflow before animating
+            void fadeWrapper.offsetHeight;
+
+            fadeWrapper.style.opacity = '1';
+            fadeWrapper.style.filter = 'blur(0px)';
+
+            isEntering = false;
+          }, 650);
+        }, 400);
+      }
+
+      // Check login fields to toggle button state
+      function checkLoginFields() {
+        var email = loginEmailInput.value.trim();
+        var password = loginPasswordInput.value.trim();
+        if (email.length > 0 && password.length > 0) {
+          loginBtn.classList.remove('login-btn--inactive');
+        } else {
+          loginBtn.classList.add('login-btn--inactive');
+        }
+      }
+
+      loginEmailInput.addEventListener('input', function () {
+        clearLoginError();
+        checkLoginFields();
+      });
+      loginPasswordInput.addEventListener('input', function () {
+        clearLoginError();
+        checkLoginFields();
       });
 
-      // Clear error when user starts typing again
+      loginBtn.addEventListener('click', function () {
+        if (loginBtn.classList.contains('login-btn--inactive')) return;
+        // Demo: always play entering sequence when button is active
+        startEnteringSequence();
+      });
+
+      // Clear error when user starts typing
       function clearLoginError() {
         loginError.classList.remove('login-error--visible');
       }
-
-      loginEmailInput.addEventListener('input', clearLoginError);
-      loginPasswordInput.addEventListener('input', clearLoginError);
 
       // --- Password strength ---
       var passwordInput = document.getElementById('password-input');
@@ -1120,6 +1293,15 @@
         // Demo: just show it works
       });
 
+      // Check recovery email to toggle next button
+      recoveryEmailInput.addEventListener('input', function () {
+        if (recoveryEmailInput.value.trim().length > 0) {
+          recoveryNextBtn.classList.remove('login-btn--inactive');
+        } else {
+          recoveryNextBtn.classList.add('login-btn--inactive');
+        }
+      });
+
       // Login → Recovery (email step)
       switchToRecovery.addEventListener('click', function (e) {
         e.preventDefault();
@@ -1130,6 +1312,7 @@
       switchBackToLogin.addEventListener('click', function (e) {
         e.preventDefault();
         recoveryEmailInput.value = '';
+        recoveryNextBtn.classList.add('login-btn--inactive');
         switchView(recoveryView, loginView, bgLogin, bgRecovery);
       });
 
@@ -1144,6 +1327,7 @@
 
       // Recovery email → Code step
       recoveryNextBtn.addEventListener('click', function () {
+        if (recoveryNextBtn.classList.contains('login-btn--inactive')) return;
         var email = recoveryEmailInput.value.trim();
         if (!email) return;
 
