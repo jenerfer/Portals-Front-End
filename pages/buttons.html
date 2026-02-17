@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buttons — Portals Style Guide</title>
+  <title>Buttons & Toggles — Portals Style Guide</title>
   <link rel="stylesheet" href="../styles.css">
   <script>
     (function(){var t=localStorage.getItem('portals-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
@@ -45,13 +45,13 @@
           <summary>Input & Selection</summary>
           <div class="sidebar-category__content">
             <div class="sidebar-category__inner">
-              <a href="buttons.html" class="sidebar-link sidebar-link--active">Buttons</a>
+              <a href="buttons.html" class="sidebar-link sidebar-link--active">Buttons & Toggles</a>
+              <a href="radio.html" class="sidebar-link">Radio & Checkmarks</a>
               <a href="dropdowns.html" class="sidebar-link">Dropdowns</a>
               <a href="#date-picker" class="sidebar-link">Date picker</a>
               <a href="#file-upload" class="sidebar-link">File upload</a>
               <a href="form-fields.html" class="sidebar-link">Form fields</a>
               <a href="#menu" class="sidebar-link">Menu</a>
-              <a href="radio.html" class="sidebar-link">Radio & Checkmarks</a>
               <a href="#segmented-control" class="sidebar-link">Segmented control</a>
               <a href="#slider" class="sidebar-link">Slider</a>
               <a href="#star-rating" class="sidebar-link">Star rating</a>
@@ -134,7 +134,7 @@
 
       <!-- Page Header -->
       <div class="page-header">
-        <h2 class="page-header__title">buttons</h2>
+        <h2 class="page-header__title">buttons & toggles</h2>
         <p class="page-header__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
       </div>
 
@@ -276,6 +276,38 @@
                 <label class="toggle-item">
                   <input type="checkbox" class="toggle" checked>
                   <span class="toggle-item__label">Cheese</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Boxed Toggle Selection -->
+        <div class="component-display">
+          <div class="component-display__label">Boxed Toggle Selection</div>
+          <div class="component-display__row">
+            <div class="component-display__column">
+              <div class="toggle-group">
+                <label class="toggle-boxed">
+                  <div class="radio-boxed__text">
+                    <div class="radio-boxed__title">Push Notifications</div>
+                    <div class="radio-boxed__description">Receive alerts directly to your device for important updates and messages.</div>
+                  </div>
+                  <input type="checkbox" class="toggle">
+                </label>
+                <label class="toggle-boxed">
+                  <div class="radio-boxed__text">
+                    <div class="radio-boxed__title">Email Digest</div>
+                    <div class="radio-boxed__description">Get a daily summary of activity and updates delivered to your inbox.</div>
+                  </div>
+                  <input type="checkbox" class="toggle" checked>
+                </label>
+                <label class="toggle-boxed">
+                  <div class="radio-boxed__text">
+                    <div class="radio-boxed__title">Sound Effects</div>
+                    <div class="radio-boxed__description">Play audio feedback for interactions and notifications within the app.</div>
+                  </div>
+                  <input type="checkbox" class="toggle">
                 </label>
               </div>
             </div>

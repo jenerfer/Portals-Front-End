@@ -684,13 +684,6 @@
           <input type="text" class="login-input" placeholder="enter email" autocomplete="email">
           <input type="password" class="login-input" id="password-input" placeholder="enter password" autocomplete="current-password">
 
-          <div class="password-strength" id="password-strength">
-            <div class="password-strength__track">
-              <div class="password-strength__fill" id="strength-fill"></div>
-            </div>
-            <div class="password-strength__text" id="strength-text"></div>
-          </div>
-
           <button type="submit" class="login-btn login-btn--inactive" id="login-btn">sign in</button>
           <p class="login-error" id="login-error">incorrect email or password, please try again</p>
         </form>
@@ -1182,42 +1175,6 @@
       function clearLoginError() {
         loginError.classList.remove('login-error--visible');
       }
-
-      // --- Password strength ---
-      var passwordInput = document.getElementById('password-input');
-      var strengthContainer = document.getElementById('password-strength');
-      var strengthFill = document.getElementById('strength-fill');
-      var strengthText = document.getElementById('strength-text');
-
-      function checkStrength(password) {
-        var score = 0;
-        if (password.length === 0) return { score: 0, label: '', width: 0 };
-        if (password.length >= 4) score++;
-        if (password.length >= 8) score++;
-        if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++;
-        if (/[0-9]/.test(password)) score++;
-        if (/[^a-zA-Z0-9]/.test(password)) score++;
-
-        if (score <= 1) return { score: 1, label: 'weak - use 8 or more characters with a mix of letters numbers and symbols', width: 17, color: 'var(--blue-4)' };
-        if (score === 2) return { score: 2, label: 'fair - try adding numbers or symbols', width: 40, color: 'var(--blue-3)' };
-        if (score === 3) return { score: 3, label: 'good - looking better', width: 65, color: 'var(--blue-2)' };
-        if (score >= 4) return { score: 4, label: 'strong - excellent password', width: 100, color: 'var(--blue-1)' };
-      }
-
-      passwordInput.addEventListener('input', function () {
-        var val = this.value;
-        if (val.length > 0) {
-          strengthContainer.classList.add('password-strength--visible');
-          var result = checkStrength(val);
-          strengthFill.style.width = result.width + '%';
-          strengthFill.style.backgroundColor = result.color || 'var(--blue-4)';
-          strengthText.textContent = result.label;
-        } else {
-          strengthContainer.classList.remove('password-strength--visible');
-          strengthFill.style.width = '0%';
-          strengthText.textContent = '';
-        }
-      });
 
       // --- Terms checkbox → register sign up button state ---
       var termsCheckbox = document.getElementById('terms-checkbox');

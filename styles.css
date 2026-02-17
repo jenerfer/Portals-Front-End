@@ -690,7 +690,7 @@ img, svg {
 }
 
 .style-guide__topbar-logo img {
-  width: 120px;
+  width: 110px;
   height: auto;
 }
 
@@ -1636,6 +1636,45 @@ img, svg {
 }
 
 
+/* --- Boxed Toggle Selection --- */
+.toggle-boxed {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border: 1.5px solid var(--border-default);
+  border-radius: 16px;
+  background-color: var(--surface-elevated);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+}
+
+.toggle-boxed:hover {
+  border-color: var(--border-hover);
+  background-color: var(--surface-primary);
+}
+
+/* Boxed toggle — selected state */
+.toggle-boxed:has(.toggle:checked) {
+  border-color: var(--blue-2);
+  background-color: var(--blue-5);
+  box-shadow: 0px 0px 0px 1px var(--blue-2);
+}
+
+.toggle-boxed:has(.toggle:checked):hover {
+  background-color: var(--blue-5);
+}
+
+.toggle-boxed:has(.toggle:checked) .radio-boxed__title {
+  color: var(--text-primary);
+}
+
+.toggle-boxed:has(.toggle:checked) .radio-boxed__description {
+  color: var(--text-secondary);
+}
+
+
 /* ===== Dropdown Filter ===== */
 
 .dropdown {
@@ -2370,6 +2409,7 @@ img, svg {
   .check-label__text,
   .toggle,
   .toggle::after,
+  .toggle-boxed,
   .toggle-item__label,
   .dropdown-trigger,
   .dropdown-trigger__text,
