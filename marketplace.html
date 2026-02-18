@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>marketplace — portals</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function(){var t=localStorage.getItem('portals-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
+  </script>
+  <style>
+
+    /* ===== Marketplace Layout ===== */
+
+    body {
+      overflow: hidden;
+    }
+
+    /* ---------- Top Navigation ---------- */
+
+    .marketplace-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background-color: var(--surface-elevated);
+      box-shadow: 0px 2px 20px 0px var(--shadow-elevation);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+    }
+
+    .marketplace-nav__inner {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 0 32px;
+    }
+
+    .marketplace-nav__logo {
+      flex-shrink: 0;
+    }
+
+    .marketplace-nav__logo img {
+      width: 110px;
+      height: auto;
+    }
+
+    [data-theme="dark"] .marketplace-nav__logo img {
+      filter: brightness(0) invert(1);
+    }
+
+    .marketplace-nav__links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .marketplace-nav__link {
+      color: var(--text-tertiary);
+      text-decoration: none;
+      text-transform: lowercase;
+      padding: 6px 16px;
+      border-radius: 999px;
+      transition: color 0.2s ease, background-color 0.2s ease;
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+
+    .marketplace-nav__link:hover {
+      color: var(--text-primary);
+      background-color: var(--surface-sunken);
+    }
+
+    .marketplace-nav__link--active {
+      color: var(--text-primary);
+      background-color: var(--accent-bg);
+      font-weight: 700;
+    }
+
+    .marketplace-nav__auth {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-left: auto;
+    }
+
+
+    /* ---------- Left Sidebar ---------- */
+
+    .marketplace-sidebar {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 240px;
+      height: calc(100vh - 64px);
+      background-color: var(--surface-elevated);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .marketplace-sidebar__profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 20px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .marketplace-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background-color: var(--ice-2);
+      border: 2px solid var(--border-default);
+      object-fit: cover;
+    }
+
+    .marketplace-username {
+      color: var(--text-primary);
+      text-transform: lowercase;
+      margin-top: 12px;
+      margin-bottom: 0;
+    }
+
+    .marketplace-sidebar__nav {
+      display: flex;
+      flex-direction: column;
+      padding: 12px 0;
+      flex: 1;
+    }
+
+    .marketplace-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      text-transform: lowercase;
+      transition: background-color 0.15s ease, color 0.15s ease;
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+
+    .marketplace-nav-item:hover {
+      color: var(--text-primary);
+    }
+
+    .marketplace-nav-item--active {
+      color: var(--accent-primary);
+      font-weight: 700;
+    }
+
+    .marketplace-nav-item__icon {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .marketplace-nav-item__icon img {
+      width: 22px;
+      height: 22px;
+      filter: brightness(0) saturate(100%) invert(52%) sepia(11%) saturate(822%) hue-rotate(176deg) brightness(95%) contrast(88%);
+    }
+
+    .marketplace-nav-item--active .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(54%) sepia(62%) saturate(497%) hue-rotate(168deg) brightness(95%) contrast(90%);
+    }
+
+    .marketplace-nav-item:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(14%) sepia(10%) saturate(747%) hue-rotate(176deg) brightness(95%) contrast(93%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(58%) sepia(11%) saturate(660%) hue-rotate(176deg) brightness(92%) contrast(87%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item--active .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(60%) sepia(45%) saturate(500%) hue-rotate(173deg) brightness(95%) contrast(92%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(88%) sepia(5%) saturate(350%) hue-rotate(176deg) brightness(100%) contrast(90%);
+    }
+
+    .marketplace-sidebar__currency {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .currency-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .currency-icon {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+
+    .currency-value {
+      color: var(--text-primary);
+      margin-bottom: 0;
+    }
+
+
+    /* ---------- Main Content ---------- */
+
+    .marketplace-main {
+      margin-left: 240px;
+      padding-top: 64px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .marketplace-main__inner {
+      padding: 40px 48px;
+    }
+
+    .marketplace-title {
+      color: var(--text-primary);
+      text-transform: lowercase;
+      margin-bottom: 24px;
+    }
+
+
+    /* ---------- Filters ---------- */
+
+    .marketplace-main .dropdown-filter-bar {
+      margin-bottom: 32px;
+    }
+
+
+    /* ---------- Game Grid ---------- */
+
+    .marketplace-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(192px, 1fr));
+      gap: 28px 24px;
+    }
+
+
+    /* ---------- Game Card ---------- */
+
+    .game-card {
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .game-card:hover {
+      transform: scale(1.03);
+    }
+
+    .game-card:hover .game-card__thumbnail {
+      box-shadow: 0px 8px 32px var(--shadow-elevation);
+    }
+
+    .game-card:active {
+      transform: scale(0.98);
+    }
+
+    .game-card__thumbnail {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background-color: var(--surface-sunken);
+      border-radius: 14px;
+      overflow: hidden;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .game-card__thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .game-card__info {
+      padding: 10px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .game-card__title {
+      color: var(--text-primary);
+      text-transform: lowercase;
+      margin: 0;
+    }
+
+    .game-card__creator {
+      color: var(--text-tertiary);
+      text-transform: lowercase;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .game-card__price {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 5px;
+    }
+
+    .game-card__price-icon {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+
+    .game-card__price-value {
+      background: linear-gradient(248.52deg, var(--accent-violet) 19.87%, #BFCE82 60.56%, #69B6EC 100.84%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0;
+    }
+
+
+    /* ---------- Theme Toggle Repositioned ---------- */
+
+    .theme-toggle {
+      left: 252px;
+    }
+
+
+    /* ---------- Responsive — Tablet (≤1024px) ---------- */
+
+    @media (max-width: 1024px) {
+      .marketplace-sidebar {
+        width: 72px;
+      }
+
+      .marketplace-sidebar__profile {
+        padding: 20px 12px 16px;
+      }
+
+      .marketplace-avatar {
+        width: 40px;
+        height: 40px;
+      }
+
+      .marketplace-username {
+        display: none;
+      }
+
+      .marketplace-nav-item {
+        justify-content: center;
+        padding: 12px;
+      }
+
+      .marketplace-nav-item__label {
+        display: none;
+      }
+
+      .marketplace-sidebar__currency {
+        padding: 12px;
+        justify-content: center;
+      }
+
+      .currency-value {
+        display: none;
+      }
+
+      .currency-icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .marketplace-main {
+        margin-left: 72px;
+      }
+
+      .marketplace-main__inner {
+        padding: 32px 32px;
+      }
+
+      .theme-toggle {
+        left: 84px;
+      }
+    }
+
+
+    /* ---------- Responsive — Mobile (≤768px) ---------- */
+
+    @media (max-width: 768px) {
+      .marketplace-sidebar {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 64px;
+        flex-direction: row;
+        border-right: none;
+        border-top: 1px solid var(--border-subtle);
+        z-index: 200;
+      }
+
+      .marketplace-sidebar__profile {
+        display: none;
+      }
+
+      .marketplace-sidebar__nav {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0;
+        width: 100%;
+      }
+
+      .marketplace-nav-item {
+        flex-direction: column;
+        padding: 8px 0;
+        gap: 4px;
+        font-size: 10px;
+      }
+
+      .marketplace-nav-item__label {
+        display: block;
+      }
+
+      .marketplace-sidebar__currency {
+        display: none;
+      }
+
+      .marketplace-main {
+        margin-left: 0;
+        padding-bottom: 64px;
+      }
+
+      .marketplace-main__inner {
+        padding: 24px 16px;
+      }
+
+      .marketplace-title {
+        font-size: 32px;
+        line-height: 36px;
+      }
+
+      .marketplace-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 20px 16px;
+      }
+
+      .marketplace-nav__links {
+        display: none;
+      }
+
+      .marketplace-nav__hamburger {
+        display: flex;
+      }
+
+      .theme-toggle {
+        left: 16px;
+        bottom: 80px;
+      }
+    }
+
+
+    /* ---------- Responsive — Small Mobile (≤480px) ---------- */
+
+    @media (max-width: 480px) {
+      .marketplace-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .marketplace-nav__auth {
+        gap: 8px;
+      }
+    }
+
+
+    /* ---------- Reduced Motion ---------- */
+
+    @media (prefers-reduced-motion: reduce) {
+      .game-card,
+      .game-card__thumbnail,
+      .filter-btn,
+      .marketplace-nav__link,
+      .marketplace-nav-item {
+        transition: none;
+      }
+
+      .game-card:hover {
+        transform: none;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ==================== Top Navigation ==================== -->
+  <nav class="marketplace-nav">
+    <div class="marketplace-nav__inner">
+      <a href="index.html" class="marketplace-nav__logo">
+        <img src="portals-logo.svg" alt="portals">
+      </a>
+
+      <div class="marketplace-nav__links">
+        <a href="#" class="marketplace-nav__link p1">play</a>
+        <a href="#" class="marketplace-nav__link marketplace-nav__link--active p1">marketplace</a>
+        <a href="#" class="marketplace-nav__link p1">create</a>
+        <a href="#" class="marketplace-nav__link p1">warps</a>
+      </div>
+
+      <div class="marketplace-nav__auth">
+        <a href="login.html#signup" class="btn btn-sm btn-primary">sign up</a>
+        <a href="login.html" class="btn btn-sm btn-secondary">log in</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ==================== Left Sidebar ==================== -->
+  <aside class="marketplace-sidebar">
+
+    <!-- Profile -->
+    <div class="marketplace-sidebar__profile">
+      <img src="profile-image.jpg" alt="user avatar" class="marketplace-avatar">
+      <p class="marketplace-username p1-bold">bus</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="marketplace-sidebar__nav">
+      <a href="#" class="marketplace-nav-item p1 marketplace-nav-item--active">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/home.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">home</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/profile.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">profile</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/messages.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">messages</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/friends.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">friends</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/avatar.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">avatar</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/inventory.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">inventory</span>
+      </a>
+    </nav>
+
+    <!-- Currency -->
+    <div class="marketplace-sidebar__currency">
+      <div class="currency-display">
+        <img src="warp.png" alt="warps" class="currency-icon">
+        <span class="currency-value p1-bold">42,600</span>
+      </div>
+    </div>
+
+  </aside>
+
+
+  <!-- ==================== Main Content ==================== -->
+  <main class="marketplace-main">
+    <div class="marketplace-main__inner">
+
+      <h1 class="marketplace-title h3-bold">marketplace</h1>
+
+      <!-- Filters -->
+      <div class="dropdown-filter-bar">
+
+        <!-- ===== Category Dropdown ===== -->
+        <div class="dropdown" id="dropdown-demo">
+          <button class="dropdown-trigger" id="dropdown-trigger">
+            <span class="dropdown-trigger__text">all</span>
+            <span class="dropdown-trigger__icon">
+              <span class="dropdown-trigger__icon-pill">
+                <svg class="dropdown-chevron" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <svg class="dropdown-close-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="dropdown-panel" id="dropdown-panel">
+            <div class="dropdown-panel__header">
+              <span class="dropdown-panel__title">category</span>
+              <button class="dropdown-panel__close" id="dropdown-close">
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+            <div class="dropdown-item" data-category="all">
+              <span class="dropdown-item__text">all</span>
+              <span class="dropdown-radio dropdown-radio--selected"></span>
+            </div>
+            <div class="dropdown-item" data-category="body" data-has-children="true">
+              <span class="dropdown-item__text">body</span>
+              <span class="dropdown-radio"></span>
+            </div>
+            <div class="dropdown-subcategory" data-parent="body">
+              <div class="dropdown-subcategory__parent">
+                <span class="dropdown-subcategory__parent-text">body</span>
+                <span class="dropdown-radio"></span>
+              </div>
+              <div class="dropdown-subcategory__children">
+                <div class="dropdown-subcategory__item" data-child="full body items">
+                  <span class="dropdown-subcategory__text">full body items</span>
+                  <span class="dropdown-radio"></span>
+                </div>
+                <div class="dropdown-subcategory__item" data-child="hair">
+                  <span class="dropdown-subcategory__text">hair</span>
+                  <span class="dropdown-radio"></span>
+                </div>
+                <div class="dropdown-subcategory__item" data-child="heads">
+                  <span class="dropdown-subcategory__text">heads</span>
+                  <span class="dropdown-radio"></span>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown-item" data-category="clothing" data-has-children="true">
+              <span class="dropdown-item__text">clothing</span>
+              <span class="dropdown-radio"></span>
+            </div>
+            <div class="dropdown-subcategory" data-parent="clothing">
+              <div class="dropdown-subcategory__parent">
+                <span class="dropdown-subcategory__parent-text">clothing</span>
+                <span class="dropdown-radio"></span>
+              </div>
+              <div class="dropdown-subcategory__children">
+                <div class="dropdown-subcategory__item" data-child="tops">
+                  <span class="dropdown-subcategory__text">tops</span>
+                  <span class="dropdown-radio"></span>
+                </div>
+                <div class="dropdown-subcategory__item" data-child="bottoms">
+                  <span class="dropdown-subcategory__text">bottoms</span>
+                  <span class="dropdown-radio"></span>
+                </div>
+                <div class="dropdown-subcategory__item" data-child="shoes">
+                  <span class="dropdown-subcategory__text">shoes</span>
+                  <span class="dropdown-radio"></span>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown-item" data-category="accessories" data-has-children="true">
+              <span class="dropdown-item__text">accessories</span>
+              <span class="dropdown-radio"></span>
+            </div>
+            <div class="dropdown-subcategory" data-parent="accessories">
+              <div class="dropdown-subcategory__parent">
+                <span class="dropdown-subcategory__parent-text">accessories</span>
+                <span class="dropdown-radio"></span>
+              </div>
+              <div class="dropdown-subcategory__children">
+                <div class="dropdown-subcategory__item" data-child="back">
+                  <span class="dropdown-subcategory__text">back</span>
+                  <span class="dropdown-radio"></span>
+                </div>
+                <div class="dropdown-subcategory__item" data-child="waist">
+                  <span class="dropdown-subcategory__text">waist</span>
+                  <span class="dropdown-radio"></span>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown-item" data-category="animations">
+              <span class="dropdown-item__text">animations</span>
+              <span class="dropdown-radio"></span>
+            </div>
+            <button class="dropdown-apply dropdown-apply--inactive" id="dropdown-apply">Apply</button>
+          </div>
+        </div>
+
+        <!-- ===== Creator Search Dropdown ===== -->
+        <div class="dropdown" id="dropdown-search">
+          <button class="dropdown-trigger" id="search-trigger">
+            <span class="dropdown-trigger__text">all creators</span>
+            <span class="dropdown-trigger__icon">
+              <span class="dropdown-trigger__icon-pill">
+                <svg class="dropdown-chevron" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <svg class="dropdown-close-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="dropdown-panel" id="search-panel">
+            <div class="dropdown-panel__header">
+              <span class="dropdown-panel__title">creator</span>
+              <button class="dropdown-panel__close" id="search-close">
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+            <input type="text" class="dropdown-search-input" id="search-input" placeholder="search for a creator">
+            <button class="dropdown-apply dropdown-apply--inactive" id="search-apply">Apply</button>
+          </div>
+        </div>
+
+        <!-- ===== Price Dropdown ===== -->
+        <div class="dropdown" id="dropdown-price">
+          <button class="dropdown-trigger" id="price-trigger">
+            <span class="dropdown-trigger__text">any price</span>
+            <span class="dropdown-trigger__icon">
+              <span class="dropdown-trigger__icon-pill">
+                <svg class="dropdown-chevron" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <svg class="dropdown-close-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="dropdown-panel dropdown-panel--wide" id="price-panel">
+            <div class="dropdown-panel__header">
+              <span class="dropdown-panel__title">price</span>
+              <button class="dropdown-panel__close" id="price-close">
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+            <div class="dropdown-price-item" id="price-any">
+              <span class="dropdown-price-item__text">any price</span>
+              <span class="dropdown-radio dropdown-radio--selected" id="price-any-radio"></span>
+            </div>
+            <div class="dropdown-price-row">
+              <div class="dropdown-price-field">
+                <input type="text" inputmode="numeric" class="dropdown-price-input" id="price-min" placeholder="min">
+                <span class="dropdown-price-token">
+                  <img src="coin.png" alt="" width="22" height="23">
+                </span>
+              </div>
+              <div class="dropdown-price-field">
+                <input type="text" inputmode="numeric" class="dropdown-price-input" id="price-max" placeholder="max">
+                <span class="dropdown-price-token">
+                  <img src="coin.png" alt="" width="22" height="23">
+                </span>
+              </div>
+              <span class="dropdown-radio" id="price-range-radio"></span>
+            </div>
+            <button class="dropdown-apply dropdown-apply--inactive" id="price-apply">Apply</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Game Grid -->
+      <div class="marketplace-grid">
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-01.png" alt="sapphire pickaxe"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">sapphire pickaxe</h3>
+            <p class="game-card__creator p3">by portals</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">950</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-02.png" alt="crystal gardens"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">crystal gardens</h3>
+            <p class="game-card__creator p3">by portals</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">1,200</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-03.png" alt="neon raceway"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">neon raceway</h3>
+            <p class="game-card__creator p3">by user123</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">350</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-04.png" alt="portal quest"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">portal quest</h3>
+            <p class="game-card__creator p3">by portals</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">1,800</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-05.png" alt="skyline builders"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">skyline builders</h3>
+            <p class="game-card__creator p3">by gamedev</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">75</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-06.png" alt="mystic forest"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">mystic forest</h3>
+            <p class="game-card__creator p3">by portals</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">500</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-07.png" alt="arctic expedition"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">arctic expedition</h3>
+            <p class="game-card__creator p3">by creator</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">120</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-08.png" alt="cosmic drift"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">cosmic drift</h3>
+            <p class="game-card__creator p3">by portals</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">2,000</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-09.png" alt="treasure hunt"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">treasure hunt</h3>
+            <p class="game-card__creator p3">by user123</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">45</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/image-10.png" alt="pixel paradise"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">pixel paradise</h3>
+            <p class="game-card__creator p3">by portals</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">800</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/image-11.png" alt="shadow realm"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">shadow realm</h3>
+            <p class="game-card__creator p3">by gamedev</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">250</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/image-12.png" alt="ocean depths"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">ocean depths</h3>
+            <p class="game-card__creator p3">by portals</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">1,500</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/image-13.png" alt="desert storm"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">desert storm</h3>
+            <p class="game-card__creator p3">by creator</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">10</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/image-14.png" alt="jungle adventure"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">jungle adventure</h3>
+            <p class="game-card__creator p3">by portals</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">675</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/image-15.png" alt="robot uprising"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">robot uprising</h3>
+            <p class="game-card__creator p3">by user123</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">420</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-01.png" alt="magic academy"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">magic academy</h3>
+            <p class="game-card__creator p3">by portals</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">1,100</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-02.png" alt="space station"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">space station</h3>
+            <p class="game-card__creator p3">by gamedev</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">1,950</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-03.png" alt="ancient ruins"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">ancient ruins</h3>
+            <p class="game-card__creator p3">by portals</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">300</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-04.png" alt="cyber city"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">cyber city</h3>
+            <p class="game-card__creator p3">by creator</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">85</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-05.png" alt="dragon valley"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">dragon valley</h3>
+            <p class="game-card__creator p3">by portals</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">1,400</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-06.png" alt="candy world"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">candy world</h3>
+            <p class="game-card__creator p3">by user123</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">55</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-07.png" alt="ghost town"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">ghost town</h3>
+            <p class="game-card__creator p3">by portals</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">200</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-08.png" alt="volcano island"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">volcano island</h3>
+            <p class="game-card__creator p3">by gamedev</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">750</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/item-09.png" alt="ice kingdom"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">ice kingdom</h3>
+            <p class="game-card__creator p3">by portals</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">1,650</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card">
+          <div class="game-card__thumbnail"><img src="assets/marketplace/image-10.png" alt="rainbow road"></div>
+          <div class="game-card__info">
+            <h3 class="game-card__title p1">rainbow road</h3>
+            <p class="game-card__creator p3">by creator</p>
+            <div class="game-card__price">
+              <img src="warp.png" alt="warps" class="game-card__price-icon">
+              <span class="game-card__price-value p2-bold">400</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </main>
+
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" aria-label="Toggle dark mode">
+    <span class="theme-toggle__icon theme-toggle__sun">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.0128 18.0323C14.8858 18.0323 18.0255 14.8926 18.0255 11.0196C18.0255 7.14655 14.8858 4.00684 11.0128 4.00684C7.13972 4.00684 4 7.14655 4 11.0196C4 14.8926 7.13972 18.0323 11.0128 18.0323Z" fill="currentColor"/>
+        <path d="M11.02 22C10.469 22 10.0182 21.5893 10.0182 21.0383V20.9581C10.0182 20.4071 10.469 19.9563 11.02 19.9563C11.571 19.9563 12.0219 20.4071 12.0219 20.9581C12.0219 21.5091 11.571 22 11.02 22ZM18.173 19.1749C17.9126 19.1749 17.6621 19.0747 17.4617 18.8843L17.3315 18.7541C16.9408 18.3634 16.9408 17.7322 17.3315 17.3415C17.7222 16.9508 18.3534 16.9508 18.7441 17.3415L18.8743 17.4718C19.265 17.8625 19.265 18.4936 18.8743 18.8843C18.684 19.0747 18.4335 19.1749 18.173 19.1749ZM3.86703 19.1749C3.60656 19.1749 3.3561 19.0747 3.15574 18.8843C2.76503 18.4936 2.76503 17.8625 3.15574 17.4718L3.28597 17.3415C3.67669 16.9508 4.30783 16.9508 4.69854 17.3415C5.08925 17.7322 5.08925 18.3634 4.69854 18.7541L4.56831 18.8843C4.37796 19.0747 4.11749 19.1749 3.86703 19.1749ZM21.0383 12.0219H20.9581C20.4071 12.0219 19.9563 11.571 19.9563 11.02C19.9563 10.469 20.4071 10.0182 20.9581 10.0182C21.5091 10.0182 22 10.469 22 11.02C22 11.571 21.5893 12.0219 21.0383 12.0219ZM1.08197 12.0219H1.00182C0.45082 12.0219 0 11.571 0 11.02C0 10.469 0.45082 10.0182 1.00182 10.0182C1.55282 10.0182 2.04372 10.469 2.04372 11.02C2.04372 11.571 1.63297 12.0219 1.08197 12.0219ZM18.0428 4.99909C17.7823 4.99909 17.5319 4.89891 17.3315 4.70856C16.9408 4.31785 16.9408 3.6867 17.3315 3.29599L17.4617 3.16576C17.8525 2.77505 18.4836 2.77505 18.8743 3.16576C19.265 3.55647 19.265 4.18761 18.8743 4.57832L18.7441 4.70856C18.5537 4.89891 18.3033 4.99909 18.0428 4.99909ZM3.99727 4.99909C3.73679 4.99909 3.48634 4.89891 3.28597 4.70856L3.15574 4.56831C2.76503 4.1776 2.76503 3.54645 3.15574 3.15574C3.54645 2.76503 4.1776 2.76503 4.56831 3.15574L4.69854 3.28597C5.08925 3.67669 5.08925 4.30783 4.69854 4.69854C4.5082 4.89891 4.24772 4.99909 3.99727 4.99909ZM11.02 2.04372C10.469 2.04372 10.0182 1.63297 10.0182 1.08197V1.00182C10.0182 0.45082 10.469 0 11.02 0C11.571 0 12.0219 0.45082 12.0219 1.00182C12.0219 1.55282 11.571 2.04372 11.02 2.04372Z" fill="currentColor"/>
+      </svg>
+    </span>
+    <span class="theme-toggle__icon theme-toggle__moon">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.8215 15.3305C21.6399 15.0333 21.1291 14.5711 19.8577 14.7912C19.154 14.9122 18.4389 14.9673 17.7237 14.9342C15.0789 14.8242 12.6838 13.6466 11.0152 11.8306C9.53956 10.2348 8.63146 8.15465 8.62011 5.90946C8.62011 4.65479 8.86984 3.44415 9.38064 2.29954C9.88009 1.18795 9.5282 0.604643 9.27848 0.362515C9.0174 0.10938 8.40444 -0.242806 7.20122 0.241451C2.5586 2.13446 -0.313242 6.64685 0.0272929 11.4784C0.367827 16.0238 3.65966 19.9089 8.0185 21.3727C9.06281 21.7249 10.1639 21.934 11.299 21.978C11.4806 21.989 11.6622 22 11.8438 22C15.6465 22 19.2107 20.2611 21.4583 17.3005C22.2188 16.277 22.0145 15.6276 21.8215 15.3305Z" fill="currentColor"/>
+      </svg>
+    </span>
+  </button>
+
+  <script src="sidebar.js"></script>
+  <script>
+    // Shared registry — only one dropdown open at a time
+    var dropdownClosers = [];
+    function registerDropdown(closeFn) { dropdownClosers.push(closeFn); }
+    function closeAllDropdowns() { dropdownClosers.forEach(function (fn) { fn(); }); }
+
+    // ===== Category Dropdown =====
+    (function () {
+      var dropdown = document.getElementById('dropdown-demo');
+      var trigger = document.getElementById('dropdown-trigger');
+      var panel = document.getElementById('dropdown-panel');
+      var closeBtn = document.getElementById('dropdown-close');
+      var applyBtn = document.getElementById('dropdown-apply');
+      var triggerText = trigger.querySelector('.dropdown-trigger__text');
+      var chevronPill = trigger.querySelector('.dropdown-trigger__icon-pill');
+      var closeIcon = trigger.querySelector('.dropdown-close-icon');
+
+      var isOpen = false;
+      var selectedParent = null;
+      var selectedChildren = [];
+      var isAllSelected = true;
+
+      function openPanel() {
+        closeAllDropdowns();
+        isOpen = true;
+        panel.classList.add('dropdown-panel--open');
+        trigger.classList.add('dropdown-trigger--open');
+      }
+
+      function closePanel() {
+        isOpen = false;
+        panel.classList.remove('dropdown-panel--open');
+        trigger.classList.remove('dropdown-trigger--open');
+      }
+
+      registerDropdown(closePanel);
+
+      function collapseAllSubcategories() {
+        var subs = panel.querySelectorAll('.dropdown-subcategory');
+        subs.forEach(function (sub) { sub.classList.remove('dropdown-subcategory--open'); });
+        var items = panel.querySelectorAll('.dropdown-item');
+        items.forEach(function (item) {
+          item.classList.remove('dropdown-item--parent-selected');
+          item.classList.remove('dropdown-item--hidden');
+        });
+      }
+
+      function deselectAllRadios() {
+        var radios = panel.querySelectorAll('.dropdown-radio');
+        radios.forEach(function (r) { r.classList.remove('dropdown-radio--selected'); });
+      }
+
+      function selectAll() {
+        isAllSelected = true;
+        selectedParent = null;
+        selectedChildren = [];
+        deselectAllRadios();
+        collapseAllSubcategories();
+        var allItem = panel.querySelector('[data-category="all"]');
+        if (allItem) allItem.querySelector('.dropdown-radio').classList.add('dropdown-radio--selected');
+        applyBtn.classList.add('dropdown-apply--inactive');
+      }
+
+      function updateApplyButton() {
+        if (isAllSelected) { applyBtn.classList.add('dropdown-apply--inactive'); }
+        else { applyBtn.classList.remove('dropdown-apply--inactive'); }
+      }
+
+      function setSelectedState(name) {
+        trigger.classList.remove('dropdown-trigger--open');
+        trigger.classList.add('dropdown-trigger--selected');
+        triggerText.textContent = name;
+        chevronPill.style.display = 'none';
+        closeIcon.style.display = 'block';
+      }
+
+      function resetToDefault() {
+        trigger.classList.remove('dropdown-trigger--selected');
+        trigger.classList.remove('dropdown-trigger--open');
+        triggerText.textContent = 'all';
+        chevronPill.style.display = 'inline-flex';
+        closeIcon.style.display = 'none';
+        selectAll();
+        closePanel();
+      }
+
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (trigger.classList.contains('dropdown-trigger--selected')) { resetToDefault(); return; }
+        if (isOpen) { closePanel(); } else { openPanel(); }
+      });
+
+      closeBtn.addEventListener('click', function (e) { e.stopPropagation(); closePanel(); });
+
+      var allItem = panel.querySelector('[data-category="all"]');
+      allItem.addEventListener('click', function (e) { e.stopPropagation(); selectAll(); });
+
+      var parentItems = panel.querySelectorAll('.dropdown-item[data-category]:not([data-category="all"])');
+      parentItems.forEach(function (item) {
+        item.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var category = item.getAttribute('data-category');
+          var hasChildren = item.getAttribute('data-has-children') === 'true';
+          isAllSelected = false;
+          var allRadio = panel.querySelector('[data-category="all"] .dropdown-radio');
+          if (allRadio) allRadio.classList.remove('dropdown-radio--selected');
+          collapseAllSubcategories();
+          parentItems.forEach(function (pi) { pi.querySelector('.dropdown-radio').classList.remove('dropdown-radio--selected'); });
+          if (hasChildren) {
+            var sub = panel.querySelector('.dropdown-subcategory[data-parent="' + category + '"]');
+            if (sub) {
+              sub.classList.add('dropdown-subcategory--open');
+              item.classList.add('dropdown-item--parent-selected');
+              item.classList.add('dropdown-item--hidden');
+              var subParentRadio = sub.querySelector('.dropdown-subcategory__parent .dropdown-radio');
+              if (subParentRadio) subParentRadio.classList.add('dropdown-radio--selected');
+            }
+            selectedParent = category;
+            selectedChildren = [];
+            var childRadios = panel.querySelectorAll('.dropdown-subcategory__item .dropdown-radio');
+            childRadios.forEach(function (r) { r.classList.remove('dropdown-radio--selected'); });
+          } else {
+            item.querySelector('.dropdown-radio').classList.add('dropdown-radio--selected');
+            selectedParent = category;
+            selectedChildren = [];
+          }
+          updateApplyButton();
+        });
+      });
+
+      var subParents = panel.querySelectorAll('.dropdown-subcategory__parent');
+      subParents.forEach(function (subParent) {
+        subParent.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var radio = subParent.querySelector('.dropdown-radio');
+          var isSelected = radio.classList.contains('dropdown-radio--selected');
+          var parentSub = subParent.closest('.dropdown-subcategory');
+          var childRadios = parentSub.querySelectorAll('.dropdown-subcategory__item .dropdown-radio');
+          childRadios.forEach(function (r) { r.classList.remove('dropdown-radio--selected'); });
+          selectedChildren = [];
+          if (isSelected) { radio.classList.remove('dropdown-radio--selected'); }
+          else { radio.classList.add('dropdown-radio--selected'); }
+          updateApplyButton();
+        });
+      });
+
+      var childItems = panel.querySelectorAll('.dropdown-subcategory__item');
+      childItems.forEach(function (child) {
+        child.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var radio = child.querySelector('.dropdown-radio');
+          var childName = child.getAttribute('data-child');
+          var isSelected = radio.classList.contains('dropdown-radio--selected');
+          var parentSub = child.closest('.dropdown-subcategory');
+          var siblingRadios = parentSub.querySelectorAll('.dropdown-subcategory__item .dropdown-radio');
+          siblingRadios.forEach(function (r) { r.classList.remove('dropdown-radio--selected'); });
+          selectedChildren = [];
+          if (!isSelected) {
+            radio.classList.add('dropdown-radio--selected');
+            selectedChildren = [childName];
+            var subParentRadio = parentSub.querySelector('.dropdown-subcategory__parent .dropdown-radio');
+            if (subParentRadio) subParentRadio.classList.remove('dropdown-radio--selected');
+          }
+          isAllSelected = false;
+          updateApplyButton();
+        });
+      });
+
+      applyBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (applyBtn.classList.contains('dropdown-apply--inactive')) return;
+        var displayName = '';
+        if (selectedChildren.length > 0) { displayName = selectedChildren[selectedChildren.length - 1]; }
+        else if (selectedParent) { displayName = selectedParent; }
+        if (displayName) { setSelectedState(displayName); }
+        closePanel();
+      });
+
+      document.addEventListener('click', function (e) {
+        if (isOpen && !dropdown.contains(e.target)) { closePanel(); }
+      });
+    })();
+
+    // ===== Creator Search Dropdown =====
+    (function () {
+      var dropdown = document.getElementById('dropdown-search');
+      var trigger = document.getElementById('search-trigger');
+      var panel = document.getElementById('search-panel');
+      var closeBtn = document.getElementById('search-close');
+      var applyBtn = document.getElementById('search-apply');
+      var searchInput = document.getElementById('search-input');
+      var triggerText = trigger.querySelector('.dropdown-trigger__text');
+      var chevronPill = trigger.querySelector('.dropdown-trigger__icon-pill');
+      var closeIcon = trigger.querySelector('.dropdown-close-icon');
+
+      var isOpen = false;
+
+      function openPanel() {
+        closeAllDropdowns();
+        isOpen = true;
+        panel.classList.add('dropdown-panel--open');
+        trigger.classList.add('dropdown-trigger--open');
+        searchInput.focus();
+      }
+
+      function closePanel() {
+        isOpen = false;
+        panel.classList.remove('dropdown-panel--open');
+        trigger.classList.remove('dropdown-trigger--open');
+      }
+
+      registerDropdown(closePanel);
+
+      function setSelectedState(name) {
+        trigger.classList.remove('dropdown-trigger--open');
+        trigger.classList.add('dropdown-trigger--selected');
+        triggerText.textContent = 'by \u201C' + name + '\u201D';
+        chevronPill.style.display = 'none';
+        closeIcon.style.display = 'block';
+      }
+
+      function resetToDefault() {
+        trigger.classList.remove('dropdown-trigger--selected');
+        trigger.classList.remove('dropdown-trigger--open');
+        triggerText.textContent = 'all creators';
+        chevronPill.style.display = 'inline-flex';
+        closeIcon.style.display = 'none';
+        searchInput.value = '';
+        applyBtn.classList.add('dropdown-apply--inactive');
+        closePanel();
+      }
+
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (trigger.classList.contains('dropdown-trigger--selected')) { resetToDefault(); return; }
+        if (isOpen) { closePanel(); } else { openPanel(); }
+      });
+
+      closeBtn.addEventListener('click', function (e) { e.stopPropagation(); closePanel(); });
+
+      searchInput.addEventListener('input', function () {
+        if (searchInput.value.trim().length > 0) { applyBtn.classList.remove('dropdown-apply--inactive'); }
+        else { applyBtn.classList.add('dropdown-apply--inactive'); }
+      });
+
+      searchInput.addEventListener('click', function (e) { e.stopPropagation(); });
+
+      applyBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (applyBtn.classList.contains('dropdown-apply--inactive')) return;
+        var value = searchInput.value.trim();
+        if (value) { setSelectedState(value); }
+        closePanel();
+      });
+
+      document.addEventListener('click', function (e) {
+        if (isOpen && !dropdown.contains(e.target)) { closePanel(); }
+      });
+    })();
+
+    // ===== Price Dropdown =====
+    (function () {
+      var dropdown = document.getElementById('dropdown-price');
+      var trigger = document.getElementById('price-trigger');
+      var panel = document.getElementById('price-panel');
+      var closeBtn = document.getElementById('price-close');
+      var applyBtn = document.getElementById('price-apply');
+      var triggerText = trigger.querySelector('.dropdown-trigger__text');
+      var chevronPill = trigger.querySelector('.dropdown-trigger__icon-pill');
+      var closeIcon = trigger.querySelector('.dropdown-close-icon');
+
+      var priceAny = document.getElementById('price-any');
+      var priceAnyRadio = document.getElementById('price-any-radio');
+      var priceRangeRadio = document.getElementById('price-range-radio');
+      var priceMin = document.getElementById('price-min');
+      var priceMax = document.getElementById('price-max');
+
+      var isOpen = false;
+      var isAnyPrice = true;
+
+      function openPanel() {
+        closeAllDropdowns();
+        isOpen = true;
+        panel.classList.add('dropdown-panel--open');
+        trigger.classList.add('dropdown-trigger--open');
+      }
+
+      function closePanel() {
+        isOpen = false;
+        panel.classList.remove('dropdown-panel--open');
+        trigger.classList.remove('dropdown-trigger--open');
+        if (isAnyPrice) { priceMin.value = ''; priceMax.value = ''; }
+      }
+
+      registerDropdown(closePanel);
+
+      function selectAnyPrice() {
+        isAnyPrice = true;
+        priceAnyRadio.classList.add('dropdown-radio--selected');
+        priceRangeRadio.classList.remove('dropdown-radio--selected');
+        applyBtn.classList.add('dropdown-apply--inactive');
+      }
+
+      function selectRange() {
+        isAnyPrice = false;
+        priceAnyRadio.classList.remove('dropdown-radio--selected');
+        priceRangeRadio.classList.add('dropdown-radio--selected');
+      }
+
+      function updateApplyFromInputs() {
+        var minVal = priceMin.value.trim();
+        var maxVal = priceMax.value.trim();
+        if (minVal.length > 0 || maxVal.length > 0) {
+          selectRange();
+          applyBtn.classList.remove('dropdown-apply--inactive');
+        } else {
+          if (!isAnyPrice) { applyBtn.classList.add('dropdown-apply--inactive'); }
+        }
+      }
+
+      function setSelectedState(display) {
+        trigger.classList.remove('dropdown-trigger--open');
+        trigger.classList.add('dropdown-trigger--selected');
+        triggerText.textContent = display;
+        chevronPill.style.display = 'none';
+        closeIcon.style.display = 'block';
+      }
+
+      function resetToDefault() {
+        trigger.classList.remove('dropdown-trigger--selected');
+        trigger.classList.remove('dropdown-trigger--open');
+        triggerText.textContent = 'any price';
+        chevronPill.style.display = 'inline-flex';
+        closeIcon.style.display = 'none';
+        priceMin.value = '';
+        priceMax.value = '';
+        selectAnyPrice();
+        closePanel();
+      }
+
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (trigger.classList.contains('dropdown-trigger--selected')) { resetToDefault(); return; }
+        if (isOpen) { closePanel(); } else { openPanel(); }
+      });
+
+      closeBtn.addEventListener('click', function (e) { e.stopPropagation(); closePanel(); });
+
+      priceAny.addEventListener('click', function (e) { e.stopPropagation(); selectAnyPrice(); });
+
+      priceMin.addEventListener('input', updateApplyFromInputs);
+      priceMax.addEventListener('input', updateApplyFromInputs);
+      priceMin.addEventListener('click', function (e) { e.stopPropagation(); });
+      priceMax.addEventListener('click', function (e) { e.stopPropagation(); });
+
+      applyBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (applyBtn.classList.contains('dropdown-apply--inactive')) return;
+        var minVal = priceMin.value.trim();
+        var maxVal = priceMax.value.trim();
+        if (minVal && maxVal) { setSelectedState(minVal + '-' + maxVal); }
+        else if (minVal) { setSelectedState(minVal + '+'); }
+        else if (maxVal) { setSelectedState('0-' + maxVal); }
+        closePanel();
+      });
+
+      document.addEventListener('click', function (e) {
+        if (isOpen && !dropdown.contains(e.target)) { closePanel(); }
+      });
+    })();
+  </script>
+</body>
+</html>

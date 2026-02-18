@@ -19,7 +19,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: var(--ice-8);
+      background-color: var(--ice-13);
       overflow: hidden;
     }
 
@@ -191,7 +191,7 @@
 
     .login-input:focus {
       background: rgba(0, 0, 0, 0.3);
-      border-color: var(--blue-3);
+      border-color: var(--border-focus);
       color: var(--ice-1);
     }
 
@@ -229,7 +229,7 @@
     .password-strength__fill {
       height: 100%;
       border-radius: 46px;
-      background-color: var(--blue-4);
+      background-color: var(--progress-fill);
       width: 0%;
       transition: width 0.4s ease, background-color 0.4s ease;
     }
@@ -251,13 +251,13 @@
       padding: 20px 35px;
       border-radius: 999px;
       border: none;
-      background-color: var(--blue-3);
+      background-color: var(--bg-btn-accent);
       font-family: 'Agrandir Wide', sans-serif;
       font-size: 20px;
       line-height: 23px;
       font-weight: 700;
       letter-spacing: -0.5px;
-      color: var(--ice-8);
+      color: var(--ice-13);
       cursor: pointer;
       transition: background-color 0.2s ease, opacity 0.2s ease;
       margin-top: 19px;
@@ -265,7 +265,7 @@
     }
 
     .login-btn:hover {
-      background-color: var(--blue-2);
+      background-color: var(--bg-btn-accent-hover);
     }
 
     .login-btn--inactive {
@@ -274,7 +274,7 @@
     }
 
     .login-btn--inactive:hover {
-      background-color: var(--blue-3);
+      background-color: var(--bg-btn-accent);
     }
 
     /* Terms checkbox row */
@@ -302,7 +302,7 @@
     }
 
     .terms-checkbox:checked {
-      background: var(--blue-3);
+      background: var(--bg-checked);
     }
 
     .terms-checkbox:checked::after {
@@ -313,7 +313,7 @@
       transform: translate(-50%, -60%) rotate(45deg);
       width: 6px;
       height: 11px;
-      border: solid var(--ice-8);
+      border: solid var(--ice-13);
       border-width: 0 2px 2px 0;
     }
 
@@ -546,7 +546,7 @@
       text-align: center;
       outline: none;
       transition: background-color 0.2s ease, border-color 0.2s ease;
-      caret-color: var(--blue-3);
+      caret-color: var(--caret-accent);
     }
 
     .code-box::placeholder {
@@ -559,7 +559,7 @@
 
     .code-box:focus {
       background: rgba(0, 0, 0, 0.3);
-      border-color: var(--blue-3);
+      border-color: var(--border-focus);
     }
 
     .code-box--filled {
@@ -641,7 +641,7 @@
       width: 36px;
       height: 36px;
       border: 3px solid rgba(255, 255, 255, 0.15);
-      border-top-color: var(--blue-3);
+      border-top-color: var(--spinner-accent);
       border-radius: 50%;
       animation: entering-spin 0.9s linear infinite;
     }
@@ -717,7 +717,7 @@
               <span class="register-btn__icon">
                 <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M22.167 5.833H5.833A2.333 2.333 0 003.5 8.167v11.666a2.333 2.333 0 002.333 2.334h16.334a2.333 2.333 0 002.333-2.334V8.167a2.333 2.333 0 00-2.333-2.334z" fill="var(--ice-2)"/>
-                  <path d="M24.5 8.167l-10.5 7-10.5-7" stroke="var(--ice-8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                  <path d="M24.5 8.167l-10.5 7-10.5-7" stroke="var(--ice-13)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                 </svg>
               </span>
               <span class="register-btn__text">sign up with email</span>
@@ -927,6 +927,11 @@
         switchView(loginView, registerView, bgRegister, bgLogin);
       });
 
+      // Auto-switch to sign up if URL hash is #signup
+      if (window.location.hash === '#signup') {
+        switchView(loginView, registerView, bgRegister, bgLogin);
+      }
+
       switchToLogin.addEventListener('click', function (e) {
         e.preventDefault();
         // Reset register to methods view before switching away
@@ -1033,7 +1038,7 @@
           registerStrengthContainer.classList.add('password-strength--visible');
           var result = checkStrength(val);
           registerStrengthFill.style.width = result.width + '%';
-          registerStrengthFill.style.backgroundColor = result.color || 'var(--blue-4)';
+          registerStrengthFill.style.backgroundColor = result.color || 'var(--progress-fill)';
           registerStrengthText.textContent = result.label;
         } else {
           registerStrengthContainer.classList.remove('password-strength--visible');
