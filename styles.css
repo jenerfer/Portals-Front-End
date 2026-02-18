@@ -34,11 +34,10 @@ img, svg {
 
 :root {
   /* Blues */
-  --blue-1: #3496DC;
-  --blue-2: #6AC1FF;
-  --blue-3: #9FD7FF;
-  --blue-4: #BFE4FF;
-  --blue-5: #DFF2FF;
+  --blue-1: #6AC1FF;
+  --blue-2: #9FD7FF;
+  --blue-3: #BFE4FF;
+  --blue-4: #DFF2FF;
 
   /* Violet */
   --violet-1: #AB9EF5;
@@ -104,40 +103,45 @@ img, svg {
 
   /* Accent — Blues */
   --accent-primary:     var(--blue-1);
-  --accent-bg:          var(--blue-5);
-  --accent-btn:         var(--blue-3);
-  --accent-btn-hover:   var(--blue-4);
-  --accent-heading:     var(--blue-2);
-  --accent-heading-alt: var(--blue-3);
-  --accent-focus:       var(--blue-5);
+  --accent-bg:          var(--blue-4);
+  --accent-btn:         var(--blue-2);
+  --accent-btn-hover:   var(--blue-3);
+  --accent-heading:     var(--blue-1);
+  --accent-heading-alt: var(--blue-2);
+  --accent-focus:       var(--blue-4);
 
   /* Accent — Violet */
   --accent-violet:       var(--violet-1);
   --accent-violet-hover: var(--violet-2);
 
   /* Focus States */
-  --border-focus:        var(--blue-2);
-  --ring-focus:          var(--blue-5);
+  --border-focus:        var(--blue-1);
+  --ring-focus:          var(--blue-4);
   --text-focus:          var(--blue-1);
-  --caret-accent:        var(--blue-3);
+  --caret-accent:        var(--blue-2);
 
   /* Selected / Checked States */
   --border-selected:     var(--blue-1);
-  --bg-selected:         var(--blue-5);
+  --bg-selected:         var(--blue-4);
   --bg-checked:          var(--blue-1);
-  --bg-toggle-on:        var(--blue-3);
+  --bg-toggle-on:        var(--blue-2);
   --bg-toggle-on-hover:  var(--blue-1);
 
   /* Trigger / Selection Indicator */
-  --bg-trigger-selected:  var(--blue-4);
-  --bg-pill-selected:     var(--blue-3);
+  --bg-trigger-selected:  var(--blue-3);
+  --bg-pill-selected:     var(--blue-2);
   --indicator-active:     var(--blue-1);
 
   /* Form / Loading Accent */
-  --bg-btn-accent:        var(--blue-3);
-  --bg-btn-accent-hover:  var(--blue-2);
-  --spinner-accent:       var(--blue-3);
-  --progress-fill:        var(--blue-4);
+  --bg-btn-accent:        var(--blue-2);
+  --bg-btn-accent-hover:  var(--blue-1);
+  --spinner-accent:       var(--blue-2);
+  --progress-fill:        var(--blue-3);
+
+  /* Icons */
+  --icon-default:           var(--ice-7);
+  --icon-hover:             var(--ice-8);
+  --icon-active:            var(--blue-1);
 
   /* Button: Secondary */
   --btn-secondary-bg:    var(--ice-13);
@@ -157,8 +161,8 @@ img, svg {
   --shadow-elevation:    rgba(118, 156, 220, 0.32);
 
   /* Dropdown triggers */
-  --dropdown-trigger-bg:       var(--ice-4);
-  --dropdown-trigger-hover:    var(--ice-5);
+  --dropdown-trigger-bg:       var(--ice-3);
+  --dropdown-trigger-hover:    var(--ice-4);
   --dropdown-trigger-pill:     var(--ice-6);
 
   /* Feedback */
@@ -192,8 +196,8 @@ img, svg {
   /* Accent — Blues */
   --accent-primary:     #4DA8E8;
   --accent-bg:          rgba(52, 150, 220, 0.15);
-  --accent-btn:         #3496DC;
-  --accent-btn-hover:   #4DA8E8;
+  --accent-btn:         #4DA8E8;
+  --accent-btn-hover:   #6AC1FF;
   --accent-heading:     #6AC1FF;
   --accent-heading-alt: #6AC1FF;
   --accent-focus:       rgba(52, 150, 220, 0.3);
@@ -212,19 +216,24 @@ img, svg {
   --border-selected:     #4DA8E8;
   --bg-selected:         rgba(52, 150, 220, 0.15);
   --bg-checked:          #4DA8E8;
-  --bg-toggle-on:        #3496DC;
+  --bg-toggle-on:        #4DA8E8;
   --bg-toggle-on-hover:  #4DA8E8;
 
   /* Trigger / Selection Indicator */
   --bg-trigger-selected:  #4DA8E8;
-  --bg-pill-selected:     #3496DC;
+  --bg-pill-selected:     #4DA8E8;
   --indicator-active:     #4DA8E8;
 
   /* Form / Loading Accent */
-  --bg-btn-accent:        #3496DC;
-  --bg-btn-accent-hover:  #4DA8E8;
+  --bg-btn-accent:        #4DA8E8;
+  --bg-btn-accent-hover:  #6AC1FF;
   --spinner-accent:       #6AC1FF;
   --progress-fill:        #4DA8E8;
+
+  /* Icons */
+  --icon-default:           var(--slate-7);
+  --icon-hover:             var(--slate-8);
+  --icon-active:            #6AC1FF;
 
   /* Button: Secondary (inverted) */
   --btn-secondary-bg:    var(--slate-13);
@@ -244,8 +253,8 @@ img, svg {
   --shadow-elevation:    rgba(0, 0, 0, 0.5);
 
   /* Dropdown triggers */
-  --dropdown-trigger-bg:       var(--slate-4);
-  --dropdown-trigger-hover:    var(--slate-5);
+  --dropdown-trigger-bg:       var(--slate-3);
+  --dropdown-trigger-hover:    var(--slate-4);
   --dropdown-trigger-pill:     var(--slate-6);
 
   /* Feedback */
