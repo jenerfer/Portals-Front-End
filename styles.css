@@ -194,9 +194,9 @@ img, svg {
   --border-strong:      var(--slate-8);
 
   /* Accent — Blues */
-  --accent-primary:     #4DA8E8;
+  --accent-primary:     #6AC1FF;
   --accent-bg:          rgba(52, 150, 220, 0.15);
-  --accent-btn:         #4DA8E8;
+  --accent-btn:         #6AC1FF;
   --accent-btn-hover:   #6AC1FF;
   --accent-heading:     #6AC1FF;
   --accent-heading-alt: #6AC1FF;
@@ -611,6 +611,12 @@ img, svg {
 
 .btn-inactive:hover {
   background-color: var(--btn-inactive-bg);
+}
+
+/* Keep button text dark on coloured backgrounds in dark mode */
+[data-theme="dark"] .btn-primary,
+[data-theme="dark"] .btn-tertiary {
+  color: var(--ice-13);
 }
 
 /* Button with trailing icon */

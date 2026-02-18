@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>messages — portals</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function(){var t=localStorage.getItem('portals-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
+  </script>
+  <style>
+
+    /* ===== Layout (shared with marketplace) ===== */
+
+    body {
+      overflow: hidden;
+    }
+
+    /* ---------- Top Navigation ---------- */
+
+    .marketplace-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background-color: var(--surface-elevated);
+      box-shadow: 0px 2px 20px 0px var(--shadow-elevation);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+    }
+
+    .marketplace-nav__inner {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 0 32px;
+    }
+
+    .marketplace-nav__logo {
+      flex-shrink: 0;
+    }
+
+    .marketplace-nav__logo img {
+      width: 110px;
+      height: auto;
+    }
+
+    [data-theme="dark"] .marketplace-nav__logo img {
+      filter: brightness(0) invert(1);
+    }
+
+    .marketplace-nav__links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .marketplace-nav__link {
+      color: var(--text-tertiary);
+      text-decoration: none;
+      text-transform: lowercase;
+      padding: 6px 16px;
+      border-radius: 999px;
+      transition: color 0.2s ease, background-color 0.2s ease;
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+
+    .marketplace-nav__link:hover {
+      color: var(--text-primary);
+      background-color: var(--surface-sunken);
+    }
+
+    .marketplace-nav__link--active {
+      color: var(--text-primary);
+      background-color: var(--accent-bg);
+      font-weight: 700;
+    }
+
+    .marketplace-nav__auth {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-left: auto;
+    }
+
+
+    /* ---------- Left Sidebar ---------- */
+
+    .marketplace-sidebar {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 240px;
+      height: calc(100vh - 64px);
+      background-color: var(--surface-elevated);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .marketplace-sidebar__profile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 18px;
+      padding: 24px 20px;
+      border-bottom: 1px solid var(--ice-3);
+    }
+
+    .marketplace-avatar-wrapper {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .marketplace-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 0px solid var(--border-default);
+      object-fit: cover;
+    }
+
+    .marketplace-online-dot {
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      width: 15px;
+      height: 15px;
+      background-color: var(--feedback-success);
+      border-radius: 50%;
+      border: 3px solid var(--surface-elevated);
+    }
+
+    .marketplace-user-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .marketplace-username {
+      font-family: 'Agrandir Wide', sans-serif;
+      font-size: 20px;
+      line-height: 23px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      text-transform: lowercase;
+      margin: 0;
+    }
+
+    .marketplace-email {
+      color: var(--text-quaternary);
+      margin: 0;
+    }
+
+    .marketplace-sidebar__nav {
+      display: flex;
+      flex-direction: column;
+      padding: 12px 0;
+      flex: 1;
+    }
+
+    .marketplace-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      text-transform: lowercase;
+      transition: background-color 0.15s ease, color 0.15s ease;
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+
+    .marketplace-nav-item:hover {
+      color: var(--text-primary);
+    }
+
+    .marketplace-nav-item--active,
+    .marketplace-nav-item--active:hover {
+      color: var(--accent-primary);
+      font-weight: 700;
+    }
+
+    .marketplace-nav-item__icon {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .marketplace-nav-item__icon img {
+      width: 28px;
+      height: 28px;
+      filter: brightness(0) saturate(100%) invert(75%) sepia(10%) saturate(500%) hue-rotate(176deg) brightness(97%) contrast(87%);
+    }
+
+    .marketplace-nav-item--active .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(54%) sepia(62%) saturate(497%) hue-rotate(168deg) brightness(95%) contrast(90%);
+    }
+
+    .marketplace-nav-item:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(68%) sepia(10%) saturate(550%) hue-rotate(176deg) brightness(94%) contrast(88%);
+    }
+
+    .marketplace-nav-item--active:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(54%) sepia(62%) saturate(497%) hue-rotate(168deg) brightness(95%) contrast(90%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(38%) sepia(8%) saturate(500%) hue-rotate(176deg) brightness(92%) contrast(87%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item--active .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(60%) sepia(45%) saturate(500%) hue-rotate(173deg) brightness(95%) contrast(92%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(42%) sepia(8%) saturate(550%) hue-rotate(176deg) brightness(93%) contrast(88%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item--active:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(60%) sepia(45%) saturate(500%) hue-rotate(173deg) brightness(95%) contrast(92%);
+    }
+
+    [data-theme="dark"] .marketplace-sidebar__profile {
+      border-bottom-color: var(--slate-3);
+    }
+
+    [data-theme="dark"] .marketplace-sidebar__currency {
+      border-top-color: var(--slate-3);
+    }
+
+    .marketplace-sidebar__currency {
+      padding: 16px 24px;
+      border-top: 1px solid var(--ice-3);
+    }
+
+    .currency-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .currency-icon {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+
+    .currency-value {
+      color: var(--text-primary);
+      margin-bottom: 0;
+    }
+
+
+    /* ---------- Main Content Area ---------- */
+
+    .marketplace-main {
+      margin-left: 240px;
+      padding-top: 64px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+
+    /* ---------- Messages Content ---------- */
+
+    .messages-content {
+      max-width: 1200px;
+      padding: 40px 48px;
+      margin: 0 auto;
+    }
+
+    /* ---------- Messages Header ---------- */
+
+    .messages-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .messages-title {
+      color: var(--text-primary);
+      text-transform: lowercase;
+      margin-bottom: 0;
+    }
+
+    .messages-search {
+      width: 220px;
+      height: 40px;
+      border-radius: 999px;
+      background-color: var(--surface-sunken);
+      border: none;
+      padding: 0 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-primary);
+      outline: none;
+      transition: box-shadow 0.15s ease;
+    }
+
+    .messages-search::placeholder {
+      color: var(--text-placeholder);
+    }
+
+    .messages-search:focus {
+      box-shadow: 0 0 0 2px var(--border-focus);
+    }
+
+    /* ---------- Filter Tabs ---------- */
+
+    .messages-tabs {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--ice-3);
+    }
+
+    .messages-tab {
+      font-family: 'Agrandir Wide', sans-serif;
+      font-size: 20px;
+      line-height: 23px;
+      font-weight: 800;
+      text-transform: lowercase;
+      cursor: pointer;
+      padding-bottom: 12px;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: none;
+      color: var(--ice-5);
+      transition: color 0.15s ease, border-color 0.15s ease;
+      margin-bottom: -1px;
+    }
+
+    .messages-tab:hover {
+      color: var(--ice-8);
+    }
+
+    .messages-tab--active {
+      color: var(--ice-10);
+      border-bottom-color: var(--ice-10);
+    }
+
+    [data-theme="dark"] .messages-tabs {
+      border-bottom-color: var(--slate-3);
+    }
+
+    [data-theme="dark"] .messages-tab {
+      color: var(--slate-5);
+    }
+
+    [data-theme="dark"] .messages-tab:hover {
+      color: var(--slate-8);
+    }
+
+    [data-theme="dark"] .messages-tab--active {
+      color: var(--slate-10);
+      border-bottom-color: var(--slate-10);
+    }
+
+    /* ---------- Actions Bar ---------- */
+
+    .messages-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .messages-actions__left {
+      display: flex;
+      align-items: center;
+    }
+
+    .messages-select-all-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .messages-select-all-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      line-height: 23px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .messages-actions__right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Select-all radio circle checked state */
+    .radio-input:checked + .radio-circle {
+      border-color: var(--border-selected);
+    }
+
+    .radio-input:checked + .radio-circle::after {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* ---------- Message Row List ---------- */
+
+    .messages-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .message-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 15px 20px;
+      border-radius: 15px;
+      background-color: var(--surface-sunken);
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+      text-decoration: none;
+    }
+
+    .message-row:hover {
+      background-color: var(--ice-3);
+    }
+
+    [data-theme="dark"] .message-row:hover {
+      background-color: var(--slate-3);
+    }
+
+    .message-row--selected {
+      background-color: var(--blue-4);
+    }
+
+    [data-theme="dark"] .message-row--selected {
+      background-color: rgba(52, 150, 220, 0.15);
+    }
+
+    .message-row--selected:hover {
+      background-color: var(--blue-4);
+    }
+
+    [data-theme="dark"] .message-row--selected:hover {
+      background-color: rgba(52, 150, 220, 0.15);
+    }
+
+    /* ---------- Message Row — Checkbox ---------- */
+
+    .message-row__checkbox {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .message-row__checkbox .check-label {
+      padding: 0;
+      gap: 0;
+    }
+
+    /* ---------- Message Row — Avatar ---------- */
+
+    .message-row__avatar {
+      width: 41px;
+      height: 41px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* ---------- Message Row — Content ---------- */
+
+    .message-row__content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .message-row__sender {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 28px;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-transform: lowercase;
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
+
+    .message-row__preview {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      line-height: 23px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ---------- Message Row — Date ---------- */
+
+    .message-row__date {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      line-height: 23px;
+      font-weight: 700;
+      color: var(--text-placeholder);
+      white-space: nowrap;
+      flex-shrink: 0;
+      align-self: flex-start;
+      margin: 0;
+      padding-top: 2px;
+    }
+
+
+    /* ---------- Theme Toggle Repositioned ---------- */
+
+    .theme-toggle {
+      left: 252px;
+    }
+
+
+    /* ---------- Responsive — Tablet (≤1024px) ---------- */
+
+    @media (max-width: 1024px) {
+      .marketplace-sidebar {
+        width: 72px;
+      }
+
+      .marketplace-sidebar__profile {
+        padding: 16px;
+        justify-content: center;
+        gap: 0;
+      }
+
+      .marketplace-avatar {
+        width: 40px;
+        height: 40px;
+      }
+
+      .marketplace-online-dot {
+        width: 14px;
+        height: 14px;
+        top: -2px;
+        right: -1px;
+        border-width: 2px;
+      }
+
+      .marketplace-user-info {
+        display: none;
+      }
+
+      .marketplace-nav-item {
+        justify-content: center;
+        padding: 12px;
+      }
+
+      .marketplace-nav-item__label {
+        display: none;
+      }
+
+      .marketplace-sidebar__currency {
+        padding: 12px;
+        justify-content: center;
+      }
+
+      .currency-value {
+        display: none;
+      }
+
+      .currency-icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .marketplace-main {
+        margin-left: 72px;
+      }
+
+      .messages-content {
+        padding: 32px;
+      }
+
+      .marketplace-nav__links {
+        display: none;
+      }
+
+      .theme-toggle {
+        left: 84px;
+      }
+    }
+
+
+    /* ---------- Responsive — Mobile (≤768px) ---------- */
+
+    @media (max-width: 768px) {
+      .marketplace-sidebar {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 64px;
+        flex-direction: row;
+        border-right: none;
+        border-top: 1px solid var(--border-subtle);
+        z-index: 200;
+      }
+
+      .marketplace-sidebar__profile {
+        display: none;
+      }
+
+      .marketplace-sidebar__nav {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0;
+        width: 100%;
+      }
+
+      .marketplace-nav-item {
+        flex-direction: column;
+        padding: 8px 0;
+        gap: 4px;
+        font-size: 10px;
+      }
+
+      .marketplace-nav-item__label {
+        display: block;
+      }
+
+      .marketplace-sidebar__currency {
+        display: none;
+      }
+
+      .marketplace-main {
+        margin-left: 0;
+        padding-bottom: 64px;
+      }
+
+      .messages-content {
+        padding: 24px 16px;
+      }
+
+      .messages-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .messages-title {
+        font-size: 32px;
+        line-height: 36px;
+      }
+
+      .messages-search {
+        width: 100%;
+      }
+
+      .messages-tab {
+        font-size: 16px;
+        line-height: 20px;
+      }
+
+      .messages-actions {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .messages-actions__right {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .message-row {
+        padding: 12px 16px;
+        gap: 12px;
+      }
+
+      .message-row__date {
+        font-size: 12px;
+      }
+
+      .marketplace-nav__links {
+        display: none;
+      }
+
+      .theme-toggle {
+        left: 16px;
+        bottom: 80px;
+      }
+    }
+
+
+    /* ---------- Responsive — Small Mobile (≤480px) ---------- */
+
+    @media (max-width: 480px) {
+      .marketplace-nav__auth {
+        gap: 8px;
+      }
+    }
+
+
+    /* ---------- Reduced Motion ---------- */
+
+    @media (prefers-reduced-motion: reduce) {
+      .message-row,
+      .messages-tab,
+      .marketplace-nav__link,
+      .marketplace-nav-item {
+        transition: none;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ==================== Top Navigation ==================== -->
+  <nav class="marketplace-nav">
+    <div class="marketplace-nav__inner">
+      <a href="index.html" class="marketplace-nav__logo">
+        <img src="portals-logo.svg" alt="portals">
+      </a>
+
+      <div class="marketplace-nav__links">
+        <a href="#" class="marketplace-nav__link p1">play</a>
+        <a href="marketplace.html" class="marketplace-nav__link p1">marketplace</a>
+        <a href="#" class="marketplace-nav__link p1">create</a>
+        <a href="#" class="marketplace-nav__link p1">warps</a>
+      </div>
+
+      <div class="marketplace-nav__auth">
+        <a href="login.html#signup" class="btn btn-sm btn-primary">sign up</a>
+        <a href="login.html" class="btn btn-sm btn-secondary">log in</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ==================== Left Sidebar ==================== -->
+  <aside class="marketplace-sidebar">
+
+    <!-- Profile -->
+    <div class="marketplace-sidebar__profile">
+      <div class="marketplace-avatar-wrapper">
+        <img src="profile-image.jpg" alt="user avatar" class="marketplace-avatar">
+        <span class="marketplace-online-dot"></span>
+      </div>
+      <div class="marketplace-user-info">
+        <p class="marketplace-username">jenerfer</p>
+        <p class="marketplace-email p3">jenerfer@gmail.com</p>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="marketplace-sidebar__nav">
+      <a href="marketplace.html" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/home.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">home</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/profile.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">profile</span>
+      </a>
+      <a href="messages.html" class="marketplace-nav-item p1 marketplace-nav-item--active">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/messages.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">messages</span>
+      </a>
+      <a href="friends.html" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/friends.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">friends</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/avatar.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">avatar</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/inventory.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">inventory</span>
+      </a>
+    </nav>
+
+    <!-- Currency -->
+    <div class="marketplace-sidebar__currency">
+      <div class="currency-display">
+        <img src="warp.png" alt="warps" class="currency-icon">
+        <span class="currency-value p1-bold">42,600</span>
+      </div>
+    </div>
+
+  </aside>
+
+
+  <!-- ==================== Main Content ==================== -->
+  <main class="marketplace-main">
+    <div class="messages-content">
+
+      <!-- Header: Title + Search -->
+      <div class="messages-header">
+        <h1 class="messages-title h3-bold">messages</h1>
+        <input type="text" class="messages-search p2" placeholder="search">
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="messages-tabs">
+        <button class="messages-tab messages-tab--active" data-tab="inbox">inbox</button>
+        <button class="messages-tab" data-tab="sent">sent</button>
+        <button class="messages-tab" data-tab="news">news</button>
+        <button class="messages-tab" data-tab="archive">archive</button>
+      </div>
+
+      <!-- Actions Bar -->
+      <div class="messages-actions">
+        <div class="messages-actions__left">
+          <label class="messages-select-all-label">
+            <input type="checkbox" class="radio-input" id="select-all">
+            <span class="radio-circle"></span>
+            <span class="messages-select-all-text">select all messages</span>
+          </label>
+        </div>
+        <div class="messages-actions__right">
+          <button class="btn btn-sm btn-inactive" id="btn-archive" disabled>archive</button>
+          <button class="btn btn-sm btn-inactive" id="btn-mark-read" disabled>mark read</button>
+          <button class="btn btn-sm btn-inactive" id="btn-mark-unread" disabled>mark unread</button>
+        </div>
+      </div>
+
+      <!-- Message Rows -->
+      <div class="messages-list" id="messages-list">
+
+        <!-- 1. sakura -->
+        <div class="message-row" data-id="1">
+          <div class="message-row__checkbox">
+            <input type="checkbox" class="check-input message-check" id="msg-1">
+            <label class="check-label" for="msg-1">
+              <span class="check-square"></span>
+            </label>
+          </div>
+          <img src="assets/avatars/avatar-01.png" alt="" class="message-row__avatar">
+          <div class="message-row__content">
+            <p class="message-row__sender">sakura</p>
+            <p class="message-row__preview">hey! wanted to check in about the portal designs we discussed last week...</p>
+          </div>
+          <p class="message-row__date">Feb 1, 2024  |  2:14pm</p>
+        </div>
+
+        <!-- 2. luna -->
+        <div class="message-row" data-id="2">
+          <div class="message-row__checkbox">
+            <input type="checkbox" class="check-input message-check" id="msg-2">
+            <label class="check-label" for="msg-2">
+              <span class="check-square"></span>
+            </label>
+          </div>
+          <img src="assets/avatars/avatar-03.png" alt="" class="message-row__avatar">
+          <div class="message-row__content">
+            <p class="message-row__sender">luna</p>
+            <p class="message-row__preview">your collaboration invite has been accepted — let's get started on the new...</p>
+          </div>
+          <p class="message-row__date">Jan 30, 2024  |  11:42am</p>
+        </div>
+
+        <!-- 3. ember -->
+        <div class="message-row" data-id="3">
+          <div class="message-row__checkbox">
+            <input type="checkbox" class="check-input message-check" id="msg-3">
+            <label class="check-label" for="msg-3">
+              <span class="check-square"></span>
+            </label>
+          </div>
+          <img src="assets/avatars/avatar-05.png" alt="" class="message-row__avatar">
+          <div class="message-row__content">
+            <p class="message-row__sender">ember</p>
+            <p class="message-row__preview">group payout status change — you have been removed from group solanas...</p>
+          </div>
+          <p class="message-row__date">Jan 28, 2024  |  4:37pm</p>
+        </div>
+
+        <!-- 4. nova -->
+        <div class="message-row" data-id="4">
+          <div class="message-row__checkbox">
+            <input type="checkbox" class="check-input message-check" id="msg-4">
+            <label class="check-label" for="msg-4">
+              <span class="check-square"></span>
+            </label>
+          </div>
+          <img src="assets/avatars/avatar-07.png" alt="" class="message-row__avatar">
+          <div class="message-row__content">
+            <p class="message-row__sender">nova</p>
+            <p class="message-row__preview">new marketplace items are live! check out the latest collection of rare...</p>
+          </div>
+          <p class="message-row__date">Jan 25, 2024  |  9:08am</p>
+        </div>
+
+        <!-- 5. celeste -->
+        <div class="message-row" data-id="5">
+          <div class="message-row__checkbox">
+            <input type="checkbox" class="check-input message-check" id="msg-5">
+            <label class="check-label" for="msg-5">
+              <span class="check-square"></span>
+            </label>
+          </div>
+          <img src="assets/avatars/avatar-09.png" alt="" class="message-row__avatar">
+          <div class="message-row__content">
+            <p class="message-row__sender">celeste</p>
+            <p class="message-row__preview">re: color palette — i think the blue gradient works best for the new portal...</p>
+          </div>
+          <p class="message-row__date">Jan 22, 2024  |  6:55pm</p>
+        </div>
+
+        <!-- 6. noctis -->
+        <div class="message-row" data-id="6">
+          <div class="message-row__checkbox">
+            <input type="checkbox" class="check-input message-check" id="msg-6">
+            <label class="check-label" for="msg-6">
+              <span class="check-square"></span>
+            </label>
+          </div>
+          <img src="assets/avatars/avatar-02.png" alt="" class="message-row__avatar">
+          <div class="message-row__content">
+            <p class="message-row__sender">noctis</p>
+            <p class="message-row__preview">weekly digest: top trending portals and creators this week on the platform...</p>
+          </div>
+          <p class="message-row__date">Jan 20, 2024  |  8:00am</p>
+        </div>
+
+        <!-- 7. orion -->
+        <div class="message-row" data-id="7">
+          <div class="message-row__checkbox">
+            <input type="checkbox" class="check-input message-check" id="msg-7">
+            <label class="check-label" for="msg-7">
+              <span class="check-square"></span>
+            </label>
+          </div>
+          <img src="assets/avatars/avatar-11.png" alt="" class="message-row__avatar">
+          <div class="message-row__content">
+            <p class="message-row__sender">orion</p>
+            <p class="message-row__preview">quick question about the inventory system — do you know if we can trade...</p>
+          </div>
+          <p class="message-row__date">Jan 18, 2024  |  3:21pm</p>
+        </div>
+
+        <!-- 8. zephyr -->
+        <div class="message-row" data-id="8">
+          <div class="message-row__checkbox">
+            <input type="checkbox" class="check-input message-check" id="msg-8">
+            <label class="check-label" for="msg-8">
+              <span class="check-square"></span>
+            </label>
+          </div>
+          <img src="assets/avatars/avatar-04.png" alt="" class="message-row__avatar">
+          <div class="message-row__content">
+            <p class="message-row__sender">zephyr</p>
+            <p class="message-row__preview">congratulations! you've reached level 42 in the crystal gardens portal...</p>
+          </div>
+          <p class="message-row__date">Jan 15, 2024  |  12:30pm</p>
+        </div>
+
+        <!-- 9. willow -->
+        <div class="message-row" data-id="9">
+          <div class="message-row__checkbox">
+            <input type="checkbox" class="check-input message-check" id="msg-9">
+            <label class="check-label" for="msg-9">
+              <span class="check-square"></span>
+            </label>
+          </div>
+          <img src="assets/avatars/avatar-14.png" alt="" class="message-row__avatar">
+          <div class="message-row__content">
+            <p class="message-row__sender">willow</p>
+            <p class="message-row__preview">don't forget about the team sync tomorrow at 3pm — we need to finalize...</p>
+          </div>
+          <p class="message-row__date">Jan 12, 2024  |  10:14am</p>
+        </div>
+
+        <!-- 10. atlas -->
+        <div class="message-row" data-id="10">
+          <div class="message-row__checkbox">
+            <input type="checkbox" class="check-input message-check" id="msg-10">
+            <label class="check-label" for="msg-10">
+              <span class="check-square"></span>
+            </label>
+          </div>
+          <img src="assets/avatars/avatar-06.png" alt="" class="message-row__avatar">
+          <div class="message-row__content">
+            <p class="message-row__sender">atlas</p>
+            <p class="message-row__preview">system maintenance scheduled for this weekend — portals will be offline...</p>
+          </div>
+          <p class="message-row__date">Jan 10, 2024  |  7:45am</p>
+        </div>
+
+        <!-- 11. phoenix -->
+        <div class="message-row" data-id="11">
+          <div class="message-row__checkbox">
+            <input type="checkbox" class="check-input message-check" id="msg-11">
+            <label class="check-label" for="msg-11">
+              <span class="check-square"></span>
+            </label>
+          </div>
+          <img src="assets/avatars/avatar-15.png" alt="" class="message-row__avatar">
+          <div class="message-row__content">
+            <p class="message-row__sender">phoenix</p>
+            <p class="message-row__preview">thoughts on the new warp token economy? i've been reading the whitepaper...</p>
+          </div>
+          <p class="message-row__date">Jan 8, 2024  |  5:33pm</p>
+        </div>
+
+        <!-- 12. finn -->
+        <div class="message-row" data-id="12">
+          <div class="message-row__checkbox">
+            <input type="checkbox" class="check-input message-check" id="msg-12">
+            <label class="check-label" for="msg-12">
+              <span class="check-square"></span>
+            </label>
+          </div>
+          <img src="assets/avatars/avatar-08.png" alt="" class="message-row__avatar">
+          <div class="message-row__content">
+            <p class="message-row__sender">finn</p>
+            <p class="message-row__preview">new friend suggestions: based on your recent activity we found some creators...</p>
+          </div>
+          <p class="message-row__date">Jan 5, 2024  |  1:19pm</p>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" aria-label="Toggle dark mode">
+    <span class="theme-toggle__icon theme-toggle__sun">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.0128 18.0323C14.8858 18.0323 18.0255 14.8926 18.0255 11.0196C18.0255 7.14655 14.8858 4.00684 11.0128 4.00684C7.13972 4.00684 4 7.14655 4 11.0196C4 14.8926 7.13972 18.0323 11.0128 18.0323Z" fill="currentColor"/>
+        <path d="M11.02 22C10.469 22 10.0182 21.5893 10.0182 21.0383V20.9581C10.0182 20.4071 10.469 19.9563 11.02 19.9563C11.571 19.9563 12.0219 20.4071 12.0219 20.9581C12.0219 21.5091 11.571 22 11.02 22ZM18.173 19.1749C17.9126 19.1749 17.6621 19.0747 17.4617 18.8843L17.3315 18.7541C16.9408 18.3634 16.9408 17.7322 17.3315 17.3415C17.7222 16.9508 18.3534 16.9508 18.7441 17.3415L18.8743 17.4718C19.265 17.8625 19.265 18.4936 18.8743 18.8843C18.684 19.0747 18.4335 19.1749 18.173 19.1749ZM3.86703 19.1749C3.60656 19.1749 3.3561 19.0747 3.15574 18.8843C2.76503 18.4936 2.76503 17.8625 3.15574 17.4718L3.28597 17.3415C3.67669 16.9508 4.30783 16.9508 4.69854 17.3415C5.08925 17.7322 5.08925 18.3634 4.69854 18.7541L4.56831 18.8843C4.37796 19.0747 4.11749 19.1749 3.86703 19.1749ZM21.0383 12.0219H20.9581C20.4071 12.0219 19.9563 11.571 19.9563 11.02C19.9563 10.469 20.4071 10.0182 20.9581 10.0182C21.5091 10.0182 22 10.469 22 11.02C22 11.571 21.5893 12.0219 21.0383 12.0219ZM1.08197 12.0219H1.00182C0.45082 12.0219 0 11.571 0 11.02C0 10.469 0.45082 10.0182 1.00182 10.0182C1.55282 10.0182 2.04372 10.469 2.04372 11.02C2.04372 11.571 1.63297 12.0219 1.08197 12.0219ZM18.0428 4.99909C17.7823 4.99909 17.5319 4.89891 17.3315 4.70856C16.9408 4.31785 16.9408 3.6867 17.3315 3.29599L17.4617 3.16576C17.8525 2.77505 18.4836 2.77505 18.8743 3.16576C19.265 3.55647 19.265 4.18761 18.8743 4.57832L18.7441 4.70856C18.5537 4.89891 18.3033 4.99909 18.0428 4.99909ZM3.99727 4.99909C3.73679 4.99909 3.48634 4.89891 3.28597 4.70856L3.15574 4.56831C2.76503 4.1776 2.76503 3.54645 3.15574 3.15574C3.54645 2.76503 4.1776 2.76503 4.56831 3.15574L4.69854 3.28597C5.08925 3.67669 5.08925 4.30783 4.69854 4.69854C4.5082 4.89891 4.24772 4.99909 3.99727 4.99909ZM11.02 2.04372C10.469 2.04372 10.0182 1.63297 10.0182 1.08197V1.00182C10.0182 0.45082 10.469 0 11.02 0C11.571 0 12.0219 0.45082 12.0219 1.00182C12.0219 1.55282 11.571 2.04372 11.02 2.04372Z" fill="currentColor"/>
+      </svg>
+    </span>
+    <span class="theme-toggle__icon theme-toggle__moon">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.8215 15.3305C21.6399 15.0333 21.1291 14.5711 19.8577 14.7912C19.154 14.9122 18.4389 14.9673 17.7237 14.9342C15.0789 14.8242 12.6838 13.6466 11.0152 11.8306C9.53956 10.2348 8.63146 8.15465 8.62011 5.90946C8.62011 4.65479 8.86984 3.44415 9.38064 2.29954C9.88009 1.18795 9.5282 0.604643 9.27848 0.362515C9.0174 0.10938 8.40444 -0.242806 7.20122 0.241451C2.5586 2.13446 -0.313242 6.64685 0.0272929 11.4784C0.367827 16.0238 3.65966 19.9089 8.0185 21.3727C9.06281 21.7249 10.1639 21.934 11.299 21.978C11.4806 21.989 11.6622 22 11.8438 22C15.6465 22 19.2107 20.2611 21.4583 17.3005C22.2188 16.277 22.0145 15.6276 21.8215 15.3305Z" fill="currentColor"/>
+      </svg>
+    </span>
+  </button>
+
+  <script src="sidebar.js"></script>
+  <script>
+    // ===== Tab Switching =====
+    (function () {
+      var tabs = document.querySelectorAll('.messages-tab');
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (t) { t.classList.remove('messages-tab--active'); });
+          tab.classList.add('messages-tab--active');
+        });
+      });
+    })();
+
+    // ===== Checkbox Selection + Button Activation =====
+    // Uses event delegation so it works with any number of message rows.
+    (function () {
+      var selectAll = document.getElementById('select-all');
+      var messagesList = document.querySelector('.messages-list');
+      var actionBtns = document.querySelectorAll('.messages-actions__right .btn');
+
+      // Helper — live query (always reflects current DOM)
+      function getCheckboxes() {
+        return messagesList.querySelectorAll('.message-check');
+      }
+      function getRows() {
+        return messagesList.querySelectorAll('.message-row');
+      }
+
+      function updateActionButtons() {
+        var anyChecked = false;
+        getCheckboxes().forEach(function (cb) {
+          if (cb.checked) anyChecked = true;
+        });
+        actionBtns.forEach(function (btn) {
+          if (anyChecked) {
+            btn.classList.remove('btn-inactive');
+            btn.classList.add('btn-primary');
+            btn.disabled = false;
+          } else {
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-inactive');
+            btn.disabled = true;
+          }
+        });
+      }
+
+      function updateRowHighlights() {
+        getRows().forEach(function (row) {
+          var cb = row.querySelector('.message-check');
+          if (cb && cb.checked) {
+            row.classList.add('message-row--selected');
+          } else {
+            row.classList.remove('message-row--selected');
+          }
+        });
+      }
+
+      function updateSelectAllState() {
+        var cbs = getCheckboxes();
+        if (cbs.length === 0) { selectAll.checked = false; return; }
+        var allChecked = true;
+        cbs.forEach(function (cb) {
+          if (!cb.checked) allChecked = false;
+        });
+        selectAll.checked = allChecked;
+      }
+
+      // Select All toggle
+      selectAll.addEventListener('change', function () {
+        var isChecked = selectAll.checked;
+        getCheckboxes().forEach(function (cb) {
+          cb.checked = isChecked;
+        });
+        updateRowHighlights();
+        updateActionButtons();
+      });
+
+      // Delegated listener — handles checkbox changes AND row clicks
+      messagesList.addEventListener('change', function (e) {
+        if (e.target.classList.contains('message-check')) {
+          updateRowHighlights();
+          updateActionButtons();
+          updateSelectAllState();
+        }
+      });
+
+      messagesList.addEventListener('click', function (e) {
+        // If the click is inside the checkbox area, stop it from navigating
+        if (e.target.closest('.message-row__checkbox')) return;
+        // Otherwise if clicked inside a message row, navigate to detail
+        var row = e.target.closest('.message-row');
+        if (row) {
+          window.location.href = 'message-detail.html';
+        }
+      });
+
+      // Initial state
+      updateActionButtons();
+    })();
+  </script>
+</body>
+</html>

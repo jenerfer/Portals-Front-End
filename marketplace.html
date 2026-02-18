@@ -120,8 +120,8 @@
     }
 
     .marketplace-avatar {
-      width: 50px;
-      height: 50px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
       border: 0px solid var(--border-default);
       object-fit: cover;
@@ -129,10 +129,10 @@
 
     .marketplace-online-dot {
       position: absolute;
-      top: -3px;
+      top: -1px;
       right: -1px;
-      width: 19px;
-      height: 19px;
+      width: 15px;
+      height: 15px;
       background-color: var(--feedback-success);
       border-radius: 50%;
       border: 3px solid var(--surface-elevated);
@@ -184,7 +184,8 @@
       color: var(--text-primary);
     }
 
-    .marketplace-nav-item--active {
+    .marketplace-nav-item--active,
+    .marketplace-nav-item--active:hover {
       color: var(--accent-primary);
       font-weight: 700;
     }
@@ -212,6 +213,10 @@
       filter: brightness(0) saturate(100%) invert(68%) sepia(10%) saturate(550%) hue-rotate(176deg) brightness(94%) contrast(88%);
     }
 
+    .marketplace-nav-item--active:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(54%) sepia(62%) saturate(497%) hue-rotate(168deg) brightness(95%) contrast(90%);
+    }
+
     [data-theme="dark"] .marketplace-nav-item__icon img {
       filter: brightness(0) saturate(100%) invert(38%) sepia(8%) saturate(500%) hue-rotate(176deg) brightness(92%) contrast(87%);
     }
@@ -222,6 +227,10 @@
 
     [data-theme="dark"] .marketplace-nav-item:hover .marketplace-nav-item__icon img {
       filter: brightness(0) saturate(100%) invert(42%) sepia(8%) saturate(550%) hue-rotate(176deg) brightness(93%) contrast(88%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item--active:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(60%) sepia(45%) saturate(500%) hue-rotate(173deg) brightness(95%) contrast(92%);
     }
 
     [data-theme="dark"] .marketplace-sidebar__profile {
@@ -610,13 +619,13 @@
         </span>
         <span class="marketplace-nav-item__label">profile</span>
       </a>
-      <a href="#" class="marketplace-nav-item p1">
+      <a href="messages.html" class="marketplace-nav-item p1">
         <span class="marketplace-nav-item__icon">
           <img src="assets/nav icons/messages.svg" alt="">
         </span>
         <span class="marketplace-nav-item__label">messages</span>
       </a>
-      <a href="#" class="marketplace-nav-item p1">
+      <a href="friends.html" class="marketplace-nav-item p1">
         <span class="marketplace-nav-item__icon">
           <img src="assets/nav icons/friends.svg" alt="">
         </span>

@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>message detail — portals</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function(){var t=localStorage.getItem('portals-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
+  </script>
+  <style>
+
+    /* ===== Layout (shared with marketplace) ===== */
+
+    body {
+      overflow: hidden;
+    }
+
+    /* ---------- Top Navigation ---------- */
+
+    .marketplace-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background-color: var(--surface-elevated);
+      box-shadow: 0px 2px 20px 0px var(--shadow-elevation);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+    }
+
+    .marketplace-nav__inner {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 0 32px;
+    }
+
+    .marketplace-nav__logo {
+      flex-shrink: 0;
+    }
+
+    .marketplace-nav__logo img {
+      width: 110px;
+      height: auto;
+    }
+
+    [data-theme="dark"] .marketplace-nav__logo img {
+      filter: brightness(0) invert(1);
+    }
+
+    .marketplace-nav__links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .marketplace-nav__link {
+      color: var(--text-tertiary);
+      text-decoration: none;
+      text-transform: lowercase;
+      padding: 6px 16px;
+      border-radius: 999px;
+      transition: color 0.2s ease, background-color 0.2s ease;
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+
+    .marketplace-nav__link:hover {
+      color: var(--text-primary);
+      background-color: var(--surface-sunken);
+    }
+
+    .marketplace-nav__link--active {
+      color: var(--text-primary);
+      background-color: var(--accent-bg);
+      font-weight: 700;
+    }
+
+    .marketplace-nav__auth {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-left: auto;
+    }
+
+
+    /* ---------- Left Sidebar ---------- */
+
+    .marketplace-sidebar {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 240px;
+      height: calc(100vh - 64px);
+      background-color: var(--surface-elevated);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .marketplace-sidebar__profile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 18px;
+      padding: 24px 20px;
+      border-bottom: 1px solid var(--ice-3);
+    }
+
+    .marketplace-avatar-wrapper {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .marketplace-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 0px solid var(--border-default);
+      object-fit: cover;
+    }
+
+    .marketplace-online-dot {
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      width: 15px;
+      height: 15px;
+      background-color: var(--feedback-success);
+      border-radius: 50%;
+      border: 3px solid var(--surface-elevated);
+    }
+
+    .marketplace-user-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .marketplace-username {
+      font-family: 'Agrandir Wide', sans-serif;
+      font-size: 20px;
+      line-height: 23px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      text-transform: lowercase;
+      margin: 0;
+    }
+
+    .marketplace-email {
+      color: var(--text-quaternary);
+      margin: 0;
+    }
+
+    .marketplace-sidebar__nav {
+      display: flex;
+      flex-direction: column;
+      padding: 12px 0;
+      flex: 1;
+    }
+
+    .marketplace-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      text-transform: lowercase;
+      transition: background-color 0.15s ease, color 0.15s ease;
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+
+    .marketplace-nav-item:hover {
+      color: var(--text-primary);
+    }
+
+    .marketplace-nav-item--active,
+    .marketplace-nav-item--active:hover {
+      color: var(--accent-primary);
+      font-weight: 700;
+    }
+
+    .marketplace-nav-item__icon {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .marketplace-nav-item__icon img {
+      width: 28px;
+      height: 28px;
+      filter: brightness(0) saturate(100%) invert(75%) sepia(10%) saturate(500%) hue-rotate(176deg) brightness(97%) contrast(87%);
+    }
+
+    .marketplace-nav-item--active .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(54%) sepia(62%) saturate(497%) hue-rotate(168deg) brightness(95%) contrast(90%);
+    }
+
+    .marketplace-nav-item:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(68%) sepia(10%) saturate(550%) hue-rotate(176deg) brightness(94%) contrast(88%);
+    }
+
+    .marketplace-nav-item--active:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(54%) sepia(62%) saturate(497%) hue-rotate(168deg) brightness(95%) contrast(90%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(38%) sepia(8%) saturate(500%) hue-rotate(176deg) brightness(92%) contrast(87%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item--active .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(60%) sepia(45%) saturate(500%) hue-rotate(173deg) brightness(95%) contrast(92%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(42%) sepia(8%) saturate(550%) hue-rotate(176deg) brightness(93%) contrast(88%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item--active:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(60%) sepia(45%) saturate(500%) hue-rotate(173deg) brightness(95%) contrast(92%);
+    }
+
+    [data-theme="dark"] .marketplace-sidebar__profile {
+      border-bottom-color: var(--slate-3);
+    }
+
+    [data-theme="dark"] .marketplace-sidebar__currency {
+      border-top-color: var(--slate-3);
+    }
+
+    .marketplace-sidebar__currency {
+      padding: 16px 24px;
+      border-top: 1px solid var(--ice-3);
+    }
+
+    .currency-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .currency-icon {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+
+    .currency-value {
+      color: var(--text-primary);
+      margin-bottom: 0;
+    }
+
+
+    /* ---------- Main Content Area ---------- */
+
+    .marketplace-main {
+      margin-left: 240px;
+      padding-top: 64px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+
+    /* ---------- Messages Content ---------- */
+
+    .messages-content {
+      max-width: 1200px;
+      padding: 40px 48px;
+      margin: 0 auto;
+    }
+
+    /* ---------- Messages Header ---------- */
+
+    .messages-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .messages-title {
+      color: var(--text-primary);
+      text-transform: lowercase;
+      margin-bottom: 0;
+    }
+
+    .messages-search {
+      width: 220px;
+      height: 40px;
+      border-radius: 999px;
+      background-color: var(--surface-sunken);
+      border: none;
+      padding: 0 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-primary);
+      outline: none;
+      transition: box-shadow 0.15s ease;
+    }
+
+    .messages-search::placeholder {
+      color: var(--text-placeholder);
+    }
+
+    .messages-search:focus {
+      box-shadow: 0 0 0 2px var(--border-focus);
+    }
+
+    /* ---------- Filter Tabs ---------- */
+
+    .messages-tabs {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--ice-3);
+    }
+
+    .messages-tab {
+      font-family: 'Agrandir Wide', sans-serif;
+      font-size: 20px;
+      line-height: 23px;
+      font-weight: 800;
+      text-transform: lowercase;
+      cursor: pointer;
+      padding-bottom: 12px;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: none;
+      color: var(--ice-5);
+      transition: color 0.15s ease, border-color 0.15s ease;
+      margin-bottom: -1px;
+    }
+
+    .messages-tab:hover {
+      color: var(--ice-8);
+    }
+
+    .messages-tab--active {
+      color: var(--ice-10);
+      border-bottom-color: var(--ice-10);
+    }
+
+    [data-theme="dark"] .messages-tabs {
+      border-bottom-color: var(--slate-3);
+    }
+
+    [data-theme="dark"] .messages-tab {
+      color: var(--slate-5);
+    }
+
+    [data-theme="dark"] .messages-tab:hover {
+      color: var(--slate-8);
+    }
+
+    [data-theme="dark"] .messages-tab--active {
+      color: var(--slate-10);
+      border-bottom-color: var(--slate-10);
+    }
+
+    /* ---------- Detail Actions Bar ---------- */
+
+    .messages-detail-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .messages-detail-actions__left {
+      display: flex;
+      align-items: center;
+    }
+
+    .messages-back-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-secondary);
+      transition: color 0.15s ease;
+    }
+
+    .messages-back-link:hover {
+      color: var(--text-primary);
+    }
+
+    .messages-back-link__icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-default);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.15s ease;
+    }
+
+    .messages-back-link:hover .messages-back-link__icon {
+      border-color: var(--border-strong);
+    }
+
+    .messages-back-link__icon svg {
+      width: 12px;
+      height: 12px;
+      color: currentColor;
+    }
+
+    .messages-back-link__text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 28px;
+      font-weight: 500;
+      color: inherit;
+    }
+
+    .messages-detail-actions__right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ---------- Message Card ---------- */
+
+    .message-card {
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 30px 40px;
+      position: relative;
+    }
+
+    .message-card__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 0;
+    }
+
+    .message-card__subject {
+      color: var(--text-primary);
+      text-transform: lowercase;
+      margin-bottom: 0;
+    }
+
+    .message-card__menu-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--icon-default);
+      transition: color 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .message-card__menu-btn:hover {
+      color: var(--icon-hover);
+    }
+
+    .message-card__menu-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .message-card__dropdown {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 40px;
+      width: 158px;
+      background-color: var(--surface-elevated);
+      border-radius: 20px;
+      padding: 19px 18px;
+      box-shadow: 0px 5px 16px var(--shadow-elevation);
+      z-index: 50;
+    }
+
+    .message-card__dropdown--open {
+      display: block;
+    }
+
+    .message-card__dropdown-item {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      line-height: 23px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 4px 0;
+      text-transform: lowercase;
+      color: var(--text-placeholder);
+      transition: color 0.15s ease;
+    }
+
+    .message-card__dropdown-item:hover {
+      color: var(--text-primary);
+    }
+
+    .message-card__divider {
+      width: 100%;
+      height: 1px;
+      background-color: var(--border-subtle);
+      margin: 16px 0;
+    }
+
+    .message-card__sender {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .message-card__sender-avatar {
+      width: 41px;
+      height: 41px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .message-card__sender-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .message-card__sender-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 28px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .message-card__sender-handle {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 28px;
+      font-weight: 700;
+      color: #3496DC;
+      margin: 0;
+    }
+
+    .message-card__date {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      line-height: 24px;
+      font-weight: 800;
+      color: var(--text-placeholder);
+      margin: 0;
+      padding-left: 53px;
+    }
+
+    .message-card__body {
+      padding-top: 8px;
+    }
+
+    .message-card__body p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 28px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    .message-card__body p:last-child {
+      margin-bottom: 0;
+    }
+
+
+    /* ---------- Theme Toggle Repositioned ---------- */
+
+    .theme-toggle {
+      left: 252px;
+    }
+
+
+    /* ---------- Responsive — Tablet (≤1024px) ---------- */
+
+    @media (max-width: 1024px) {
+      .marketplace-sidebar {
+        width: 72px;
+      }
+
+      .marketplace-sidebar__profile {
+        padding: 16px;
+        justify-content: center;
+        gap: 0;
+      }
+
+      .marketplace-avatar {
+        width: 40px;
+        height: 40px;
+      }
+
+      .marketplace-online-dot {
+        width: 14px;
+        height: 14px;
+        top: -2px;
+        right: -1px;
+        border-width: 2px;
+      }
+
+      .marketplace-user-info {
+        display: none;
+      }
+
+      .marketplace-nav-item {
+        justify-content: center;
+        padding: 12px;
+      }
+
+      .marketplace-nav-item__label {
+        display: none;
+      }
+
+      .marketplace-sidebar__currency {
+        padding: 12px;
+        justify-content: center;
+      }
+
+      .currency-value {
+        display: none;
+      }
+
+      .currency-icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .marketplace-main {
+        margin-left: 72px;
+      }
+
+      .messages-content {
+        padding: 32px;
+      }
+
+      .marketplace-nav__links {
+        display: none;
+      }
+
+      .theme-toggle {
+        left: 84px;
+      }
+    }
+
+
+    /* ---------- Responsive — Mobile (≤768px) ---------- */
+
+    @media (max-width: 768px) {
+      .marketplace-sidebar {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 64px;
+        flex-direction: row;
+        border-right: none;
+        border-top: 1px solid var(--border-subtle);
+        z-index: 200;
+      }
+
+      .marketplace-sidebar__profile {
+        display: none;
+      }
+
+      .marketplace-sidebar__nav {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0;
+        width: 100%;
+      }
+
+      .marketplace-nav-item {
+        flex-direction: column;
+        padding: 8px 0;
+        gap: 4px;
+        font-size: 10px;
+      }
+
+      .marketplace-nav-item__label {
+        display: block;
+      }
+
+      .marketplace-sidebar__currency {
+        display: none;
+      }
+
+      .marketplace-main {
+        margin-left: 0;
+        padding-bottom: 64px;
+      }
+
+      .messages-content {
+        padding: 24px 16px;
+      }
+
+      .messages-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .messages-title {
+        font-size: 32px;
+        line-height: 36px;
+      }
+
+      .messages-search {
+        width: 100%;
+      }
+
+      .messages-tab {
+        font-size: 16px;
+        line-height: 20px;
+      }
+
+      .messages-detail-actions {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .message-card {
+        padding: 24px 20px;
+        border-radius: 16px;
+      }
+
+      .message-card__date {
+        padding-left: 0;
+      }
+
+      .marketplace-nav__links {
+        display: none;
+      }
+
+      .theme-toggle {
+        left: 16px;
+        bottom: 80px;
+      }
+    }
+
+
+    /* ---------- Responsive — Small Mobile (≤480px) ---------- */
+
+    @media (max-width: 480px) {
+      .marketplace-nav__auth {
+        gap: 8px;
+      }
+    }
+
+
+    /* ---------- Reduced Motion ---------- */
+
+    @media (prefers-reduced-motion: reduce) {
+      .messages-tab,
+      .messages-back-link,
+      .message-card__menu-btn,
+      .marketplace-nav__link,
+      .marketplace-nav-item {
+        transition: none;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ==================== Top Navigation ==================== -->
+  <nav class="marketplace-nav">
+    <div class="marketplace-nav__inner">
+      <a href="index.html" class="marketplace-nav__logo">
+        <img src="portals-logo.svg" alt="portals">
+      </a>
+
+      <div class="marketplace-nav__links">
+        <a href="#" class="marketplace-nav__link p1">play</a>
+        <a href="marketplace.html" class="marketplace-nav__link p1">marketplace</a>
+        <a href="#" class="marketplace-nav__link p1">create</a>
+        <a href="#" class="marketplace-nav__link p1">warps</a>
+      </div>
+
+      <div class="marketplace-nav__auth">
+        <a href="login.html#signup" class="btn btn-sm btn-primary">sign up</a>
+        <a href="login.html" class="btn btn-sm btn-secondary">log in</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ==================== Left Sidebar ==================== -->
+  <aside class="marketplace-sidebar">
+
+    <!-- Profile -->
+    <div class="marketplace-sidebar__profile">
+      <div class="marketplace-avatar-wrapper">
+        <img src="profile-image.jpg" alt="user avatar" class="marketplace-avatar">
+        <span class="marketplace-online-dot"></span>
+      </div>
+      <div class="marketplace-user-info">
+        <p class="marketplace-username">jenerfer</p>
+        <p class="marketplace-email p3">jenerfer@gmail.com</p>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="marketplace-sidebar__nav">
+      <a href="marketplace.html" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/home.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">home</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/profile.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">profile</span>
+      </a>
+      <a href="messages.html" class="marketplace-nav-item p1 marketplace-nav-item--active">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/messages.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">messages</span>
+      </a>
+      <a href="friends.html" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/friends.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">friends</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/avatar.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">avatar</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/inventory.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">inventory</span>
+      </a>
+    </nav>
+
+    <!-- Currency -->
+    <div class="marketplace-sidebar__currency">
+      <div class="currency-display">
+        <img src="warp.png" alt="warps" class="currency-icon">
+        <span class="currency-value p1-bold">42,600</span>
+      </div>
+    </div>
+
+  </aside>
+
+
+  <!-- ==================== Main Content ==================== -->
+  <main class="marketplace-main">
+    <div class="messages-content">
+
+      <!-- Header: Title + Search -->
+      <div class="messages-header">
+        <h1 class="messages-title h3-bold">messages</h1>
+        <input type="text" class="messages-search p2" placeholder="search">
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="messages-tabs">
+        <button class="messages-tab messages-tab--active" data-tab="inbox">inbox</button>
+        <button class="messages-tab" data-tab="sent">sent</button>
+        <button class="messages-tab" data-tab="news">news</button>
+        <button class="messages-tab" data-tab="archive">archive</button>
+      </div>
+
+      <!-- Detail Actions Bar -->
+      <div class="messages-detail-actions">
+        <div class="messages-detail-actions__left">
+          <a href="messages.html" class="messages-back-link">
+            <span class="messages-back-link__icon">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 9L4.5 6L7.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="messages-back-link__text">back to messages</span>
+          </a>
+        </div>
+        <div class="messages-detail-actions__right">
+          <button class="btn btn-sm btn-primary">reply</button>
+          <button class="btn btn-sm btn-secondary">archive</button>
+        </div>
+      </div>
+
+      <!-- Message Card -->
+      <div class="message-card">
+        <div class="message-card__header">
+          <h2 class="message-card__subject h6-bold">group payout status change</h2>
+          <button class="message-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="message-card__dropdown">
+            <div class="message-card__dropdown-item">delete</div>
+            <div class="message-card__dropdown-item">report</div>
+            <div class="message-card__dropdown-item">block sender</div>
+          </div>
+        </div>
+
+        <div class="message-card__divider"></div>
+
+        <div class="message-card__sender">
+          <img src="assets/avatars/avatar-05.png" alt="" class="message-card__sender-avatar">
+          <div class="message-card__sender-info">
+            <p class="message-card__sender-name">ember</p>
+            <p class="message-card__sender-handle">@emberspark</p>
+          </div>
+        </div>
+        <p class="message-card__date">jan 28, 2024  |  4:37pm</p>
+
+        <div class="message-card__divider"></div>
+
+        <div class="message-card__body">
+          <p>hey! wanted to let you know about a change to the group payout structure. the team has decided to update how payouts are distributed across portal creators, and this affects your current group membership.</p>
+          <p>going forward, all creator payouts will be processed on a bi-weekly basis instead of monthly. this means you'll see your warp tokens arriving more frequently. we've also updated the minimum payout threshold from 500 to 250 warps to make it easier for newer creators to receive their earnings.</p>
+          <p>if you have any questions about these changes or need help understanding how they affect your account, feel free to reply to this message or reach out to the support team. we're here to help!</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" aria-label="Toggle dark mode">
+    <span class="theme-toggle__icon theme-toggle__sun">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.0128 18.0323C14.8858 18.0323 18.0255 14.8926 18.0255 11.0196C18.0255 7.14655 14.8858 4.00684 11.0128 4.00684C7.13972 4.00684 4 7.14655 4 11.0196C4 14.8926 7.13972 18.0323 11.0128 18.0323Z" fill="currentColor"/>
+        <path d="M11.02 22C10.469 22 10.0182 21.5893 10.0182 21.0383V20.9581C10.0182 20.4071 10.469 19.9563 11.02 19.9563C11.571 19.9563 12.0219 20.4071 12.0219 20.9581C12.0219 21.5091 11.571 22 11.02 22ZM18.173 19.1749C17.9126 19.1749 17.6621 19.0747 17.4617 18.8843L17.3315 18.7541C16.9408 18.3634 16.9408 17.7322 17.3315 17.3415C17.7222 16.9508 18.3534 16.9508 18.7441 17.3415L18.8743 17.4718C19.265 17.8625 19.265 18.4936 18.8743 18.8843C18.684 19.0747 18.4335 19.1749 18.173 19.1749ZM3.86703 19.1749C3.60656 19.1749 3.3561 19.0747 3.15574 18.8843C2.76503 18.4936 2.76503 17.8625 3.15574 17.4718L3.28597 17.3415C3.67669 16.9508 4.30783 16.9508 4.69854 17.3415C5.08925 17.7322 5.08925 18.3634 4.69854 18.7541L4.56831 18.8843C4.37796 19.0747 4.11749 19.1749 3.86703 19.1749ZM21.0383 12.0219H20.9581C20.4071 12.0219 19.9563 11.571 19.9563 11.02C19.9563 10.469 20.4071 10.0182 20.9581 10.0182C21.5091 10.0182 22 10.469 22 11.02C22 11.571 21.5893 12.0219 21.0383 12.0219ZM1.08197 12.0219H1.00182C0.45082 12.0219 0 11.571 0 11.02C0 10.469 0.45082 10.0182 1.00182 10.0182C1.55282 10.0182 2.04372 10.469 2.04372 11.02C2.04372 11.571 1.63297 12.0219 1.08197 12.0219ZM18.0428 4.99909C17.7823 4.99909 17.5319 4.89891 17.3315 4.70856C16.9408 4.31785 16.9408 3.6867 17.3315 3.29599L17.4617 3.16576C17.8525 2.77505 18.4836 2.77505 18.8743 3.16576C19.265 3.55647 19.265 4.18761 18.8743 4.57832L18.7441 4.70856C18.5537 4.89891 18.3033 4.99909 18.0428 4.99909ZM3.99727 4.99909C3.73679 4.99909 3.48634 4.89891 3.28597 4.70856L3.15574 4.56831C2.76503 4.1776 2.76503 3.54645 3.15574 3.15574C3.54645 2.76503 4.1776 2.76503 4.56831 3.15574L4.69854 3.28597C5.08925 3.67669 5.08925 4.30783 4.69854 4.69854C4.5082 4.89891 4.24772 4.99909 3.99727 4.99909ZM11.02 2.04372C10.469 2.04372 10.0182 1.63297 10.0182 1.08197V1.00182C10.0182 0.45082 10.469 0 11.02 0C11.571 0 12.0219 0.45082 12.0219 1.00182C12.0219 1.55282 11.571 2.04372 11.02 2.04372Z" fill="currentColor"/>
+      </svg>
+    </span>
+    <span class="theme-toggle__icon theme-toggle__moon">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.8215 15.3305C21.6399 15.0333 21.1291 14.5711 19.8577 14.7912C19.154 14.9122 18.4389 14.9673 17.7237 14.9342C15.0789 14.8242 12.6838 13.6466 11.0152 11.8306C9.53956 10.2348 8.63146 8.15465 8.62011 5.90946C8.62011 4.65479 8.86984 3.44415 9.38064 2.29954C9.88009 1.18795 9.5282 0.604643 9.27848 0.362515C9.0174 0.10938 8.40444 -0.242806 7.20122 0.241451C2.5586 2.13446 -0.313242 6.64685 0.0272929 11.4784C0.367827 16.0238 3.65966 19.9089 8.0185 21.3727C9.06281 21.7249 10.1639 21.934 11.299 21.978C11.4806 21.989 11.6622 22 11.8438 22C15.6465 22 19.2107 20.2611 21.4583 17.3005C22.2188 16.277 22.0145 15.6276 21.8215 15.3305Z" fill="currentColor"/>
+      </svg>
+    </span>
+  </button>
+
+  <script src="sidebar.js"></script>
+  <script>
+    // ===== Tab Switching =====
+    (function () {
+      var tabs = document.querySelectorAll('.messages-tab');
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (t) { t.classList.remove('messages-tab--active'); });
+          tab.classList.add('messages-tab--active');
+        });
+      });
+    })();
+
+    // ===== Three-Dot Menu =====
+    (function () {
+      var menuBtn = document.querySelector('.message-card__menu-btn');
+      var dropdown = document.querySelector('.message-card__dropdown');
+      var isOpen = false;
+
+      if (!menuBtn) return;
+
+      menuBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        isOpen = !isOpen;
+        if (isOpen) {
+          dropdown.classList.add('message-card__dropdown--open');
+        } else {
+          dropdown.classList.remove('message-card__dropdown--open');
+        }
+      });
+
+      document.addEventListener('click', function () {
+        if (isOpen) {
+          dropdown.classList.remove('message-card__dropdown--open');
+          isOpen = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>friends — portals</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function(){var t=localStorage.getItem('portals-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
+  </script>
+  <style>
+
+    /* ===== Layout (shared with marketplace) ===== */
+
+    body {
+      overflow: hidden;
+    }
+
+    /* ---------- Top Navigation ---------- */
+
+    .marketplace-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background-color: var(--surface-elevated);
+      box-shadow: 0px 2px 20px 0px var(--shadow-elevation);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+    }
+
+    .marketplace-nav__inner {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 0 32px;
+    }
+
+    .marketplace-nav__logo {
+      flex-shrink: 0;
+    }
+
+    .marketplace-nav__logo img {
+      width: 110px;
+      height: auto;
+    }
+
+    [data-theme="dark"] .marketplace-nav__logo img {
+      filter: brightness(0) invert(1);
+    }
+
+    .marketplace-nav__links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .marketplace-nav__link {
+      color: var(--text-tertiary);
+      text-decoration: none;
+      text-transform: lowercase;
+      padding: 6px 16px;
+      border-radius: 999px;
+      transition: color 0.2s ease, background-color 0.2s ease;
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+
+    .marketplace-nav__link:hover {
+      color: var(--text-primary);
+      background-color: var(--surface-sunken);
+    }
+
+    .marketplace-nav__link--active {
+      color: var(--text-primary);
+      background-color: var(--accent-bg);
+      font-weight: 700;
+    }
+
+    .marketplace-nav__auth {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-left: auto;
+    }
+
+
+    /* ---------- Left Sidebar ---------- */
+
+    .marketplace-sidebar {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 240px;
+      height: calc(100vh - 64px);
+      background-color: var(--surface-elevated);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .marketplace-sidebar__profile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 18px;
+      padding: 24px 20px;
+      border-bottom: 1px solid var(--ice-3);
+    }
+
+    .marketplace-avatar-wrapper {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .marketplace-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 0px solid var(--border-default);
+      object-fit: cover;
+    }
+
+    .marketplace-online-dot {
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      width: 15px;
+      height: 15px;
+      background-color: var(--feedback-success);
+      border-radius: 50%;
+      border: 3px solid var(--surface-elevated);
+    }
+
+    .marketplace-user-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .marketplace-username {
+      font-family: 'Agrandir Wide', sans-serif;
+      font-size: 20px;
+      line-height: 23px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      text-transform: lowercase;
+      margin: 0;
+    }
+
+    .marketplace-email {
+      color: var(--text-quaternary);
+      margin: 0;
+    }
+
+    .marketplace-sidebar__nav {
+      display: flex;
+      flex-direction: column;
+      padding: 12px 0;
+      flex: 1;
+    }
+
+    .marketplace-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      text-transform: lowercase;
+      transition: background-color 0.15s ease, color 0.15s ease;
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+
+    .marketplace-nav-item:hover {
+      color: var(--text-primary);
+    }
+
+    .marketplace-nav-item--active,
+    .marketplace-nav-item--active:hover {
+      color: var(--accent-primary);
+      font-weight: 700;
+    }
+
+    .marketplace-nav-item__icon {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .marketplace-nav-item__icon img {
+      width: 28px;
+      height: 28px;
+      filter: brightness(0) saturate(100%) invert(75%) sepia(10%) saturate(500%) hue-rotate(176deg) brightness(97%) contrast(87%);
+    }
+
+    .marketplace-nav-item--active .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(54%) sepia(62%) saturate(497%) hue-rotate(168deg) brightness(95%) contrast(90%);
+    }
+
+    .marketplace-nav-item:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(68%) sepia(10%) saturate(550%) hue-rotate(176deg) brightness(94%) contrast(88%);
+    }
+
+    .marketplace-nav-item--active:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(54%) sepia(62%) saturate(497%) hue-rotate(168deg) brightness(95%) contrast(90%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(38%) sepia(8%) saturate(500%) hue-rotate(176deg) brightness(92%) contrast(87%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item--active .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(60%) sepia(45%) saturate(500%) hue-rotate(173deg) brightness(95%) contrast(92%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(42%) sepia(8%) saturate(550%) hue-rotate(176deg) brightness(93%) contrast(88%);
+    }
+
+    [data-theme="dark"] .marketplace-nav-item--active:hover .marketplace-nav-item__icon img {
+      filter: brightness(0) saturate(100%) invert(60%) sepia(45%) saturate(500%) hue-rotate(173deg) brightness(95%) contrast(92%);
+    }
+
+    [data-theme="dark"] .marketplace-sidebar__profile {
+      border-bottom-color: var(--slate-3);
+    }
+
+    [data-theme="dark"] .marketplace-sidebar__currency {
+      border-top-color: var(--slate-3);
+    }
+
+    .marketplace-sidebar__currency {
+      padding: 16px 24px;
+      border-top: 1px solid var(--ice-3);
+    }
+
+    .currency-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .currency-icon {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+
+    .currency-value {
+      color: var(--text-primary);
+      margin-bottom: 0;
+    }
+
+
+    /* ---------- Main Content Area ---------- */
+
+    .marketplace-main {
+      margin-left: 240px;
+      padding-top: 64px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+
+    /* ---------- Friends Content ---------- */
+
+    .friends-content {
+      max-width: 1200px;
+      padding: 40px 48px;
+      margin: 0 auto;
+    }
+
+
+    /* ---------- Friends Header ---------- */
+
+    .friends-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .friends-title {
+      color: var(--text-primary);
+      text-transform: lowercase;
+      margin-bottom: 0;
+    }
+
+    .friends-search {
+      width: 220px;
+      height: 40px;
+      border-radius: 999px;
+      background-color: var(--surface-sunken);
+      border: none;
+      padding: 0 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-primary);
+      outline: none;
+      transition: box-shadow 0.15s ease;
+    }
+
+    .friends-search::placeholder {
+      color: var(--text-placeholder);
+    }
+
+    .friends-search:focus {
+      box-shadow: 0 0 0 2px var(--border-focus);
+    }
+
+
+    /* ---------- Filter Tabs ---------- */
+
+    .friends-tabs {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--ice-3);
+    }
+
+    .friends-tab {
+      font-family: 'Agrandir Wide', sans-serif;
+      font-size: 20px;
+      line-height: 23px;
+      font-weight: 800;
+      text-transform: lowercase;
+      cursor: pointer;
+      padding-bottom: 12px;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: none;
+      color: var(--ice-5);
+      transition: color 0.15s ease, border-color 0.15s ease;
+      margin-bottom: -1px;
+    }
+
+    .friends-tab:hover {
+      color: var(--ice-8);
+    }
+
+    .friends-tab--active {
+      color: var(--ice-10);
+      border-bottom-color: var(--ice-10);
+    }
+
+    [data-theme="dark"] .friends-tabs {
+      border-bottom-color: var(--slate-3);
+    }
+
+    [data-theme="dark"] .friends-tab {
+      color: var(--slate-5);
+    }
+
+    [data-theme="dark"] .friends-tab:hover {
+      color: var(--slate-8);
+    }
+
+    [data-theme="dark"] .friends-tab--active {
+      color: var(--slate-10);
+      border-bottom-color: var(--slate-10);
+    }
+
+
+    /* ---------- Friend Card Grid ---------- */
+
+    .friends-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .friend-card {
+      flex: 1 0 220px;
+      max-width: calc(25% - 9px);
+      height: 76px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .friend-card:hover {
+      background-color: var(--ice-2);
+    }
+
+    [data-theme="dark"] .friend-card:hover {
+      background-color: var(--slate-2);
+    }
+
+
+    /* ---------- Friend Card — Avatar ---------- */
+
+    .friend-card__avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+
+    /* ---------- Friend Card — Info ---------- */
+
+    .friend-card__info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      flex: 1;
+      gap: 0;
+    }
+
+    .friend-card__name-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .friend-card__name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 500;
+      color: var(--text-primary);
+      text-transform: lowercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 0;
+    }
+
+    .friend-card__verified {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .friend-card__handle {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 700;
+      color: var(--text-quaternary);
+      text-transform: lowercase;
+      margin: 0;
+    }
+
+
+    /* ---------- Context Menu — Three Dots ---------- */
+
+    .friend-card__menu-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .friend-card:hover .friend-card__menu-btn {
+      opacity: 1;
+    }
+
+    .friend-card__menu-btn svg {
+      width: 16px;
+      height: 16px;
+      color: var(--icon-default);
+    }
+
+    .friend-card:hover .friend-card__menu-btn svg {
+      color: var(--icon-hover);
+    }
+
+
+    /* ---------- Context Menu — Dropdown ---------- */
+
+    .friend-card__dropdown {
+      display: none;
+      position: absolute;
+      top: 34px;
+      right: 10px;
+      width: 158px;
+      background-color: var(--surface-elevated);
+      border-radius: 20px;
+      padding: 19px 18px;
+      box-shadow: 0px 5px 16px var(--shadow-elevation);
+      z-index: 50;
+    }
+
+    .friend-card__dropdown--open {
+      display: block;
+    }
+
+    .friend-card__dropdown-item {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      line-height: 23px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 4px 0;
+      text-transform: lowercase;
+      color: var(--text-placeholder);
+      transition: color 0.15s ease;
+    }
+
+    .friend-card__dropdown-item:hover {
+      color: var(--text-primary);
+    }
+
+
+    /* ---------- Requests List ---------- */
+
+    .requests-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .request-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      transition: background-color 0.15s ease;
+    }
+
+    .request-row:last-child {
+      border-bottom: none;
+    }
+
+    .request-row:hover {
+      background-color: var(--ice-2);
+    }
+
+    [data-theme="dark"] .request-row:hover {
+      background-color: var(--slate-2);
+    }
+
+    .request-row__avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .request-row__info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .request-row__name-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .request-row__name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 500;
+      color: var(--text-primary);
+      text-transform: lowercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .request-row__verified {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .request-row__handle {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 700;
+      color: var(--text-quaternary);
+      text-transform: lowercase;
+    }
+
+    .request-row__actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+
+    /* ---------- Theme Toggle Repositioned ---------- */
+
+    .theme-toggle {
+      left: 252px;
+    }
+
+
+    /* ---------- Responsive — Tablet (≤1024px) ---------- */
+
+    @media (max-width: 1024px) {
+      .marketplace-sidebar {
+        width: 72px;
+      }
+
+      .marketplace-sidebar__profile {
+        padding: 16px;
+        justify-content: center;
+        gap: 0;
+      }
+
+      .marketplace-avatar {
+        width: 40px;
+        height: 40px;
+      }
+
+      .marketplace-online-dot {
+        width: 14px;
+        height: 14px;
+        top: -2px;
+        right: -1px;
+        border-width: 2px;
+      }
+
+      .marketplace-user-info {
+        display: none;
+      }
+
+      .marketplace-nav-item {
+        justify-content: center;
+        padding: 12px;
+      }
+
+      .marketplace-nav-item__label {
+        display: none;
+      }
+
+      .marketplace-sidebar__currency {
+        padding: 12px;
+        justify-content: center;
+      }
+
+      .currency-value {
+        display: none;
+      }
+
+      .currency-icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .marketplace-main {
+        margin-left: 72px;
+      }
+
+      .friends-content {
+        padding: 32px;
+      }
+
+      .friend-card {
+        flex: 1 0 200px;
+        max-width: calc(33.333% - 8px);
+      }
+
+      .marketplace-nav__links {
+        display: none;
+      }
+
+      .theme-toggle {
+        left: 84px;
+      }
+    }
+
+
+    /* ---------- Responsive — Mobile (≤768px) ---------- */
+
+    @media (max-width: 768px) {
+      .marketplace-sidebar {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 64px;
+        flex-direction: row;
+        border-right: none;
+        border-top: 1px solid var(--border-subtle);
+        z-index: 200;
+      }
+
+      .marketplace-sidebar__profile {
+        display: none;
+      }
+
+      .marketplace-sidebar__nav {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0;
+        width: 100%;
+      }
+
+      .marketplace-nav-item {
+        flex-direction: column;
+        padding: 8px 0;
+        gap: 4px;
+        font-size: 10px;
+      }
+
+      .marketplace-nav-item__label {
+        display: block;
+      }
+
+      .marketplace-sidebar__currency {
+        display: none;
+      }
+
+      .marketplace-main {
+        margin-left: 0;
+        padding-bottom: 64px;
+      }
+
+      .friends-content {
+        padding: 24px 16px;
+      }
+
+      .friends-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .friends-title {
+        font-size: 32px;
+        line-height: 36px;
+      }
+
+      .friends-search {
+        width: 100%;
+      }
+
+      .friends-tab {
+        font-size: 16px;
+        line-height: 20px;
+      }
+
+      .friend-card {
+        flex: 1 0 100%;
+        max-width: 100%;
+      }
+
+      .friend-card__menu-btn {
+        opacity: 1;
+      }
+
+      .request-row__actions .btn-sm {
+        padding: 5px 14px;
+        font-size: 12px;
+      }
+
+      .marketplace-nav__links {
+        display: none;
+      }
+
+      .theme-toggle {
+        left: 16px;
+        bottom: 80px;
+      }
+    }
+
+
+    /* ---------- Responsive — Small Mobile (≤480px) ---------- */
+
+    @media (max-width: 480px) {
+      .marketplace-nav__auth {
+        gap: 8px;
+      }
+    }
+
+
+    /* ---------- Reduced Motion ---------- */
+
+    @media (prefers-reduced-motion: reduce) {
+      .friend-card,
+      .friend-card__menu-btn,
+      .friends-tab,
+      .marketplace-nav__link,
+      .marketplace-nav-item,
+      .request-row {
+        transition: none;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ==================== Top Navigation ==================== -->
+  <nav class="marketplace-nav">
+    <div class="marketplace-nav__inner">
+      <a href="index.html" class="marketplace-nav__logo">
+        <img src="portals-logo.svg" alt="portals">
+      </a>
+
+      <div class="marketplace-nav__links">
+        <a href="#" class="marketplace-nav__link p1">play</a>
+        <a href="marketplace.html" class="marketplace-nav__link p1">marketplace</a>
+        <a href="#" class="marketplace-nav__link p1">create</a>
+        <a href="#" class="marketplace-nav__link p1">warps</a>
+      </div>
+
+      <div class="marketplace-nav__auth">
+        <a href="login.html#signup" class="btn btn-sm btn-primary">sign up</a>
+        <a href="login.html" class="btn btn-sm btn-secondary">log in</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ==================== Left Sidebar ==================== -->
+  <aside class="marketplace-sidebar">
+
+    <!-- Profile -->
+    <div class="marketplace-sidebar__profile">
+      <div class="marketplace-avatar-wrapper">
+        <img src="profile-image.jpg" alt="user avatar" class="marketplace-avatar">
+        <span class="marketplace-online-dot"></span>
+      </div>
+      <div class="marketplace-user-info">
+        <p class="marketplace-username">jenerfer</p>
+        <p class="marketplace-email p3">jenerfer@gmail.com</p>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="marketplace-sidebar__nav">
+      <a href="marketplace.html" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/home.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">home</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/profile.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">profile</span>
+      </a>
+      <a href="messages.html" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/messages.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">messages</span>
+      </a>
+      <a href="friends.html" class="marketplace-nav-item p1 marketplace-nav-item--active">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/friends.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">friends</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/avatar.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">avatar</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/inventory.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">inventory</span>
+      </a>
+    </nav>
+
+    <!-- Currency -->
+    <div class="marketplace-sidebar__currency">
+      <div class="currency-display">
+        <img src="warp.png" alt="warps" class="currency-icon">
+        <span class="currency-value p1-bold">42,600</span>
+      </div>
+    </div>
+
+  </aside>
+
+
+  <!-- ==================== Main Content ==================== -->
+  <main class="marketplace-main">
+    <div class="friends-content">
+
+      <!-- Header: Title + Search -->
+      <div class="friends-header">
+        <h1 class="friends-title h3-bold">friends</h1>
+        <input type="text" class="friends-search p2" placeholder="search">
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="friends-tabs">
+        <button class="friends-tab friends-tab--active" data-tab="following">following</button>
+        <button class="friends-tab" data-tab="followers">followers</button>
+        <button class="friends-tab" data-tab="requests">requests</button>
+      </div>
+
+      <!-- Friend Card Grid -->
+      <div class="friends-grid" data-panel="following">
+
+        <!-- 1. sakura — verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-01.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">sakura</span>
+              <svg class="friend-card__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+              </svg>
+            </div>
+            <span class="friend-card__handle">@sakuramochi</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 2. noctis — not verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-02.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">noctis</span>
+            </div>
+            <span class="friend-card__handle">@noctislucis</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 3. luna — verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-03.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">luna</span>
+              <svg class="friend-card__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+              </svg>
+            </div>
+            <span class="friend-card__handle">@lunastellar</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 4. zephyr — not verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-04.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">zephyr</span>
+            </div>
+            <span class="friend-card__handle">@zephyrwind</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 5. ember — verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-05.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">ember</span>
+              <svg class="friend-card__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+              </svg>
+            </div>
+            <span class="friend-card__handle">@emberspark</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 6. atlas — not verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-06.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">atlas</span>
+            </div>
+            <span class="friend-card__handle">@atlasworld</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 7. nova — verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-07.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">nova</span>
+              <svg class="friend-card__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+              </svg>
+            </div>
+            <span class="friend-card__handle">@novaflare</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 8. finn — not verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-08.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">finn</span>
+            </div>
+            <span class="friend-card__handle">@finnquest</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 9. celeste — verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-09.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">celeste</span>
+              <svg class="friend-card__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+              </svg>
+            </div>
+            <span class="friend-card__handle">@celestedream</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 10. raven — not verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-10.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">raven</span>
+            </div>
+            <span class="friend-card__handle">@ravenshadow</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 11. orion — verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-11.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">orion</span>
+              <svg class="friend-card__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+              </svg>
+            </div>
+            <span class="friend-card__handle">@orionhunter</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 12. ivy — not verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-12.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">ivy</span>
+            </div>
+            <span class="friend-card__handle">@ivygrove</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 13. dante — not verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-13.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">dante</span>
+            </div>
+            <span class="friend-card__handle">@dantefire</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 14. willow — verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-14.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">willow</span>
+              <svg class="friend-card__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+              </svg>
+            </div>
+            <span class="friend-card__handle">@willowmist</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 15. phoenix — verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-15.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">phoenix</span>
+              <svg class="friend-card__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+              </svg>
+            </div>
+            <span class="friend-card__handle">@phoenixrise</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 16. storm — not verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-16.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">storm</span>
+            </div>
+            <span class="friend-card__handle">@stormchaser</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 17. echo — not verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-17.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">echo</span>
+            </div>
+            <span class="friend-card__handle">@echovoid</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 18. jade — verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-01.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">jade</span>
+              <svg class="friend-card__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+              </svg>
+            </div>
+            <span class="friend-card__handle">@jadedragon</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 19. kai — not verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-02.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">kai</span>
+            </div>
+            <span class="friend-card__handle">@kaiocean</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+        <!-- 20. aurora — verified -->
+        <div class="friend-card">
+          <img src="assets/avatars/avatar-03.png" alt="" class="friend-card__avatar">
+          <div class="friend-card__info">
+            <div class="friend-card__name-row">
+              <span class="friend-card__name">aurora</span>
+              <svg class="friend-card__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+              </svg>
+            </div>
+            <span class="friend-card__handle">@aurorabright</span>
+          </div>
+          <button class="friend-card__menu-btn" aria-label="Options">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="friend-card__dropdown">
+            <div class="friend-card__dropdown-item">remove friend</div>
+            <div class="friend-card__dropdown-item">message</div>
+            <div class="friend-card__dropdown-item">block</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Requests List (shown only on requests tab) -->
+      <div class="requests-list" data-panel="requests" style="display: none;">
+
+        <!-- 1. raven -->
+        <div class="request-row">
+          <img src="assets/avatars/avatar-10.png" alt="" class="request-row__avatar">
+          <div class="request-row__info">
+            <div class="request-row__name-row">
+              <span class="request-row__name">raven</span>
+            </div>
+            <span class="request-row__handle">@ravenshadow</span>
+          </div>
+          <div class="request-row__actions">
+            <button class="btn btn-sm btn-primary">accept</button>
+            <button class="btn btn-sm btn-subtle">deny</button>
+          </div>
+        </div>
+
+        <!-- 2. ivy -->
+        <div class="request-row">
+          <img src="assets/avatars/avatar-12.png" alt="" class="request-row__avatar">
+          <div class="request-row__info">
+            <div class="request-row__name-row">
+              <span class="request-row__name">ivy</span>
+            </div>
+            <span class="request-row__handle">@ivygrove</span>
+          </div>
+          <div class="request-row__actions">
+            <button class="btn btn-sm btn-primary">accept</button>
+            <button class="btn btn-sm btn-subtle">deny</button>
+          </div>
+        </div>
+
+        <!-- 3. storm (verified) -->
+        <div class="request-row">
+          <img src="assets/avatars/avatar-16.png" alt="" class="request-row__avatar">
+          <div class="request-row__info">
+            <div class="request-row__name-row">
+              <span class="request-row__name">storm</span>
+              <svg class="request-row__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+              </svg>
+            </div>
+            <span class="request-row__handle">@stormchaser</span>
+          </div>
+          <div class="request-row__actions">
+            <button class="btn btn-sm btn-primary">accept</button>
+            <button class="btn btn-sm btn-subtle">deny</button>
+          </div>
+        </div>
+
+        <!-- 4. echo -->
+        <div class="request-row">
+          <img src="assets/avatars/avatar-17.png" alt="" class="request-row__avatar">
+          <div class="request-row__info">
+            <div class="request-row__name-row">
+              <span class="request-row__name">echo</span>
+            </div>
+            <span class="request-row__handle">@echovoid</span>
+          </div>
+          <div class="request-row__actions">
+            <button class="btn btn-sm btn-primary">accept</button>
+            <button class="btn btn-sm btn-subtle">deny</button>
+          </div>
+        </div>
+
+        <!-- 5. dante (verified) -->
+        <div class="request-row">
+          <img src="assets/avatars/avatar-13.png" alt="" class="request-row__avatar">
+          <div class="request-row__info">
+            <div class="request-row__name-row">
+              <span class="request-row__name">dante</span>
+              <svg class="request-row__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+              </svg>
+            </div>
+            <span class="request-row__handle">@dantefire</span>
+          </div>
+          <div class="request-row__actions">
+            <button class="btn btn-sm btn-primary">accept</button>
+            <button class="btn btn-sm btn-subtle">deny</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" aria-label="Toggle dark mode">
+    <span class="theme-toggle__icon theme-toggle__sun">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.0128 18.0323C14.8858 18.0323 18.0255 14.8926 18.0255 11.0196C18.0255 7.14655 14.8858 4.00684 11.0128 4.00684C7.13972 4.00684 4 7.14655 4 11.0196C4 14.8926 7.13972 18.0323 11.0128 18.0323Z" fill="currentColor"/>
+        <path d="M11.02 22C10.469 22 10.0182 21.5893 10.0182 21.0383V20.9581C10.0182 20.4071 10.469 19.9563 11.02 19.9563C11.571 19.9563 12.0219 20.4071 12.0219 20.9581C12.0219 21.5091 11.571 22 11.02 22ZM18.173 19.1749C17.9126 19.1749 17.6621 19.0747 17.4617 18.8843L17.3315 18.7541C16.9408 18.3634 16.9408 17.7322 17.3315 17.3415C17.7222 16.9508 18.3534 16.9508 18.7441 17.3415L18.8743 17.4718C19.265 17.8625 19.265 18.4936 18.8743 18.8843C18.684 19.0747 18.4335 19.1749 18.173 19.1749ZM3.86703 19.1749C3.60656 19.1749 3.3561 19.0747 3.15574 18.8843C2.76503 18.4936 2.76503 17.8625 3.15574 17.4718L3.28597 17.3415C3.67669 16.9508 4.30783 16.9508 4.69854 17.3415C5.08925 17.7322 5.08925 18.3634 4.69854 18.7541L4.56831 18.8843C4.37796 19.0747 4.11749 19.1749 3.86703 19.1749ZM21.0383 12.0219H20.9581C20.4071 12.0219 19.9563 11.571 19.9563 11.02C19.9563 10.469 20.4071 10.0182 20.9581 10.0182C21.5091 10.0182 22 10.469 22 11.02C22 11.571 21.5893 12.0219 21.0383 12.0219ZM1.08197 12.0219H1.00182C0.45082 12.0219 0 11.571 0 11.02C0 10.469 0.45082 10.0182 1.00182 10.0182C1.55282 10.0182 2.04372 10.469 2.04372 11.02C2.04372 11.571 1.63297 12.0219 1.08197 12.0219ZM18.0428 4.99909C17.7823 4.99909 17.5319 4.89891 17.3315 4.70856C16.9408 4.31785 16.9408 3.6867 17.3315 3.29599L17.4617 3.16576C17.8525 2.77505 18.4836 2.77505 18.8743 3.16576C19.265 3.55647 19.265 4.18761 18.8743 4.57832L18.7441 4.70856C18.5537 4.89891 18.3033 4.99909 18.0428 4.99909ZM3.99727 4.99909C3.73679 4.99909 3.48634 4.89891 3.28597 4.70856L3.15574 4.56831C2.76503 4.1776 2.76503 3.54645 3.15574 3.15574C3.54645 2.76503 4.1776 2.76503 4.56831 3.15574L4.69854 3.28597C5.08925 3.67669 5.08925 4.30783 4.69854 4.69854C4.5082 4.89891 4.24772 4.99909 3.99727 4.99909ZM11.02 2.04372C10.469 2.04372 10.0182 1.63297 10.0182 1.08197V1.00182C10.0182 0.45082 10.469 0 11.02 0C11.571 0 12.0219 0.45082 12.0219 1.00182C12.0219 1.55282 11.571 2.04372 11.02 2.04372Z" fill="currentColor"/>
+      </svg>
+    </span>
+    <span class="theme-toggle__icon theme-toggle__moon">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.8215 15.3305C21.6399 15.0333 21.1291 14.5711 19.8577 14.7912C19.154 14.9122 18.4389 14.9673 17.7237 14.9342C15.0789 14.8242 12.6838 13.6466 11.0152 11.8306C9.53956 10.2348 8.63146 8.15465 8.62011 5.90946C8.62011 4.65479 8.86984 3.44415 9.38064 2.29954C9.88009 1.18795 9.5282 0.604643 9.27848 0.362515C9.0174 0.10938 8.40444 -0.242806 7.20122 0.241451C2.5586 2.13446 -0.313242 6.64685 0.0272929 11.4784C0.367827 16.0238 3.65966 19.9089 8.0185 21.3727C9.06281 21.7249 10.1639 21.934 11.299 21.978C11.4806 21.989 11.6622 22 11.8438 22C15.6465 22 19.2107 20.2611 21.4583 17.3005C22.2188 16.277 22.0145 15.6276 21.8215 15.3305Z" fill="currentColor"/>
+      </svg>
+    </span>
+  </button>
+
+  <script src="sidebar.js"></script>
+  <script>
+    // ===== Tab Switching with Content Panels =====
+    (function () {
+      var tabs = document.querySelectorAll('.friends-tab');
+      var grid = document.querySelector('.friends-grid');
+      var requestsList = document.querySelector('.requests-list');
+
+      function showPanel(tabName) {
+        if (tabName === 'requests') {
+          grid.style.display = 'none';
+          requestsList.style.display = 'flex';
+        } else {
+          grid.style.display = 'flex';
+          requestsList.style.display = 'none';
+        }
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (t) { t.classList.remove('friends-tab--active'); });
+          tab.classList.add('friends-tab--active');
+          showPanel(tab.getAttribute('data-tab'));
+        });
+      });
+    })();
+
+
+    // ===== Context Menu (Three Dots) =====
+    (function () {
+      var menuBtns = document.querySelectorAll('.friend-card__menu-btn');
+      var openDropdown = null;
+
+      function closeAll() {
+        if (openDropdown) {
+          openDropdown.classList.remove('friend-card__dropdown--open');
+          openDropdown = null;
+        }
+      }
+
+      menuBtns.forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var dropdown = btn.parentElement.querySelector('.friend-card__dropdown');
+
+          if (dropdown === openDropdown) {
+            closeAll();
+            return;
+          }
+
+          closeAll();
+          dropdown.classList.add('friend-card__dropdown--open');
+          openDropdown = dropdown;
+        });
+      });
+
+      document.addEventListener('click', function () {
+        closeAll();
+      });
+    })();
+  </script>
+</body>
+</html>
