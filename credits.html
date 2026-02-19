@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>message detail — portals</title>
+  <title>credits — portals</title>
   <link rel="stylesheet" href="styles.css">
   <script>
     (function(){var t=localStorage.getItem('portals-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
@@ -275,315 +275,318 @@
     }
 
 
-    /* ---------- Messages Content ---------- */
+    /* ---------- Credits Content ---------- */
 
-    .messages-content {
+    .credits-content {
       max-width: 1200px;
-      padding: 40px 48px;
+      padding: 48px 48px;
       margin: 0 auto;
     }
 
-    /* ---------- Messages Header ---------- */
+    /* ---------- Credits Header ---------- */
 
-    .messages-header {
+    .credits-header {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 28px;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 30px;
     }
 
-    .messages-title {
+    .credits-title {
       color: var(--text-primary);
       text-transform: lowercase;
       margin-bottom: 0;
     }
 
-    .messages-search {
-      width: 220px;
-      height: 40px;
-      border-radius: 999px;
-      background-color: var(--surface-sunken);
-      border: none;
-      padding: 0 20px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      color: var(--text-primary);
-      outline: none;
-      transition: box-shadow 0.15s ease;
-    }
-
-    .messages-search::placeholder {
-      color: var(--text-placeholder);
-    }
-
-    .messages-search:focus {
-      box-shadow: 0 0 0 2px var(--border-focus);
-    }
-
-    /* ---------- Filter Tabs ---------- */
-
-    .messages-tabs {
-      display: flex;
-      gap: 24px;
-      margin-bottom: 28px;
-      border-bottom: 1px solid var(--ice-3);
-    }
-
-    .messages-tab {
-      font-family: 'Agrandir Wide', sans-serif;
-      font-size: 20px;
-      line-height: 23px;
-      font-weight: 800;
+    .credits-subtitle {
+      color: var(--text-tertiary);
       text-transform: lowercase;
-      cursor: pointer;
-      padding-bottom: 12px;
-      border: none;
-      border-bottom: 2px solid transparent;
-      background: none;
-      color: var(--ice-5);
-      transition: color 0.15s ease, border-color 0.15s ease;
-      margin-bottom: -1px;
+      margin-bottom: 0;
     }
 
-    .messages-tab:hover {
-      color: var(--ice-8);
+    /* ---------- Credits Sections ---------- */
+
+    .credits-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
     }
 
-    .messages-tab--active {
-      color: var(--ice-10);
-      border-bottom-color: var(--ice-10);
+    .credits-section__heading {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 18px;
+      line-height: 33px;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      color: var(--text-quaternary);
+      text-transform: lowercase;
+      margin: 0 0 10px 0;
     }
 
-    [data-theme="dark"] .messages-tabs {
-      border-bottom-color: var(--slate-3);
+    /* ---------- Credit Cards ---------- */
+
+    .credit-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    [data-theme="dark"] .messages-tab {
-      color: var(--slate-5);
-    }
-
-    [data-theme="dark"] .messages-tab:hover {
-      color: var(--slate-8);
-    }
-
-    [data-theme="dark"] .messages-tab--active {
-      color: var(--slate-10);
-      border-bottom-color: var(--slate-10);
-    }
-
-    /* ---------- Detail Actions Bar ---------- */
-
-    .messages-detail-actions {
+    .credit-card {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 24px;
+      padding: 15px 39px 15px 28px;
+      border-radius: 10px;
+      background-color: var(--surface-sunken);
+      transition: background-color 0.15s ease;
     }
 
-    .messages-detail-actions__left {
-      display: flex;
-      align-items: center;
+    .credit-card:hover {
+      background-color: var(--ice-3);
     }
 
-    .messages-back-link {
+    [data-theme="dark"] .credit-card:hover {
+      background-color: var(--slate-3);
+    }
+
+    .credit-card__left {
       display: flex;
       align-items: center;
       gap: 10px;
-      text-decoration: none;
-      color: var(--text-secondary);
-      transition: color 0.15s ease;
+      width: 240px;
+      flex-shrink: 0;
     }
 
-    .messages-back-link:hover {
+    .credit-card__token {
+      width: 65px;
+      height: 65px;
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+
+    .credit-card__info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .credit-card__amount {
+      font-family: 'Agrandir Wide', sans-serif;
+      font-size: 24px;
+      line-height: 27px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
       color: var(--text-primary);
+      text-transform: lowercase;
+      margin: 0;
     }
 
-    .messages-back-link__icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border-default);
+    .credit-card__label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 500;
+      color: var(--text-primary);
+      text-transform: lowercase;
+      margin: 0;
+    }
+
+    .credit-card__bonus {
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 100px;
+      padding: 7px;
+      border-radius: 999px;
+      background-color: var(--surface-sunken);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 18px;
+      line-height: 33px;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    /* ---------- Premium Card ---------- */
+
+    .premium-card {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 35px;
+      border-radius: 20px;
+      background-color: var(--surface-primary);
+      box-shadow: 1px 11px 45.3px 0px var(--shadow-elevation);
+      overflow: hidden;
+    }
+
+    .premium-card__image {
+      width: 365px;
+      height: 301px;
       flex-shrink: 0;
-      transition: border-color 0.15s ease;
+      overflow: hidden;
     }
 
-    .messages-back-link:hover .messages-back-link__icon {
-      border-color: var(--border-strong);
+    .premium-card__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
-    .messages-back-link__icon svg {
-      width: 12px;
-      height: 12px;
-      color: currentColor;
+    .premium-card__content {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex: 1;
+      min-width: 0;
     }
 
-    .messages-back-link__text {
+    .premium-card__title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .premium-card__title {
+      font-family: 'Agrandir Wide', sans-serif;
+      font-size: 32px;
+      line-height: 36px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      text-transform: lowercase;
+      margin: 0;
+    }
+
+    .premium-card__price {
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+      padding: 4px 0;
+      color: var(--violet-1);
+    }
+
+    .premium-card__price-amount {
+      font-family: 'Agrandir Wide', sans-serif;
+      font-size: 40px;
+      line-height: 43px;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      margin: 0;
+    }
+
+    .premium-card__price-period {
       font-family: 'DM Sans', sans-serif;
       font-size: 16px;
       line-height: 28px;
-      font-weight: 500;
-      color: inherit;
+      font-weight: 700;
+      margin: 0;
     }
 
-    .messages-detail-actions__right {
+    .premium-card__benefits {
       display: flex;
-      align-items: center;
-      gap: 8px;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    /* ---------- Message Card ---------- */
+    .premium-card__benefit {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 18px;
+      line-height: 33px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
 
-    .message-card {
-      background-color: var(--surface-elevated);
+    .premium-card__btn {
+      width: 227px;
+    }
+
+    /* ---------- FAQ Accordion ---------- */
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .faq-item {
       border: 1px solid var(--border-subtle);
       border-radius: 20px;
-      padding: 30px 40px;
-      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.25s ease, background-color 0.25s ease;
     }
 
-    .message-card__header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 0;
+    .faq-item[open] {
+      box-shadow: 1px 5px 16.1px 0px var(--shadow-elevation);
+      background-color: var(--surface-primary);
     }
 
-    .message-card__subject {
-      color: var(--text-primary);
-      text-transform: lowercase;
-      margin-bottom: 0;
-    }
-
-    .message-card__menu-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
+    .faq-item__question {
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: var(--icon-default);
+      justify-content: space-between;
+      padding: 15px 20px;
+      cursor: pointer;
+      list-style: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 18px;
+      line-height: 33px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text-quaternary);
       transition: color 0.15s ease;
-      flex-shrink: 0;
     }
 
-    .message-card__menu-btn:hover {
-      color: var(--icon-hover);
-    }
-
-    .message-card__menu-btn svg {
-      width: 16px;
-      height: 16px;
-    }
-
-    .message-card__dropdown {
+    .faq-item__question::-webkit-details-marker {
       display: none;
-      position: absolute;
-      top: 60px;
-      right: 40px;
-      width: 158px;
-      background-color: var(--surface-elevated);
-      border-radius: 20px;
-      padding: 19px 18px;
-      box-shadow: 0px 5px 16px var(--shadow-elevation);
-      z-index: 50;
     }
 
-    .message-card__dropdown--open {
-      display: block;
+    .faq-item[open] .faq-item__question {
+      color: var(--text-secondary);
     }
 
-    .message-card__dropdown-item {
+    .faq-item__chevron {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+      color: var(--text-quaternary);
+    }
+
+    .faq-item[open] .faq-item__chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-item__answer {
+      padding: 0 20px 15px;
       font-family: 'DM Sans', sans-serif;
       font-size: 14px;
       line-height: 23px;
       font-weight: 500;
-      cursor: pointer;
-      padding: 4px 0;
-      text-transform: lowercase;
-      color: var(--text-placeholder);
-      transition: color 0.15s ease;
-    }
-
-    .message-card__dropdown-item:hover {
-      color: var(--text-primary);
-    }
-
-    .message-card__divider {
-      width: 100%;
-      height: 1px;
-      background-color: var(--border-subtle);
-      margin: 16px 0;
-    }
-
-    .message-card__sender {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 4px;
-    }
-
-    .message-card__sender-avatar {
-      width: 41px;
-      height: 41px;
-      border-radius: 50%;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-
-    .message-card__sender-info {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .message-card__sender-name {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
-      line-height: 28px;
-      font-weight: 700;
-      color: var(--text-secondary);
+      color: var(--text-tertiary);
       margin: 0;
     }
 
-    .message-card__sender-handle {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
-      line-height: 28px;
-      font-weight: 700;
-      color: #3496DC;
-      margin: 0;
-    }
+    /* ---------- Small Print ---------- */
 
-    .message-card__date {
+    .credits-smallprint {
       font-family: 'DM Sans', sans-serif;
       font-size: 12px;
       line-height: 24px;
-      font-weight: 800;
-      color: var(--text-placeholder);
-      margin: 0;
-      padding-left: 53px;
-    }
-
-    .message-card__body {
-      padding-top: 8px;
-    }
-
-    .message-card__body p {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
-      line-height: 28px;
       font-weight: 500;
-      color: var(--text-secondary);
-      letter-spacing: -0.5px;
-      margin-bottom: 16px;
+      color: var(--text-quaternary);
+      margin: 0;
     }
 
-    .message-card__body p:last-child {
-      margin-bottom: 0;
+    .credits-smallprint a {
+      color: var(--text-quaternary);
+      text-decoration: underline;
+    }
+
+    .credits-smallprint a:hover {
+      color: var(--text-secondary);
     }
 
 
@@ -651,8 +654,22 @@
         margin-left: 72px;
       }
 
-      .messages-content {
+      .credits-content {
         padding: 32px;
+      }
+
+      .credit-card__left {
+        width: 180px;
+      }
+
+      .credit-card__token {
+        width: 50px;
+        height: 50px;
+      }
+
+      .credit-card__amount {
+        font-size: 20px;
+        line-height: 23px;
       }
 
       .marketplace-nav__links {
@@ -661,6 +678,38 @@
 
       .theme-toggle {
         left: 84px;
+      }
+    }
+
+
+    /* ---------- Responsive — Premium Card Stack (≤900px) ---------- */
+
+    @media (max-width: 900px) {
+      .premium-card {
+        flex-direction: column;
+      }
+
+      .premium-card__image {
+        align-self: center;
+      }
+
+      .premium-card__content {
+        width: 100%;
+      }
+
+      .premium-card__title {
+        font-size: 28px;
+        line-height: 32px;
+      }
+
+      .premium-card__price-amount {
+        font-size: 28px;
+        line-height: 32px;
+      }
+
+      .premium-card__btn {
+        display: flex;
+        width: 100%;
       }
     }
 
@@ -714,43 +763,35 @@
         padding-bottom: 64px;
       }
 
-      .messages-content {
+      .credits-content {
         padding: 24px 16px;
       }
 
-      .messages-header {
-        flex-direction: column;
-        gap: 16px;
-        align-items: flex-start;
-      }
-
-      .messages-title {
+      .credits-title {
         font-size: 32px;
         line-height: 36px;
       }
 
-      .messages-search {
-        width: 100%;
+      .credit-card {
+        flex-wrap: wrap;
+        padding: 15px 20px;
+        gap: 10px;
       }
 
-      .messages-tab {
+      .credit-card__left {
+        width: auto;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .credit-card__bonus {
+        font-size: 14px;
+        width: auto;
+        padding: 5px 10px;
+      }
+
+      .faq-item__question {
         font-size: 16px;
-        line-height: 20px;
-      }
-
-      .messages-detail-actions {
-        flex-direction: column;
-        gap: 12px;
-        align-items: flex-start;
-      }
-
-      .message-card {
-        padding: 24px 20px;
-        border-radius: 16px;
-      }
-
-      .message-card__date {
-        padding-left: 0;
       }
 
       .marketplace-nav__links {
@@ -776,9 +817,10 @@
     /* ---------- Reduced Motion ---------- */
 
     @media (prefers-reduced-motion: reduce) {
-      .messages-tab,
-      .messages-back-link,
-      .message-card__menu-btn,
+      .credit-card,
+      .faq-item,
+      .faq-item__chevron,
+      .faq-item__question,
       .marketplace-nav__link,
       .marketplace-nav-item {
         transition: none;
@@ -800,7 +842,7 @@
         <a href="#" class="marketplace-nav__link p1">play</a>
         <a href="marketplace.html" class="marketplace-nav__link p1">marketplace</a>
         <a href="#" class="marketplace-nav__link p1">create</a>
-        <a href="credits.html" class="marketplace-nav__link p1">warps</a>
+        <a href="credits.html" class="marketplace-nav__link marketplace-nav__link--active p1">warps</a>
       </div>
 
       <div class="marketplace-nav__auth">
@@ -840,7 +882,7 @@
         </span>
         <span class="marketplace-nav-item__label">profile</span>
       </a>
-      <a href="messages.html" class="marketplace-nav-item p1 marketplace-nav-item--active">
+      <a href="messages.html" class="marketplace-nav-item p1">
         <span class="marketplace-nav-item__icon">
           <img src="assets/nav icons/messages.svg" alt="">
         </span>
@@ -879,76 +921,162 @@
 
   <!-- ==================== Main Content ==================== -->
   <main class="marketplace-main">
-    <div class="messages-content">
+    <div class="credits-content">
 
-      <!-- Header: Title + Search -->
-      <div class="messages-header">
-        <h1 class="messages-title h3-bold">messages</h1>
-        <input type="text" class="messages-search p2" placeholder="search">
+      <!-- Header -->
+      <div class="credits-header">
+        <h1 class="credits-title h3-bold">buy credits</h1>
+        <p class="credits-subtitle p1-xl">get up to 25% off portals credits</p>
       </div>
 
-      <!-- Filter Tabs -->
-      <div class="messages-tabs">
-        <button class="messages-tab messages-tab--active" data-tab="inbox">inbox</button>
-        <button class="messages-tab" data-tab="sent">sent</button>
-        <button class="messages-tab" data-tab="news">news</button>
-        <button class="messages-tab" data-tab="archive">archive</button>
-      </div>
+      <!-- All sections wrapper -->
+      <div class="credits-sections">
 
-      <!-- Detail Actions Bar -->
-      <div class="messages-detail-actions">
-        <div class="messages-detail-actions__left">
-          <a href="messages.html" class="messages-back-link">
-            <span class="messages-back-link__icon">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.5 9L4.5 6L7.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            <span class="messages-back-link__text">back to messages</span>
-          </a>
+        <!-- Section 1: Currency Packs -->
+        <div class="credit-cards">
+
+          <!-- 30,000 warps -->
+          <div class="credit-card">
+            <div class="credit-card__left">
+              <img src="warp-token-highres.png" alt="warp token" class="credit-card__token">
+              <div class="credit-card__info">
+                <p class="credit-card__amount">30,000</p>
+                <p class="credit-card__label">warp</p>
+              </div>
+            </div>
+            <span class="credit-card__bonus">+ 1000 more</span>
+            <button class="btn btn-sm btn-tertiary">$199.99</button>
+          </div>
+
+          <!-- 15,000 warps -->
+          <div class="credit-card">
+            <div class="credit-card__left">
+              <img src="warp-token-highres.png" alt="warp token" class="credit-card__token">
+              <div class="credit-card__info">
+                <p class="credit-card__amount">15,000</p>
+                <p class="credit-card__label">warp</p>
+              </div>
+            </div>
+            <span class="credit-card__bonus">+ 800 more</span>
+            <button class="btn btn-sm btn-tertiary">$99.99</button>
+          </div>
+
+          <!-- 8,000 warps -->
+          <div class="credit-card">
+            <div class="credit-card__left">
+              <img src="warp-token-highres.png" alt="warp token" class="credit-card__token">
+              <div class="credit-card__info">
+                <p class="credit-card__amount">8,000</p>
+                <p class="credit-card__label">warp</p>
+              </div>
+            </div>
+            <span class="credit-card__bonus">+ 500 more</span>
+            <button class="btn btn-sm btn-tertiary">$49.99</button>
+          </div>
+
+          <!-- 2,000 warps -->
+          <div class="credit-card">
+            <div class="credit-card__left">
+              <img src="warp-token-highres.png" alt="warp token" class="credit-card__token">
+              <div class="credit-card__info">
+                <p class="credit-card__amount">2,000</p>
+                <p class="credit-card__label">warp</p>
+              </div>
+            </div>
+            <span class="credit-card__bonus">+ 100 more</span>
+            <button class="btn btn-sm btn-tertiary">$7.99</button>
+          </div>
+
         </div>
-        <div class="messages-detail-actions__right">
-          <button class="btn btn-sm btn-primary">reply</button>
-          <button class="btn btn-sm btn-secondary">archive</button>
-        </div>
-      </div>
 
-      <!-- Message Card -->
-      <div class="message-card">
-        <div class="message-card__header">
-          <h2 class="message-card__subject h6-bold">group payout status change</h2>
-          <button class="message-card__menu-btn" aria-label="Options">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
-              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
-              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
-            </svg>
-          </button>
-          <div class="message-card__dropdown">
-            <div class="message-card__dropdown-item">delete</div>
-            <div class="message-card__dropdown-item">report</div>
-            <div class="message-card__dropdown-item">block sender</div>
+
+        <!-- Section 2: Popular Pick -->
+        <div>
+          <p class="credits-section__heading">popular pick</p>
+          <div class="credit-cards">
+            <div class="credit-card">
+              <div class="credit-card__left">
+                <img src="warp-token-highres.png" alt="warp token" class="credit-card__token">
+                <div class="credit-card__info">
+                  <p class="credit-card__amount">8,000</p>
+                  <p class="credit-card__label">warp</p>
+                </div>
+              </div>
+              <span class="credit-card__bonus">+ 100 more</span>
+              <button class="btn btn-sm btn-tertiary">$49.99</button>
+            </div>
           </div>
         </div>
 
-        <div class="message-card__divider"></div>
 
-        <div class="message-card__sender">
-          <img src="assets/avatars/avatar-05.png" alt="" class="message-card__sender-avatar">
-          <div class="message-card__sender-info">
-            <p class="message-card__sender-name">ember</p>
-            <p class="message-card__sender-handle">@emberspark</p>
+        <!-- Section 3: Portals Premium -->
+        <div>
+          <p class="credits-section__heading">limited offer</p>
+          <div class="premium-card">
+            <div class="premium-card__image">
+              <img src="warp-token-higher-res.png" alt="warp token">
+            </div>
+            <div class="premium-card__content">
+              <div class="premium-card__title-block">
+                <h2 class="premium-card__title">portals premium</h2>
+                <div class="premium-card__price">
+                  <p class="premium-card__price-amount">$12.99</p>
+                  <p class="premium-card__price-period">/month</p>
+                </div>
+              </div>
+              <div class="premium-card__benefits">
+                <p class="premium-card__benefit">something here</p>
+                <p class="premium-card__benefit">up to 35% more on portals purchases</p>
+                <p class="premium-card__benefit">something else</p>
+              </div>
+              <button class="btn btn-md btn-secondary premium-card__btn">get premium</button>
+            </div>
           </div>
         </div>
-        <p class="message-card__date">jan 28, 2024  |  4:37pm</p>
 
-        <div class="message-card__divider"></div>
 
-        <div class="message-card__body">
-          <p>hey! wanted to let you know about a change to the group payout structure. the team has decided to update how payouts are distributed across portal creators, and this affects your current group membership.</p>
-          <p>going forward, all creator payouts will be processed on a bi-weekly basis instead of monthly. this means you'll see your warp tokens arriving more frequently. we've also updated the minimum payout threshold from 500 to 250 warps to make it easier for newer creators to receive their earnings.</p>
-          <p>if you have any questions about these changes or need help understanding how they affect your account, feel free to reply to this message or reach out to the support team. we're here to help!</p>
+        <!-- Section 4: FAQ -->
+        <div>
+          <p class="credits-section__heading">f.a.q</p>
+          <div class="faq-list">
+
+            <details class="faq-item" open>
+              <summary class="faq-item__question">
+                <span>what are warps?</span>
+                <svg class="faq-item__chevron" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </summary>
+              <p class="faq-item__answer">Scientifically engineered for maximum brain storage. Inspired by KSI's legendary forehead, this accessory offers +100 IQ</p>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-item__question">
+                <span>what are robux?</span>
+                <svg class="faq-item__chevron" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </summary>
+              <p class="faq-item__answer">Robux is the virtual currency used in the Roblox platform. It can be used to purchase in-game items, accessories, and premium features.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-item__question">
+                <span>what are robux?</span>
+                <svg class="faq-item__chevron" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </summary>
+              <p class="faq-item__answer">Robux is the virtual currency used in the Roblox platform. It can be used to purchase in-game items, accessories, and premium features.</p>
+            </details>
+
+          </div>
         </div>
+
+
+        <!-- Section 5: Small Print -->
+        <p class="credits-smallprint">portals is provided to you by Roblox. When you buy Robux you receive only a limited, non-refundable, non-transferable, revocable license to use Robux, which has no value in real currency. By selecting the Premium subscription package, (1) you agree that you are over 18 and that you authorize us to charge your account every month until you cancel the subscription, and (2) you represent that you understand and agree to the Terms of Use, which includes an agreement to arbitrate any dispute between you and Roblox, and <a href="#">Privacy Policy</a>. You can cancel at any time by clicking "Cancel subscription" on the <a href="#">billing tab</a> of the setting page. If you cancel, you will still be charged for the current billing period. See <a href="#">Terms of Use</a> for other limitations.</p>
+
       </div>
 
     </div>
@@ -971,43 +1099,5 @@
   </button>
 
   <script src="sidebar.js"></script>
-  <script>
-    // ===== Tab Switching =====
-    (function () {
-      var tabs = document.querySelectorAll('.messages-tab');
-      tabs.forEach(function (tab) {
-        tab.addEventListener('click', function () {
-          tabs.forEach(function (t) { t.classList.remove('messages-tab--active'); });
-          tab.classList.add('messages-tab--active');
-        });
-      });
-    })();
-
-    // ===== Three-Dot Menu =====
-    (function () {
-      var menuBtn = document.querySelector('.message-card__menu-btn');
-      var dropdown = document.querySelector('.message-card__dropdown');
-      var isOpen = false;
-
-      if (!menuBtn) return;
-
-      menuBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        isOpen = !isOpen;
-        if (isOpen) {
-          dropdown.classList.add('message-card__dropdown--open');
-        } else {
-          dropdown.classList.remove('message-card__dropdown--open');
-        }
-      });
-
-      document.addEventListener('click', function () {
-        if (isOpen) {
-          dropdown.classList.remove('message-card__dropdown--open');
-          isOpen = false;
-        }
-      });
-    })();
-  </script>
 </body>
 </html>

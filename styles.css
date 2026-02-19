@@ -251,6 +251,7 @@ img, svg {
 
   /* Shadow */
   --shadow-elevation:    rgba(0, 0, 0, 0.5);
+  --shadow-1:            rgba(0, 0, 0, 0.4);
 
   /* Dropdown triggers */
   --dropdown-trigger-bg:       var(--slate-3);

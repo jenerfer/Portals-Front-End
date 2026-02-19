@@ -281,7 +281,55 @@
     .marketplace-title {
       color: var(--text-primary);
       text-transform: lowercase;
+      margin-bottom: 0;
+    }
+
+
+    /* ---------- Marketplace Header ---------- */
+
+    .marketplace-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: 24px;
+    }
+
+    /* ---------- Cart Icon ---------- */
+
+    .marketplace-cart {
+      position: relative;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .marketplace-cart__icon {
+      width: 35px;
+      height: 35px;
+      color: var(--icon-default);
+      transition: color 0.2s ease;
+    }
+
+    .marketplace-cart:hover .marketplace-cart__icon {
+      color: var(--icon-hover);
+    }
+
+    .marketplace-cart__badge {
+      position: absolute;
+      top: -8px;
+      right: -16px;
+      background-color: var(--blue-1);
+      border: 2px solid var(--surface-primary);
+      border-radius: 999px;
+      padding: 2px 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 800;
+      color: var(--text-primary);
+      min-width: 20px;
+      text-align: center;
     }
 
 
@@ -297,7 +345,7 @@
     .marketplace-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(192px, 1fr));
-      gap: 28px 24px;
+      gap: 20px 10px;
     }
 
 
@@ -555,12 +603,404 @@
       .game-card__thumbnail,
       .filter-btn,
       .marketplace-nav__link,
-      .marketplace-nav-item {
+      .marketplace-nav-item,
+      .marketplace-cart__icon,
+      .item-detail-overlay,
+      .item-detail__surface,
+      .item-detail__back,
+      .item-detail__back-icon,
+      .item-detail__tab,
+      .item-detail__backdrop {
         transition: none;
       }
 
       .game-card:hover {
         transform: none;
+      }
+    }
+
+
+    /* ===== Item Detail Overlay ===== */
+
+    .item-detail-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 10px;
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    .item-detail-overlay--open {
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    .item-detail__backdrop {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+      transition: background-color 0.6s ease, backdrop-filter 0.6s ease, -webkit-backdrop-filter 0.6s ease;
+    }
+
+    .item-detail-overlay--open .item-detail__backdrop {
+      background-color: rgba(0, 0, 0, 0.20);
+      backdrop-filter: blur(11px);
+      -webkit-backdrop-filter: blur(11px);
+    }
+
+    .marketplace-main.item-detail-open {
+      overflow: hidden;
+    }
+
+
+    /* ---------- Surface ---------- */
+
+    .item-detail__surface {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      max-height: calc(100vh - 80px);
+      padding: 34px 40px;
+      background-color: var(--surface-primary);
+      border-radius: 20px;
+      box-shadow: 1px 11px 45.3px 0px var(--shadow-elevation);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      transform: scale(0.95);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    }
+
+    .item-detail-overlay--open .item-detail__surface {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+
+    /* ---------- Row 1: Header ---------- */
+
+    .item-detail__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .item-detail__back {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: color 0.15s ease;
+    }
+
+    .item-detail__back:hover {
+      color: var(--text-primary);
+    }
+
+    .item-detail__back-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-default);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.15s ease;
+    }
+
+    .item-detail__back:hover .item-detail__back-icon {
+      border-color: var(--border-strong);
+    }
+
+    .item-detail__back-icon svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .item-detail__back-text {
+      margin-bottom: 0;
+      color: inherit;
+      font-weight: 500;
+    }
+
+
+    /* ---------- Row 2: Tabs ---------- */
+
+    .item-detail__tabs {
+      display: flex;
+      gap: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .item-detail__tab {
+      text-transform: lowercase;
+      cursor: pointer;
+      padding-bottom: 12px;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: none;
+      color: var(--ice-5);
+      margin-bottom: -1px;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .item-detail__tab:hover {
+      color: var(--ice-8);
+    }
+
+    .item-detail__tab--active {
+      color: var(--ice-10);
+      border-bottom-color: var(--ice-10);
+    }
+
+    [data-theme="dark"] .item-detail__tabs {
+      border-bottom-color: var(--slate-3);
+    }
+
+    [data-theme="dark"] .item-detail__tab {
+      color: var(--slate-5);
+    }
+
+    [data-theme="dark"] .item-detail__tab:hover {
+      color: var(--slate-8);
+    }
+
+    [data-theme="dark"] .item-detail__tab--active {
+      color: var(--slate-10);
+      border-bottom-color: var(--slate-10);
+    }
+
+
+    /* ---------- Row 3: Two-column body ---------- */
+
+    .item-detail__body {
+      display: flex;
+      gap: 54px;
+    }
+
+    .item-detail__image-col {
+      width: 402px;
+      flex-shrink: 0;
+      max-width: 100%;
+    }
+
+    .item-detail__image-container {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background-color: var(--surface-sunken);
+      border-radius: 13px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    .item-detail__image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .item-detail__image-actions {
+      display: flex;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    .item-detail__info-col {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .item-detail__name {
+      margin-bottom: 5px;
+      color: var(--text-primary);
+    }
+
+    .item-detail__creator {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 25px;
+    }
+
+    .item-detail__creator-by,
+    .item-detail__creator-name {
+      margin-bottom: 0;
+      color: var(--text-secondary);
+    }
+
+    .item-detail__creator-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .item-detail__creator-verified {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .item-detail__buy-btn {
+      width: 227px;
+    }
+
+    .item-detail__or-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+
+    .item-detail__or-text {
+      margin-bottom: 0;
+      color: var(--text-secondary);
+    }
+
+    .item-detail__price {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 30px;
+    }
+
+    .item-detail__price-icon {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+
+    .item-detail__price-value {
+      margin-bottom: 0;
+      background: linear-gradient(248.52deg, var(--accent-violet) 19.87%, #BFCE82 60.56%, #69B6EC 100.84%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+
+    /* ---------- Detail Table ---------- */
+
+    .item-detail__table {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .item-detail__table-row {
+      display: flex;
+      gap: 71px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .item-detail__table-row:last-child {
+      border-bottom: none;
+    }
+
+    .item-detail__table-label {
+      width: 112px;
+      flex-shrink: 0;
+      margin-bottom: 0;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .item-detail__table-value {
+      flex: 1;
+      margin-bottom: 0;
+      color: var(--text-quaternary);
+      font-weight: 500;
+    }
+
+
+    /* ---------- Row 4: Recommended Items ---------- */
+
+    .item-detail__recommended-title {
+      text-transform: lowercase;
+      color: var(--text-quaternary);
+      margin-bottom: 24px;
+    }
+
+    .item-detail__recommended-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px 10px;
+    }
+
+
+    /* ---------- Item Detail — Tablet (≤1024px) ---------- */
+
+    @media (max-width: 1024px) {
+      .item-detail__surface {
+        max-width: 90vw;
+        padding: 32px;
+      }
+
+      .item-detail__body {
+        gap: 32px;
+      }
+
+      .item-detail__image-col {
+        width: 300px;
+      }
+    }
+
+
+    /* ---------- Item Detail — Mobile (≤768px) ---------- */
+
+    @media (max-width: 768px) {
+      .item-detail__surface {
+        max-width: calc(100vw - 32px);
+        padding: 24px;
+        max-height: calc(100vh - 40px);
+        border-radius: 16px;
+      }
+
+      .item-detail__body {
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .item-detail__image-col {
+        width: 100%;
+      }
+
+      .item-detail__buy-btn {
+        width: 100%;
+      }
+
+      .item-detail__recommended-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .item-detail__table-row {
+        gap: 32px;
+      }
+
+      .item-detail__name {
+        font-size: 24px;
+        line-height: 28px;
       }
     }
 
@@ -579,7 +1019,7 @@
         <a href="#" class="marketplace-nav__link p1">play</a>
         <a href="#" class="marketplace-nav__link marketplace-nav__link--active p1">marketplace</a>
         <a href="#" class="marketplace-nav__link p1">create</a>
-        <a href="#" class="marketplace-nav__link p1">warps</a>
+        <a href="credits.html" class="marketplace-nav__link p1">warps</a>
       </div>
 
       <div class="marketplace-nav__auth">
@@ -637,7 +1077,7 @@
         </span>
         <span class="marketplace-nav-item__label">avatar</span>
       </a>
-      <a href="#" class="marketplace-nav-item p1">
+      <a href="inventory.html" class="marketplace-nav-item p1">
         <span class="marketplace-nav-item__icon">
           <img src="assets/nav icons/inventory.svg" alt="">
         </span>
@@ -660,7 +1100,15 @@
   <main class="marketplace-main">
     <div class="marketplace-main__inner">
 
-      <h1 class="marketplace-title h3-bold">marketplace</h1>
+      <div class="marketplace-header">
+        <h1 class="marketplace-title h3-bold">marketplace</h1>
+        <a href="#" class="marketplace-cart">
+          <svg class="marketplace-cart__icon" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.833629 3.94361e-07C0.373216 3.94361e-07 0 0.376738 0 0.841464C0 1.30619 0.373216 1.68293 0.833629 1.68293H3.49082L6.35642 15.3304C6.46979 15.8442 6.80336 16.2717 7.22478 16.2683H21.1186C21.559 16.2745 21.9641 15.8715 21.9641 15.4269C21.9641 14.9823 21.559 14.5791 21.1186 14.5854H7.90211L7.54606 12.9025H22.2301C22.6033 12.8997 22.956 12.6127 23.0377 12.2451L24.9828 3.83041C25.0912 3.34206 24.671 2.80847 24.1752 2.80488H5.43596L4.98441 0.666159C4.90552 0.292521 4.54661 -0.000392289 4.16814 3.94361e-07H0.833629ZM5.7833 4.48781H10.1251L10.5419 7.0122H6.31302L5.7833 4.48781ZM11.8271 4.48781H17.072L16.6552 7.0122H12.2439L11.8271 4.48781ZM18.774 4.48781H23.1245L22.5427 7.0122H18.3572L18.774 4.48781ZM6.66903 8.69512H10.8198L11.2366 11.2195H7.19872L6.66903 8.69512ZM12.5218 8.69512H16.3773L15.9605 11.2195H12.9386L12.5218 8.69512ZM18.0793 8.69512H22.152L21.5701 11.2195H17.6625L18.0793 8.69512ZM10.2814 17.3902C8.75663 17.3902 7.50266 18.656 7.50266 20.1951C7.50266 21.7342 8.75663 23 10.2814 23C11.8062 23 13.0602 21.7342 13.0602 20.1951C13.0602 18.656 11.8062 17.3902 10.2814 17.3902ZM18.062 17.3902C16.5372 17.3902 15.2832 18.656 15.2832 20.1951C15.2832 21.7342 16.5372 23 18.062 23C19.5868 23 20.8407 21.7342 20.8407 20.1951C20.8407 18.656 19.5868 17.3902 18.062 17.3902ZM10.2814 19.0732C10.9052 19.0732 11.3929 19.5655 11.3929 20.1951C11.3929 20.8247 10.9052 21.3171 10.2814 21.3171C9.65773 21.3171 9.16992 20.8247 9.16992 20.1951C9.16992 19.5655 9.65773 19.0732 10.2814 19.0732ZM18.062 19.0732C18.6857 19.0732 19.1735 19.5655 19.1735 20.1951C19.1735 20.8247 18.6857 21.3171 18.062 21.3171C17.4383 21.3171 16.9505 20.8247 16.9505 20.1951C16.9505 19.5655 17.4383 19.0732 18.062 19.0732Z" fill="currentColor"/>
+          </svg>
+          <span class="marketplace-cart__badge">12</span>
+        </a>
+      </div>
 
       <!-- Filters -->
       <div class="dropdown-filter-bar">
@@ -850,7 +1298,12 @@
       <!-- Game Grid -->
       <div class="marketplace-grid">
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="weapon"
+          data-tradeable="yes"
+          data-rarity="rare"
+          data-created="jan 15, 2024"
+          data-description="a gleaming sapphire pickaxe forged in the crystal caverns of azuria.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-01.png" alt="sapphire pickaxe"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">sapphire pickaxe</h3>
@@ -862,7 +1315,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="body accessory"
+          data-tradeable="yes"
+          data-rarity="legendary"
+          data-created="mar 22, 2024"
+          data-description="a lush floating garden with crystalline petals that shimmer in sunlight.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-02.png" alt="crystal gardens"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">crystal gardens</h3>
@@ -874,7 +1332,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="animation"
+          data-tradeable="no"
+          data-rarity="epic"
+          data-created="nov 3, 2023"
+          data-description="a high-speed neon trail animation that blazes behind your avatar.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-03.png" alt="neon raceway"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">neon raceway</h3>
@@ -886,7 +1349,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="back accessory"
+          data-tradeable="yes"
+          data-rarity="rare"
+          data-created="jul 8, 2023"
+          data-description="a swirling portal backpack that opens gateways to other dimensions.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-04.png" alt="portal quest"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">portal quest</h3>
@@ -898,7 +1366,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="clothing"
+          data-tradeable="yes"
+          data-rarity="common"
+          data-created="feb 8, 2024"
+          data-description="a sharp architectural jacket inspired by futuristic skyline silhouettes.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-05.png" alt="skyline builders"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">skyline builders</h3>
@@ -910,7 +1383,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="head accessory"
+          data-tradeable="yes"
+          data-rarity="rare"
+          data-created="sep 14, 2023"
+          data-description="an enchanted forest crown woven from living vines and glowing moss.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-06.png" alt="mystic forest"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">mystic forest</h3>
@@ -922,7 +1400,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="clothing"
+          data-tradeable="no"
+          data-rarity="common"
+          data-created="dec 1, 2023"
+          data-description="a thermal arctic parka with faux fur lining and expedition patches.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-07.png" alt="arctic expedition"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">arctic expedition</h3>
@@ -934,7 +1417,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="back accessory"
+          data-tradeable="yes"
+          data-rarity="legendary"
+          data-created="apr 17, 2023"
+          data-description="massive cosmic wings that trail stardust and nebula particles behind you.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-08.png" alt="cosmic drift"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">cosmic drift</h3>
@@ -946,7 +1434,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="weapon"
+          data-tradeable="yes"
+          data-rarity="common"
+          data-created="oct 5, 2023"
+          data-description="a rustic treasure map compass that points toward hidden loot caches.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-09.png" alt="treasure hunt"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">treasure hunt</h3>
@@ -958,7 +1451,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="body accessory"
+          data-tradeable="yes"
+          data-rarity="epic"
+          data-created="jun 30, 2023"
+          data-description="a holographic pixel suit that shifts colors as you move through worlds.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/image-10.png" alt="pixel paradise"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">pixel paradise</h3>
@@ -970,7 +1468,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="animation"
+          data-tradeable="no"
+          data-rarity="rare"
+          data-created="aug 19, 2023"
+          data-description="a dark shadow teleport animation that cloaks your avatar in darkness.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/image-11.png" alt="shadow realm"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">shadow realm</h3>
@@ -982,7 +1485,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="head accessory"
+          data-tradeable="yes"
+          data-rarity="epic"
+          data-created="may 11, 2024"
+          data-description="a deep sea diving helmet with bioluminescent coral growing on the visor.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/image-12.png" alt="ocean depths"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">ocean depths</h3>
@@ -994,7 +1502,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="weapon"
+          data-tradeable="yes"
+          data-rarity="common"
+          data-created="jan 29, 2023"
+          data-description="a sandblasted desert blade that channels scorching winds when swung.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/image-13.png" alt="desert storm"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">desert storm</h3>
@@ -1006,7 +1519,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="clothing"
+          data-tradeable="yes"
+          data-rarity="rare"
+          data-created="apr 2, 2024"
+          data-description="a lightweight jungle explorer outfit with vine wraps and leaf camo.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/image-14.png" alt="jungle adventure"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">jungle adventure</h3>
@@ -1018,7 +1536,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="body accessory"
+          data-tradeable="no"
+          data-rarity="epic"
+          data-created="feb 14, 2023"
+          data-description="a mechanical exoskeleton with glowing circuitry and hydraulic joints.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/image-15.png" alt="robot uprising"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">robot uprising</h3>
@@ -1030,7 +1553,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="animation"
+          data-tradeable="yes"
+          data-rarity="rare"
+          data-created="oct 31, 2022"
+          data-description="a dazzling spell-casting animation with swirling arcane rune effects.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-01.png" alt="magic academy"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">magic academy</h3>
@@ -1042,7 +1570,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="back accessory"
+          data-tradeable="yes"
+          data-rarity="legendary"
+          data-created="jun 6, 2024"
+          data-description="a sleek jetpack module with rotating thrusters and orbital stabilizers.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-02.png" alt="space station"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">space station</h3>
@@ -1054,7 +1587,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="head accessory"
+          data-tradeable="no"
+          data-rarity="common"
+          data-created="aug 8, 2022"
+          data-description="a weathered stone crown recovered from ancient temple ruins underground.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-03.png" alt="ancient ruins"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">ancient ruins</h3>
@@ -1066,7 +1604,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="weapon"
+          data-tradeable="yes"
+          data-rarity="epic"
+          data-created="dec 20, 2023"
+          data-description="a plasma-edged katana with holographic targeting and neon edge glow.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-04.png" alt="cyber city"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">cyber city</h3>
@@ -1078,7 +1621,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="back accessory"
+          data-tradeable="yes"
+          data-rarity="legendary"
+          data-created="mar 18, 2024"
+          data-description="massive dragon wings that unfurl with ember particles and smoke trails.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-05.png" alt="dragon valley"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">dragon valley</h3>
@@ -1090,7 +1638,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="clothing"
+          data-tradeable="no"
+          data-rarity="common"
+          data-created="may 25, 2023"
+          data-description="a playful candy-themed outfit with gumdrop buttons and frosting trim.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-06.png" alt="candy world"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">candy world</h3>
@@ -1102,7 +1655,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="animation"
+          data-tradeable="yes"
+          data-rarity="rare"
+          data-created="sep 1, 2022"
+          data-description="a spooky ghost fade animation that makes your avatar flicker and vanish.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-07.png" alt="ghost town"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">ghost town</h3>
@@ -1114,7 +1672,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="body accessory"
+          data-tradeable="yes"
+          data-rarity="epic"
+          data-created="nov 10, 2023"
+          data-description="a volcanic obsidian shield that radiates intense heat and magma cracks.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-08.png" alt="volcano island"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">volcano island</h3>
@@ -1126,7 +1689,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="head accessory"
+          data-tradeable="yes"
+          data-rarity="legendary"
+          data-created="jul 4, 2024"
+          data-description="a frozen ice tiara that emits snowflake particles and a frosty aura.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/item-09.png" alt="ice kingdom"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">ice kingdom</h3>
@@ -1138,7 +1706,12 @@
           </div>
         </article>
 
-        <article class="game-card">
+        <article class="game-card"
+          data-type="clothing"
+          data-tradeable="yes"
+          data-rarity="rare"
+          data-created="feb 28, 2023"
+          data-description="a vibrant rainbow hoodie with prismatic light effects along the seams.">
           <div class="game-card__thumbnail"><img src="assets/marketplace/image-10.png" alt="rainbow road"></div>
           <div class="game-card__info">
             <h3 class="game-card__title p1">rainbow road</h3>
@@ -1154,6 +1727,159 @@
 
     </div>
   </main>
+
+
+  <!-- ==================== Item Detail Overlay ==================== -->
+  <div class="item-detail-overlay" id="item-detail-overlay" role="dialog" aria-modal="true" aria-label="Item details">
+    <div class="item-detail__backdrop" id="item-detail-backdrop"></div>
+    <div class="item-detail__surface" id="item-detail-surface">
+
+      <!-- Row 1: Header -->
+      <div class="item-detail__header">
+        <button class="item-detail__back" id="item-detail-close">
+          <span class="item-detail__back-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.5 9L4.5 6L7.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="item-detail__back-text p1">back to items</span>
+        </button>
+        <a href="#" class="marketplace-cart">
+          <svg class="marketplace-cart__icon" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.833629 3.94361e-07C0.373216 3.94361e-07 0 0.376738 0 0.841464C0 1.30619 0.373216 1.68293 0.833629 1.68293H3.49082L6.35642 15.3304C6.46979 15.8442 6.80336 16.2717 7.22478 16.2683H21.1186C21.559 16.2745 21.9641 15.8715 21.9641 15.4269C21.9641 14.9823 21.559 14.5791 21.1186 14.5854H7.90211L7.54606 12.9025H22.2301C22.6033 12.8997 22.956 12.6127 23.0377 12.2451L24.9828 3.83041C25.0912 3.34206 24.671 2.80847 24.1752 2.80488H5.43596L4.98441 0.666159C4.90552 0.292521 4.54661 -0.000392289 4.16814 3.94361e-07H0.833629ZM5.7833 4.48781H10.1251L10.5419 7.0122H6.31302L5.7833 4.48781ZM11.8271 4.48781H17.072L16.6552 7.0122H12.2439L11.8271 4.48781ZM18.774 4.48781H23.1245L22.5427 7.0122H18.3572L18.774 4.48781ZM6.66903 8.69512H10.8198L11.2366 11.2195H7.19872L6.66903 8.69512ZM12.5218 8.69512H16.3773L15.9605 11.2195H12.9386L12.5218 8.69512ZM18.0793 8.69512H22.152L21.5701 11.2195H17.6625L18.0793 8.69512ZM10.2814 17.3902C8.75663 17.3902 7.50266 18.656 7.50266 20.1951C7.50266 21.7342 8.75663 23 10.2814 23C11.8062 23 13.0602 21.7342 13.0602 20.1951C13.0602 18.656 11.8062 17.3902 10.2814 17.3902ZM18.062 17.3902C16.5372 17.3902 15.2832 18.656 15.2832 20.1951C15.2832 21.7342 16.5372 23 18.062 23C19.5868 23 20.8407 21.7342 20.8407 20.1951C20.8407 18.656 19.5868 17.3902 18.062 17.3902ZM10.2814 19.0732C10.9052 19.0732 11.3929 19.5655 11.3929 20.1951C11.3929 20.8247 10.9052 21.3171 10.2814 21.3171C9.65773 21.3171 9.16992 20.8247 9.16992 20.1951C9.16992 19.5655 9.65773 19.0732 10.2814 19.0732ZM18.062 19.0732C18.6857 19.0732 19.1735 19.5655 19.1735 20.1951C19.1735 20.8247 18.6857 21.3171 18.062 21.3171C17.4383 21.3171 16.9505 20.8247 16.9505 20.1951C16.9505 19.5655 17.4383 19.0732 18.062 19.0732Z" fill="currentColor"/>
+          </svg>
+          <span class="marketplace-cart__badge">12</span>
+        </a>
+      </div>
+
+      <!-- Row 2: Tabs -->
+      <div class="item-detail__tabs">
+        <button class="item-detail__tab h6-bold item-detail__tab--active" data-tab="overview">overview</button>
+        <button class="item-detail__tab h6-bold" data-tab="offers">offers</button>
+        <button class="item-detail__tab h6-bold" data-tab="activity">activity</button>
+      </div>
+
+      <!-- Row 3: Two columns -->
+      <div class="item-detail__body">
+        <!-- Col 1: Image -->
+        <div class="item-detail__image-col">
+          <div class="item-detail__image-container">
+            <img id="item-detail-image" src="" alt="">
+          </div>
+          <div class="item-detail__image-actions">
+            <button class="btn btn-sm btn-subtle">try on</button>
+            <button class="btn btn-sm btn-subtle">2d</button>
+          </div>
+        </div>
+
+        <!-- Col 2: Info -->
+        <div class="item-detail__info-col">
+          <h2 class="item-detail__name h4-bold" id="item-detail-name"></h2>
+          <div class="item-detail__creator">
+            <span class="item-detail__creator-by p2">by</span>
+            <img src="profile-image.jpg" alt="" class="item-detail__creator-avatar" id="item-detail-avatar">
+            <span class="item-detail__creator-name p2" id="item-detail-creator"></span>
+            <svg class="item-detail__creator-verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+              <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+            </svg>
+          </div>
+
+          <button class="item-detail__buy-btn btn btn-md btn-primary">buy now</button>
+
+          <div class="item-detail__or-row">
+            <span class="item-detail__or-text p2">or</span>
+            <button class="btn btn-sm btn-secondary">add to cart</button>
+          </div>
+
+          <div class="item-detail__price">
+            <img src="warp.png" alt="warps" class="item-detail__price-icon">
+            <span class="item-detail__price-value h6-bold" id="item-detail-price"></span>
+          </div>
+
+          <div class="item-detail__table">
+            <div class="item-detail__table-row">
+              <span class="item-detail__table-label p2">type</span>
+              <span class="item-detail__table-value p2" id="item-detail-type"></span>
+            </div>
+            <div class="item-detail__table-row">
+              <span class="item-detail__table-label p2">tradeable</span>
+              <span class="item-detail__table-value p2" id="item-detail-tradeable"></span>
+            </div>
+            <div class="item-detail__table-row">
+              <span class="item-detail__table-label p2">rarity</span>
+              <span class="item-detail__table-value p2" id="item-detail-rarity"></span>
+            </div>
+            <div class="item-detail__table-row">
+              <span class="item-detail__table-label p2">created</span>
+              <span class="item-detail__table-value p2" id="item-detail-created"></span>
+            </div>
+            <div class="item-detail__table-row">
+              <span class="item-detail__table-label p2">description</span>
+              <span class="item-detail__table-value p2" id="item-detail-description"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 4: Recommended items -->
+      <div class="item-detail__recommended">
+        <h3 class="item-detail__recommended-title h6-bold">recommended items</h3>
+        <div class="item-detail__recommended-grid">
+
+          <article class="game-card">
+            <div class="game-card__thumbnail"><img src="assets/marketplace/item-02.png" alt="crystal gardens"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">crystal gardens</h3>
+              <p class="game-card__creator p3">by portals</p>
+              <div class="game-card__price">
+                <img src="warp.png" alt="warps" class="game-card__price-icon">
+                <span class="game-card__price-value p2-bold">1,200</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <div class="game-card__thumbnail"><img src="assets/marketplace/item-03.png" alt="neon raceway"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">neon raceway</h3>
+              <p class="game-card__creator p3">by user123</p>
+              <div class="game-card__price">
+                <img src="warp.png" alt="warps" class="game-card__price-icon">
+                <span class="game-card__price-value p2-bold">350</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <div class="game-card__thumbnail"><img src="assets/marketplace/item-04.png" alt="portal quest"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">portal quest</h3>
+              <p class="game-card__creator p3">by portals</p>
+              <div class="game-card__price">
+                <img src="warp.png" alt="warps" class="game-card__price-icon">
+                <span class="game-card__price-value p2-bold">1,800</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <div class="game-card__thumbnail"><img src="assets/marketplace/item-05.png" alt="skyline builders"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">skyline builders</h3>
+              <p class="game-card__creator p3">by gamedev</p>
+              <div class="game-card__price">
+                <img src="warp.png" alt="warps" class="game-card__price-icon">
+                <span class="game-card__price-value p2-bold">75</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 
   <!-- Theme Toggle -->
@@ -1540,6 +2266,87 @@
 
       document.addEventListener('click', function (e) {
         if (isOpen && !dropdown.contains(e.target)) { closePanel(); }
+      });
+    })();
+
+    // ===== Item Detail Overlay =====
+    (function () {
+      var overlay = document.getElementById('item-detail-overlay');
+      var backdrop = document.getElementById('item-detail-backdrop');
+      var closeBtn = document.getElementById('item-detail-close');
+      var surface = document.getElementById('item-detail-surface');
+      var mainContent = document.querySelector('.marketplace-main');
+
+      // Dynamic content elements
+      var detailImage = document.getElementById('item-detail-image');
+      var detailName = document.getElementById('item-detail-name');
+      var detailCreator = document.getElementById('item-detail-creator');
+      var detailPrice = document.getElementById('item-detail-price');
+      var detailType = document.getElementById('item-detail-type');
+      var detailTradeable = document.getElementById('item-detail-tradeable');
+      var detailRarity = document.getElementById('item-detail-rarity');
+      var detailCreated = document.getElementById('item-detail-created');
+      var detailDescription = document.getElementById('item-detail-description');
+
+      function openOverlay(card) {
+        // Extract from card DOM
+        var img = card.querySelector('.game-card__thumbnail img');
+        var title = card.querySelector('.game-card__title');
+        var creator = card.querySelector('.game-card__creator');
+        var price = card.querySelector('.game-card__price-value');
+
+        if (img) { detailImage.src = img.src; detailImage.alt = img.alt; }
+        if (title) detailName.textContent = title.textContent;
+        if (creator) detailCreator.textContent = creator.textContent.replace(/^by\s*/i, '');
+        if (price) detailPrice.textContent = price.textContent;
+
+        // Extract from data attributes
+        detailType.textContent = card.getAttribute('data-type') || 'accessory';
+        detailTradeable.textContent = card.getAttribute('data-tradeable') || 'yes';
+        detailRarity.textContent = card.getAttribute('data-rarity') || 'common';
+        detailCreated.textContent = card.getAttribute('data-created') || 'jan 1, 2024';
+        detailDescription.textContent = card.getAttribute('data-description') || 'a marketplace item.';
+
+        overlay.classList.add('item-detail-overlay--open');
+        document.body.classList.add('item-detail-open');
+        if (mainContent) mainContent.classList.add('item-detail-open');
+        surface.scrollTop = 0;
+      }
+
+      function closeOverlay() {
+        overlay.classList.remove('item-detail-overlay--open');
+        document.body.classList.remove('item-detail-open');
+        if (mainContent) mainContent.classList.remove('item-detail-open');
+      }
+
+      // Attach click to marketplace grid cards only (not recommended)
+      var gameCards = document.querySelectorAll('.marketplace-grid .game-card');
+      gameCards.forEach(function (card) {
+        card.addEventListener('click', function (e) {
+          e.preventDefault();
+          openOverlay(card);
+        });
+      });
+
+      // Close handlers
+      backdrop.addEventListener('click', closeOverlay);
+      closeBtn.addEventListener('click', closeOverlay);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('item-detail-overlay--open')) {
+          closeOverlay();
+        }
+      });
+
+      // Prevent surface clicks from closing
+      surface.addEventListener('click', function (e) { e.stopPropagation(); });
+
+      // Tab switching
+      var tabs = overlay.querySelectorAll('.item-detail__tab');
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (t) { t.classList.remove('item-detail__tab--active'); });
+          tab.classList.add('item-detail__tab--active');
+        });
       });
     })();
   </script>
