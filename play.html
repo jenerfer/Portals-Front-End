@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>play — portals</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function(){var t=localStorage.getItem('portals-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
+  </script>
+  <style>
+
+    /* ===== Play-Specific Styles ===== */
+
+    /* ---------- Play Header ---------- */
+
+    .play-title {
+      color: var(--text-primary);
+      text-transform: lowercase;
+      margin-bottom: 0;
+    }
+
+    .play-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .play-header__actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .play-search {
+      width: 220px;
+      height: 40px;
+      border-radius: 999px;
+      background-color: var(--surface-sunken);
+      border: none;
+      padding: 0 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-primary);
+      outline: none;
+      transition: box-shadow 0.15s ease;
+      margin-bottom: 0;
+    }
+
+    .play-search::placeholder {
+      color: var(--text-placeholder);
+    }
+
+    .play-search:focus {
+      box-shadow: 0 0 0 2px var(--border-focus);
+    }
+
+
+    /* ---------- Filters ---------- */
+
+    /* ---------- Play Sections ---------- */
+
+    .play-section-title {
+      text-transform: lowercase;
+      color: var(--text-quaternary);
+      margin-bottom: 24px;
+    }
+
+    .play-section + .play-section {
+      margin-top: 40px;
+    }
+
+
+    /* ---------- Play Grid ---------- */
+
+    .play-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px 20px;
+    }
+
+    .play-grid .game-card__thumbnail {
+      aspect-ratio: 16 / 9;
+      padding: 0;
+    }
+
+    .play-grid .game-card__thumbnail img {
+      object-fit: cover;
+    }
+
+
+    /* ---------- Rating ---------- */
+
+    .game-card__rating {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .game-card__rating-icon {
+      width: 16px;
+      height: 16px;
+      filter: brightness(0) saturate(100%) invert(51%) sepia(13%) saturate(1038%) hue-rotate(176deg) brightness(93%) contrast(86%);
+    }
+
+    [data-theme="dark"] .game-card__rating-icon {
+      filter: brightness(0) saturate(100%) invert(55%) sepia(8%) saturate(800%) hue-rotate(176deg) brightness(88%) contrast(90%);
+    }
+
+    .game-card__rating-value {
+      margin-bottom: 0;
+      color: var(--icon-dark);
+    }
+
+
+    /* ---------- Play-Specific Responsive ---------- */
+
+    @media (max-width: 1280px) {
+      .play-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      /* 3-col visibility: even rows only */
+      .play-section--picks .game-card:nth-child(n+7) { display: none; }
+      .play-section--recommended .game-card:nth-child(n+13) { display: none; }
+      .play-section--friends .game-card:nth-child(n+10) { display: none; }
+    }
+
+    @media (max-width: 1024px) {
+      .play-main__inner {
+        padding: 32px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .play-main__inner {
+        padding: 24px 16px;
+      }
+
+      .play-title {
+        font-size: 32px;
+        line-height: 36px;
+      }
+
+      .play-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .play-search {
+        width: 100%;
+      }
+
+      .play-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      /* Mobile visibility: even rows only */
+      .play-section--picks .game-card:nth-child(n+5) { display: none; }
+      .play-section--recommended .game-card:nth-child(n+9) { display: none; }
+      .play-section--friends .game-card:nth-child(n+7) { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .play-grid {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      /* Small mobile visibility: even rows only */
+      .play-section--picks .game-card:nth-child(n+5) { display: none; }
+      .play-section--recommended .game-card:nth-child(n+7) { display: none; }
+      .play-section--friends .game-card:nth-child(n+5) { display: none; }
+    }
+
+    @media (min-width: 2200px) {
+      .play-grid {
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      }
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <!-- ==================== Top Navigation ==================== -->
+  <nav class="marketplace-nav">
+    <div class="marketplace-nav__inner">
+      <a href="index.html" class="marketplace-nav__logo">
+        <img src="portals-logo.svg" alt="portals">
+      </a>
+
+      <div class="marketplace-nav__links">
+        <a href="marketplace.html" class="marketplace-nav__link p1">marketplace</a>
+        <a href="#" class="marketplace-nav__link p1">creator studio</a>
+        <a href="credits.html" class="marketplace-nav__link p1">buy portals credits</a>
+      </div>
+
+      <div class="marketplace-nav__auth">
+        <a href="login.html#signup" class="btn btn-sm btn-primary">sign up</a>
+        <a href="login.html" class="btn btn-sm btn-secondary">log in</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ==================== Left Sidebar ==================== -->
+  <aside class="marketplace-sidebar">
+
+    <!-- Profile -->
+    <div class="marketplace-sidebar__profile">
+      <div class="marketplace-avatar-wrapper">
+        <img src="profile-image.jpg" alt="user avatar" class="marketplace-avatar">
+        <span class="marketplace-online-dot"></span>
+      </div>
+      <div class="marketplace-user-info">
+        <p class="marketplace-username">jenerfer</p>
+        <p class="marketplace-email p3">jenerfer@gmail.com</p>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="marketplace-sidebar__nav">
+      <a href="play.html" class="marketplace-nav-item p1 marketplace-nav-item--active">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/play.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">play</span>
+      </a>
+      <a href="profile.html" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/profile.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">profile</span>
+      </a>
+      <a href="messages.html" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/messages.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">messages</span>
+      </a>
+      <a href="friends.html" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/friends.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">friends</span>
+      </a>
+      <a href="#" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/avatar.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">avatar</span>
+      </a>
+      <a href="inventory.html" class="marketplace-nav-item p1">
+        <span class="marketplace-nav-item__icon">
+          <img src="assets/nav icons/inventory.svg" alt="">
+        </span>
+        <span class="marketplace-nav-item__label">inventory</span>
+      </a>
+    </nav>
+
+    <!-- Currency -->
+    <div class="marketplace-sidebar__currency">
+      <div class="currency-display">
+        <img src="warp.png" alt="warps" class="currency-icon">
+        <span class="currency-value p1-bold">42,600</span>
+      </div>
+    </div>
+
+  </aside>
+
+
+  <!-- ==================== Main Content ==================== -->
+  <main class="marketplace-main">
+    <div class="marketplace-main__inner play-main__inner">
+
+      <div class="play-header">
+        <h1 class="play-title h3-bold">play</h1>
+        <div class="play-header__actions">
+          <input type="text" class="play-search p2" placeholder="search games">
+          <button class="btn btn-sm btn-tertiary">buy warps</button>
+        </div>
+      </div>
+
+      <!-- Section 1: Portals Picks (8 cards) -->
+      <div class="play-section play-section--picks">
+        <h2 class="play-section-title h6-bold">portals picks</h2>
+        <div class="play-grid" data-game-overlay>
+
+          <article class="game-card" data-description="grow your own swarm of bees, collect pollen, and build the ultimate hive.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="simulation" data-players="100" data-created="mar 15, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-01.png" alt="chrono rush"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">chrono rush</h3>
+              <p class="game-card__creator p3">by portals</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">73%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="race across the galaxy in high-speed starships and compete for cosmic glory.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="racing" data-players="20" data-created="jan 8, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-02.png" alt="sonar"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">sonar</h3>
+              <p class="game-card__creator p3">by stardust</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">91%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="explore dark dungeons, defeat monsters, and collect legendary loot.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="rpg" data-players="8" data-created="feb 20, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-03.png" alt="dungeon crawler"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">dungeon crawler</h3>
+              <p class="game-card__creator p3">by darkforge</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">84%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="adopt and care for adorable virtual pets in a tropical paradise.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="simulation" data-players="50" data-created="apr 3, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-04.png" alt="pet paradise"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">pet paradise</h3>
+              <p class="game-card__creator p3">by portals</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">67%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="battle across the cosmos with unique cosmic powers and abilities.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="fighting" data-players="16" data-created="dec 12, 2023">
+            <div class="game-card__thumbnail"><img src="assets/play/game-05.png" alt="cosmic fighters"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">cosmic fighters</h3>
+              <p class="game-card__creator p3">by nebula</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">87%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="embark on epic quests and become a legendary hero of the realm.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="adventure" data-players="30" data-created="jan 25, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-06.png" alt="quest legends"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">quest legends</h3>
+              <p class="game-card__creator p3">by portals</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">90%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="survive the frozen wilderness and uncover ancient arctic mysteries.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="adventure" data-players="24" data-created="nov 5, 2023">
+            <div class="game-card__thumbnail"><img src="assets/play/game-07.png" alt="arctic adventures"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">arctic adventures</h3>
+              <p class="game-card__creator p3">by frostbyte</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">78%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="hit the beat and compete in rhythm-based challenges and battles.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="music" data-players="12" data-created="mar 1, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-08.png" alt="rhythm raiders"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">rhythm raiders</h3>
+              <p class="game-card__creator p3">by beatwave</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">82%</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Section 2: Recommended For You (16 cards) -->
+      <div class="play-section play-section--recommended">
+        <h2 class="play-section-title h6-bold">recommended for you</h2>
+        <div class="play-grid" data-game-overlay>
+
+          <article class="game-card" data-description="build and defend your towers against waves of invading enemies.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="strategy" data-players="4" data-created="feb 14, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-09.png" alt="tower defense"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">tower defense</h3>
+              <p class="game-card__creator p3">by builder99</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">88%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="dive deep into the ocean and discover hidden underwater worlds.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="exploration" data-players="20" data-created="may 10, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-10.png" alt="ocean explorer"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">ocean explorer</h3>
+              <p class="game-card__creator p3">by deepblue</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">76%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="survive the zombie apocalypse with friends in this co-op thriller.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="survival" data-players="32" data-created="oct 31, 2023">
+            <div class="game-card__thumbnail"><img src="assets/play/game-11.png" alt="zombie outbreak"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">zombie outbreak</h3>
+              <p class="game-card__creator p3">by undead</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">92%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="grow crops, raise animals, and build the farm of your dreams.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="simulation" data-players="16" data-created="apr 22, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-12.png" alt="farm life"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">farm life</h3>
+              <p class="game-card__creator p3">by portals</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">81%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="sprint through obstacle courses and race to the finish line.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="racing" data-players="40" data-created="jun 1, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-13.png" alt="speed runners"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">speed runners</h3>
+              <p class="game-card__creator p3">by flashpoint</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">79%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="build a floating fortress in the clouds and defend it from invaders.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="strategy" data-players="50" data-created="jan 18, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-14.png" alt="sky fortress"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">sky fortress</h3>
+              <p class="game-card__creator p3">by cloudnine</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">95%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="solve puzzles and uncover dark secrets in a haunted mansion.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="puzzle" data-players="6" data-created="oct 15, 2023">
+            <div class="game-card__thumbnail"><img src="assets/play/game-15.png" alt="mystery mansion"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">mystery mansion</h3>
+              <p class="game-card__creator p3">by darkforge</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">85%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="tame and ride dragons in an epic aerial combat adventure.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="adventure" data-players="24" data-created="feb 28, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-16.png" alt="dragon riders"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">dragon riders</h3>
+              <p class="game-card__creator p3">by portals</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">93%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="score goals and compete in exciting multiplayer football matches.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="sports" data-players="22" data-created="may 20, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-17.png" alt="football fever"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">football fever</h3>
+              <p class="game-card__creator p3">by sportszone</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">71%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="create pixel art masterpieces and share them with the community.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="creative" data-players="100" data-created="mar 8, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-18.png" alt="pixel painter"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">pixel painter</h3>
+              <p class="game-card__creator p3">by artcraft</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">68%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="show off your moves and compete in epic dance battles.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="music" data-players="16" data-created="apr 15, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-19.png" alt="dance battle"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">dance battle</h3>
+              <p class="game-card__creator p3">by beatwave</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">77%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="search for buried treasure across mysterious islands and caves.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="adventure" data-players="12" data-created="jun 10, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-20.png" alt="treasure hunt"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">treasure hunt</h3>
+              <p class="game-card__creator p3">by portals</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">86%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="learn spells, brew potions, and graduate from wizard school.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="rpg" data-players="30" data-created="jan 5, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-21.png" alt="wizard academy"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">wizard academy</h3>
+              <p class="game-card__creator p3">by spellcraft</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">91%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="explore the wild jungle and photograph exotic animals.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="exploration" data-players="20" data-created="may 1, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-22.png" alt="jungle safari"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">jungle safari</h3>
+              <p class="game-card__creator p3">by wildlands</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">74%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="compete in legendary racing circuits with customizable vehicles.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="racing" data-players="24" data-created="feb 8, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-23.png" alt="racing legends"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">racing legends</h3>
+              <p class="game-card__creator p3">by turbodev</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">88%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="pilot giant mechs and battle in destructible arenas.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="fighting" data-players="16" data-created="mar 22, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-24.png" alt="mecha clash"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">mecha clash</h3>
+              <p class="game-card__creator p3">by ironworks</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">83%</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Section 3: My Friends Spaces (12 cards) -->
+      <div class="play-section play-section--friends">
+        <h2 class="play-section-title h6-bold">my friends spaces</h2>
+        <div class="play-grid" data-game-overlay>
+
+          <article class="game-card" data-description="solve challenging puzzles and build your own puzzle kingdom.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="puzzle" data-players="8" data-created="apr 5, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-25.png" alt="puzzle kingdom"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">puzzle kingdom</h3>
+              <p class="game-card__creator p3">by brainbox</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">70%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="train as a ninja and complete stealth missions across the world.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="action" data-players="12" data-created="jan 30, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-26.png" alt="ninja warriors"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">ninja warriors</h3>
+              <p class="game-card__creator p3">by shadowstep</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">86%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="sail the seven seas and discover pirate treasure.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="adventure" data-players="30" data-created="mar 12, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-27.png" alt="pirate cove"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">pirate cove</h3>
+              <p class="game-card__creator p3">by portals</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">74%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="build and battle with custom mechs in futuristic arenas.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="fighting" data-players="20" data-created="feb 18, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-28.png" alt="mech arena"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">mech arena</h3>
+              <p class="game-card__creator p3">by ironworks</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">89%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="cook delicious dishes and manage your own restaurant empire.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="simulation" data-players="10" data-created="may 25, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-29.png" alt="cooking chaos"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">cooking chaos</h3>
+              <p class="game-card__creator p3">by chefmode</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">65%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="colonize distant planets and build thriving space settlements.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="strategy" data-players="50" data-created="jan 12, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-30.png" alt="space colony"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">space colony</h3>
+              <p class="game-card__creator p3">by stardust</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">83%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="design and grow your dream city from the ground up.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="simulation" data-players="1" data-created="apr 20, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-31.png" alt="city builder"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">city builder</h3>
+              <p class="game-card__creator p3">by metroplex</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">80%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="train in martial arts and compete in karate tournaments.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="fighting" data-players="16" data-created="mar 5, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-32.png" alt="karate champs"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">karate champs</h3>
+              <p class="game-card__creator p3">by dojo</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">75%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="master powerful spells and duel other wizards in magical combat.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="rpg" data-players="12" data-created="feb 1, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-33.png" alt="spell caster"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">spell caster</h3>
+              <p class="game-card__creator p3">by spellcraft</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">88%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="drift around corners and compete in street racing championships.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="racing" data-players="20" data-created="jun 5, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-34.png" alt="drift kings"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">drift kings</h3>
+              <p class="game-card__creator p3">by turbodev</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">82%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="rescue adorable pets and find them loving forever homes.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="simulation" data-players="8" data-created="apr 10, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-35.png" alt="pet rescue"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">pet rescue</h3>
+              <p class="game-card__creator p3">by portals</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">72%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card" data-description="play classic arcade games reimagined with modern graphics.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." data-genre="arcade" data-players="4" data-created="may 15, 2024">
+            <div class="game-card__thumbnail"><img src="assets/play/game-36.png" alt="arcade legends"></div>
+            <div class="game-card__info">
+              <h3 class="game-card__title p1">arcade legends</h3>
+              <p class="game-card__creator p3">by retrogames</p>
+              <div class="game-card__rating">
+                <img src="thumb-up.svg" alt="rating" class="game-card__rating-icon">
+                <span class="game-card__rating-value p3">69%</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+
+  <!-- ==================== Game Detail Overlay ==================== -->
+  <div class="game-detail-overlay" id="game-detail-overlay" role="dialog" aria-modal="true" aria-label="Game details">
+    <div class="game-detail__backdrop" id="game-detail-backdrop"></div>
+    <div class="game-detail__surface" id="game-detail-surface">
+
+      <!-- Header -->
+      <div class="game-detail__header">
+        <button class="game-detail__back" id="game-detail-close">
+          <span class="game-detail__back-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.5 9L4.5 6L7.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="game-detail__back-text p1">back to all games</span>
+        </button>
+      </div>
+
+      <!-- Two-Column Body -->
+      <div class="game-detail__body">
+
+        <!-- Left: Image -->
+        <div class="game-detail__image-col">
+          <div class="game-detail__image-container">
+            <img id="game-detail-image" src="" alt="">
+          </div>
+          <div class="game-detail__thumbs-carousel">
+            <button class="game-detail__thumbs-nav game-detail__thumbs-nav--left" aria-label="Scroll thumbnails left">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="game-detail__thumbs-track">
+              <div class="game-detail__thumb game-detail__thumb--active"><img src="" alt=""></div>
+              <div class="game-detail__thumb"><img src="" alt=""></div>
+              <div class="game-detail__thumb"><img src="" alt=""></div>
+              <div class="game-detail__thumb"><img src="" alt=""></div>
+              <div class="game-detail__thumb"><img src="" alt=""></div>
+              <div class="game-detail__thumb"><img src="" alt=""></div>
+              <div class="game-detail__thumb"><img src="" alt=""></div>
+              <div class="game-detail__thumb"><img src="" alt=""></div>
+            </div>
+            <button class="game-detail__thumbs-nav game-detail__thumbs-nav--right" aria-label="Scroll thumbnails right">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Info -->
+        <div class="game-detail__info-col">
+          <div class="game-detail__info-top">
+            <div class="game-detail__name-block">
+              <h2 class="game-detail__name h4-bold" id="game-detail-name"></h2>
+              <div class="game-detail__creator">
+                <span class="game-detail__creator-by p2">by</span>
+                <img src="profile-image.jpg" alt="" class="game-detail__creator-avatar" id="game-detail-avatar">
+                <span class="game-detail__creator-name p2" id="game-detail-creator"></span>
+              </div>
+            </div>
+            <p class="game-detail__description p1" id="game-detail-description"></p>
+          </div>
+          <div class="game-detail__info-bottom">
+            <button class="game-detail__play-btn btn btn-md btn-primary">play</button>
+            <div class="game-detail__actions">
+              <button class="game-detail__action-btn">
+                <svg class="game-detail__action-icon" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.6831 7.67406L21.7379 11.7836C22.0148 12.3519 22.758 12.8911 23.3846 13.0077L27.1007 13.6198C29.4761 14.0133 30.0298 15.7329 28.3248 17.4524L25.4248 20.3524C24.9439 20.8333 24.667 21.7806 24.8273 22.4655L25.658 26.0504C26.3138 28.8776 24.7982 29.9851 22.3062 28.4987L18.8233 26.4293C18.1967 26.0504 17.1474 26.0504 16.5208 26.4293L13.0379 28.4987C10.5459 29.9705 9.03036 28.8776 9.68614 26.0504L10.5168 22.4655C10.6479 21.766 10.3711 20.8188 9.89016 20.3379L6.99016 17.4379C5.28513 15.7329 5.8389 14.0133 8.21428 13.6052L11.9304 12.9932C12.557 12.8911 13.3002 12.3374 13.5771 11.769L15.6319 7.65949C16.754 5.44441 18.561 5.44441 19.6831 7.67406Z" fill="currentColor"/></svg>
+                <span class="game-detail__action-label p2">favourite</span>
+              </button>
+              <button class="game-detail__action-btn">
+                <svg class="game-detail__action-icon" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.94116 13.9475H4.57054C4.15505 13.9475 3.75649 14.1121 3.46213 14.4054C3.16777 14.6986 3.0016 15.0965 3 15.512V26.4877C3.00159 26.9037 3.16757 27.3023 3.46176 27.5965C3.75595 27.8906 4.1545 28.0566 4.57054 28.0582H7.94116C8.35721 28.0566 8.75575 27.8906 9.04994 27.5965C9.34413 27.3023 9.51011 26.9037 9.5117 26.4877V15.512C9.5101 15.0965 9.34393 14.6986 9.04957 14.4054C8.75521 14.1121 8.35665 13.9475 7.94116 13.9475Z" fill="currentColor"/><path d="M29.3753 14.2281C28.9851 13.6831 28.4699 13.2395 27.8729 12.9347C27.2759 12.6299 26.6145 12.4727 25.9442 12.4763H20.3748C21.0838 10.0212 20.8311 7.3883 19.6681 5.1129C19.4636 4.70137 19.1239 4.37256 18.7059 4.18151C18.288 3.99046 17.8171 3.94876 17.372 4.06338C16.927 4.178 16.5348 4.44199 16.2612 4.81117C15.9875 5.18036 15.8489 5.63233 15.8686 6.09147C16.0793 8.27536 15.5078 10.4631 14.2558 12.2649L14.0202 12.6032L11.6946 15.3275C11.4244 15.6487 11.2767 16.0554 11.2778 16.4752V26.4904C11.2778 26.9069 11.4433 27.3064 11.7378 27.6009C12.0323 27.8954 12.4318 28.0609 12.8483 28.0609H24.5187C25.1441 28.0615 25.7537 27.8643 26.2603 27.4976C26.767 27.131 27.1447 26.6135 27.3396 26.0192L29.9672 18.0517C30.183 17.4137 30.2418 16.7331 30.1388 16.0675C30.0357 15.4019 29.7738 14.771 29.3753 14.2281Z" fill="currentColor"/></svg>
+                <span class="game-detail__action-label p2">like</span>
+              </button>
+              <button class="game-detail__action-btn">
+                <svg class="game-detail__action-icon" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.1811 26.8545C20.6948 28.1978 19.4094 29.1589 17.904 29.1589C16.9892 29.1589 16.086 28.7884 15.4491 28.1283C15.0785 27.7809 14.8006 27.3177 14.6385 26.843C14.789 26.8661 14.9396 26.8777 15.1017 26.9009C15.368 26.9356 15.6459 26.9703 15.9239 26.9935C16.5839 27.0514 17.2556 27.0861 17.9272 27.0861C18.5872 27.0861 19.2473 27.0514 19.8958 26.9935C20.139 26.9703 20.3821 26.9588 20.6137 26.924C20.799 26.9009 20.9843 26.8777 21.1811 26.8545Z" fill="currentColor"/><path d="M26.4039 20.4633L25.2459 18.541C25.0027 18.1126 24.7827 17.302 24.7827 16.8272V13.8975C24.7827 11.1762 23.1847 8.8255 20.8803 7.72541C20.2781 6.66005 19.1665 6 17.8927 6C16.6305 6 15.4956 6.68321 14.8935 7.76015C12.6354 8.8834 11.0721 11.211 11.0721 13.8975V16.8272C11.0721 17.302 10.8521 18.1126 10.6089 18.5295L9.43934 20.4633C8.97614 21.2392 8.87192 22.0961 9.16142 22.8835C9.43934 23.6594 10.0994 24.2615 10.9563 24.551C13.2028 25.3153 15.5651 25.6858 17.9274 25.6858C20.2897 25.6858 22.652 25.3153 24.8985 24.5626C25.7091 24.2963 26.3344 23.6825 26.6355 22.8835C26.9366 22.0845 26.8555 21.2044 26.4039 20.4633Z" fill="currentColor"/></svg>
+                <span class="game-detail__action-label p2">notify</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Stats Bar (full-width) -->
+      <div class="game-detail__stats-bar">
+        <div class="game-detail__stat">
+          <img src="assets/play/game detail/voice.svg" class="game-detail__stat-icon" alt="">
+          <div class="game-detail__stat-texts">
+            <span class="game-detail__stat-label p2-bold">voice chat</span>
+            <span class="game-detail__stat-value p3">enabled</span>
+          </div>
+        </div>
+        <div class="game-detail__stat">
+          <img src="assets/play/game detail/age-range.svg" class="game-detail__stat-icon" alt="">
+          <div class="game-detail__stat-texts">
+            <span class="game-detail__stat-label p2-bold">age range</span>
+            <span class="game-detail__stat-value p3">all ages</span>
+          </div>
+        </div>
+        <div class="game-detail__stat">
+          <img src="assets/play/game detail/likes.svg" class="game-detail__stat-icon" alt="">
+          <div class="game-detail__stat-texts">
+            <span class="game-detail__stat-label p2-bold">likes</span>
+            <span class="game-detail__stat-value p3">12.4k</span>
+          </div>
+        </div>
+        <div class="game-detail__stat">
+          <img src="assets/play/game detail/visits.svg" class="game-detail__stat-icon" alt="">
+          <div class="game-detail__stat-texts">
+            <span class="game-detail__stat-label p2-bold">visits</span>
+            <span class="game-detail__stat-value p3">3.2m</span>
+          </div>
+        </div>
+        <div class="game-detail__stat">
+          <img src="assets/play/game detail/updated.svg" class="game-detail__stat-icon" alt="">
+          <div class="game-detail__stat-texts">
+            <span class="game-detail__stat-label p2-bold">updated</span>
+            <span class="game-detail__stat-value p3">2 days ago</span>
+          </div>
+        </div>
+        <div class="game-detail__stat">
+          <img src="assets/play/game detail/server.svg" class="game-detail__stat-icon" alt="">
+          <div class="game-detail__stat-texts">
+            <span class="game-detail__stat-label p2-bold">servers</span>
+            <span class="game-detail__stat-value p3">24</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="game-detail__tabs">
+        <button class="game-detail__tab game-detail__tab--active" data-tab="overview">overview</button>
+        <button class="game-detail__tab" data-tab="store">store</button>
+        <button class="game-detail__tab" data-tab="servers">servers</button>
+      </div>
+
+      <!-- Tab Content + Sidebar -->
+      <div class="game-detail__overview">
+        <!-- Left: Tab Panels (swap) -->
+        <div class="game-detail__overview-desc">
+          <div class="game-detail__tab-content" data-panel="overview">
+            <div id="game-detail-long-desc"></div>
+          </div>
+          <div class="game-detail__tab-content" data-panel="store" style="display:none;">
+            <p class="p1 game-detail__placeholder">store content coming soon.</p>
+          </div>
+          <div class="game-detail__tab-content" data-panel="servers" style="display:none;">
+            <p class="p1 game-detail__placeholder">servers content coming soon.</p>
+          </div>
+        </div>
+
+        <!-- Right: Sidebar (always visible) -->
+        <div class="game-detail__overview-sidebar">
+          <div class="game-detail__about-box">
+            <h3 class="game-detail__section-heading h6-bold">about</h3>
+            <div class="game-detail__about-rows">
+              <div class="game-detail__about-row">
+                <span class="game-detail__about-label p2">genre</span>
+                <span class="game-detail__about-value p2" id="game-detail-genre">adventure</span>
+              </div>
+              <div class="game-detail__about-divider"></div>
+              <div class="game-detail__about-row">
+                <span class="game-detail__about-label p2">max players</span>
+                <span class="game-detail__about-value p2" id="game-detail-players">50</span>
+              </div>
+              <div class="game-detail__about-divider"></div>
+              <div class="game-detail__about-row">
+                <span class="game-detail__about-label p2">created</span>
+                <span class="game-detail__about-value p2" id="game-detail-created">jan 1, 2024</span>
+              </div>
+            </div>
+          </div>
+          <div class="game-detail__socials-box">
+            <h3 class="game-detail__section-heading h6-bold">socials</h3>
+            <div class="game-detail__socials-links">
+              <a href="#" class="game-detail__social-link"><img src="assets/play/game detail/twitter.svg" alt="twitter"></a>
+              <a href="#" class="game-detail__social-link"><img src="assets/play/game detail/discord.svg" alt="discord"></a>
+              <a href="#" class="game-detail__social-link"><img src="assets/play/game detail/youtube.svg" alt="youtube"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" aria-label="Toggle dark mode">
+    <span class="theme-toggle__icon theme-toggle__sun">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.0128 18.0323C14.8858 18.0323 18.0255 14.8926 18.0255 11.0196C18.0255 7.14655 14.8858 4.00684 11.0128 4.00684C7.13972 4.00684 4 7.14655 4 11.0196C4 14.8926 7.13972 18.0323 11.0128 18.0323Z" fill="currentColor"/>
+        <path d="M11.02 22C10.469 22 10.0182 21.5893 10.0182 21.0383V20.9581C10.0182 20.4071 10.469 19.9563 11.02 19.9563C11.571 19.9563 12.0219 20.4071 12.0219 20.9581C12.0219 21.5091 11.571 22 11.02 22ZM18.173 19.1749C17.9126 19.1749 17.6621 19.0747 17.4617 18.8843L17.3315 18.7541C16.9408 18.3634 16.9408 17.7322 17.3315 17.3415C17.7222 16.9508 18.3534 16.9508 18.7441 17.3415L18.8743 17.4718C19.265 17.8625 19.265 18.4936 18.8743 18.8843C18.684 19.0747 18.4335 19.1749 18.173 19.1749ZM3.86703 19.1749C3.60656 19.1749 3.3561 19.0747 3.15574 18.8843C2.76503 18.4936 2.76503 17.8625 3.15574 17.4718L3.28597 17.3415C3.67669 16.9508 4.30783 16.9508 4.69854 17.3415C5.08925 17.7322 5.08925 18.3634 4.69854 18.7541L4.56831 18.8843C4.37796 19.0747 4.11749 19.1749 3.86703 19.1749ZM21.0383 12.0219H20.9581C20.4071 12.0219 19.9563 11.571 19.9563 11.02C19.9563 10.469 20.4071 10.0182 20.9581 10.0182C21.5091 10.0182 22 10.469 22 11.02C22 11.571 21.5893 12.0219 21.0383 12.0219ZM1.08197 12.0219H1.00182C0.45082 12.0219 0 11.571 0 11.02C0 10.469 0.45082 10.0182 1.00182 10.0182C1.55282 10.0182 2.04372 10.469 2.04372 11.02C2.04372 11.571 1.63297 12.0219 1.08197 12.0219ZM18.0428 4.99909C17.7823 4.99909 17.5319 4.89891 17.3315 4.70856C16.9408 4.31785 16.9408 3.6867 17.3315 3.29599L17.4617 3.16576C17.8525 2.77505 18.4836 2.77505 18.8743 3.16576C19.265 3.55647 19.265 4.18761 18.8743 4.57832L18.7441 4.70856C18.5537 4.89891 18.3033 4.99909 18.0428 4.99909ZM3.99727 4.99909C3.73679 4.99909 3.48634 4.89891 3.28597 4.70856L3.15574 4.56831C2.76503 4.1776 2.76503 3.54645 3.15574 3.15574C3.54645 2.76503 4.1776 2.76503 4.56831 3.15574L4.69854 3.28597C5.08925 3.67669 5.08925 4.30783 4.69854 4.69854C4.5082 4.89891 4.24772 4.99909 3.99727 4.99909ZM11.02 2.04372C10.469 2.04372 10.0182 1.63297 10.0182 1.08197V1.00182C10.0182 0.45082 10.469 0 11.02 0C11.571 0 12.0219 0.45082 12.0219 1.00182C12.0219 1.55282 11.571 2.04372 11.02 2.04372Z" fill="currentColor"/>
+      </svg>
+    </span>
+    <span class="theme-toggle__icon theme-toggle__moon">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.8215 15.3305C21.6399 15.0333 21.1291 14.5711 19.8577 14.7912C19.154 14.9122 18.4389 14.9673 17.7237 14.9342C15.0789 14.8242 12.6838 13.6466 11.0152 11.8306C9.53956 10.2348 8.63146 8.15465 8.62011 5.90946C8.62011 4.65479 8.86984 3.44415 9.38064 2.29954C9.88009 1.18795 9.5282 0.604643 9.27848 0.362515C9.0174 0.10938 8.40444 -0.242806 7.20122 0.241451C2.5586 2.13446 -0.313242 6.64685 0.0272929 11.4784C0.367827 16.0238 3.65966 19.9089 8.0185 21.3727C9.06281 21.7249 10.1639 21.934 11.299 21.978C11.4806 21.989 11.6622 22 11.8438 22C15.6465 22 19.2107 20.2611 21.4583 17.3005C22.2188 16.277 22.0145 15.6276 21.8215 15.3305Z" fill="currentColor"/>
+      </svg>
+    </span>
+  </button>
+
+  <script src="sidebar.js"></script>
+  <script src="game-detail-overlay.js"></script>
+</body>
+</html>

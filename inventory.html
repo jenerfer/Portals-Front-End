@@ -10,270 +10,7 @@
   </script>
   <style>
 
-    /* ===== Layout (shared with marketplace) ===== */
-
-    body {
-      overflow: hidden;
-    }
-
-    /* ---------- Top Navigation ---------- */
-
-    .marketplace-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 64px;
-      background-color: var(--surface-elevated);
-      box-shadow: 0px 2px 20px 0px var(--shadow-elevation);
-      z-index: 200;
-      display: flex;
-      align-items: center;
-    }
-
-    .marketplace-nav__inner {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      padding: 0 32px;
-    }
-
-    .marketplace-nav__logo {
-      flex-shrink: 0;
-    }
-
-    .marketplace-nav__logo img {
-      width: 110px;
-      height: auto;
-    }
-
-    [data-theme="dark"] .marketplace-nav__logo img {
-      filter: brightness(0) invert(1);
-    }
-
-    .marketplace-nav__links {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .marketplace-nav__link {
-      color: var(--text-tertiary);
-      text-decoration: none;
-      text-transform: lowercase;
-      padding: 6px 16px;
-      border-radius: 999px;
-      transition: color 0.2s ease, background-color 0.2s ease;
-      margin-bottom: 0;
-      font-weight: 500;
-    }
-
-    .marketplace-nav__link:hover {
-      color: var(--text-primary);
-      background-color: var(--surface-sunken);
-    }
-
-    .marketplace-nav__link--active {
-      color: var(--text-primary);
-      background-color: var(--accent-bg);
-      font-weight: 700;
-    }
-
-    .marketplace-nav__auth {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-left: auto;
-    }
-
-
-    /* ---------- Left Sidebar ---------- */
-
-    .marketplace-sidebar {
-      position: fixed;
-      top: 64px;
-      left: 0;
-      width: 240px;
-      height: calc(100vh - 64px);
-      background-color: var(--surface-elevated);
-      display: flex;
-      flex-direction: column;
-      z-index: 100;
-      overflow-y: auto;
-    }
-
-    .marketplace-sidebar__profile {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 18px;
-      padding: 24px 20px;
-      border-bottom: 1px solid var(--ice-3);
-    }
-
-    .marketplace-avatar-wrapper {
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .marketplace-avatar {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      border: 0px solid var(--border-default);
-      object-fit: cover;
-    }
-
-    .marketplace-online-dot {
-      position: absolute;
-      top: -1px;
-      right: -1px;
-      width: 15px;
-      height: 15px;
-      background-color: var(--feedback-success);
-      border-radius: 50%;
-      border: 3px solid var(--surface-elevated);
-    }
-
-    .marketplace-user-info {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
-
-    .marketplace-username {
-      font-family: 'Agrandir Wide', sans-serif;
-      font-size: 20px;
-      line-height: 23px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: var(--text-primary);
-      text-transform: lowercase;
-      margin: 0;
-    }
-
-    .marketplace-email {
-      color: var(--text-quaternary);
-      margin: 0;
-    }
-
-    .marketplace-sidebar__nav {
-      display: flex;
-      flex-direction: column;
-      padding: 12px 0;
-      flex: 1;
-    }
-
-    .marketplace-nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 24px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      text-transform: lowercase;
-      transition: background-color 0.15s ease, color 0.15s ease;
-      margin-bottom: 0;
-      font-weight: 500;
-    }
-
-    .marketplace-nav-item:hover {
-      color: var(--text-primary);
-    }
-
-    .marketplace-nav-item--active,
-    .marketplace-nav-item--active:hover {
-      color: var(--accent-primary);
-      font-weight: 700;
-    }
-
-    .marketplace-nav-item__icon {
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .marketplace-nav-item__icon img {
-      width: 28px;
-      height: 28px;
-      filter: brightness(0) saturate(100%) invert(75%) sepia(10%) saturate(500%) hue-rotate(176deg) brightness(97%) contrast(87%);
-    }
-
-    .marketplace-nav-item--active .marketplace-nav-item__icon img {
-      filter: brightness(0) saturate(100%) invert(54%) sepia(62%) saturate(497%) hue-rotate(168deg) brightness(95%) contrast(90%);
-    }
-
-    .marketplace-nav-item:hover .marketplace-nav-item__icon img {
-      filter: brightness(0) saturate(100%) invert(68%) sepia(10%) saturate(550%) hue-rotate(176deg) brightness(94%) contrast(88%);
-    }
-
-    .marketplace-nav-item--active:hover .marketplace-nav-item__icon img {
-      filter: brightness(0) saturate(100%) invert(54%) sepia(62%) saturate(497%) hue-rotate(168deg) brightness(95%) contrast(90%);
-    }
-
-    [data-theme="dark"] .marketplace-nav-item__icon img {
-      filter: brightness(0) saturate(100%) invert(38%) sepia(8%) saturate(500%) hue-rotate(176deg) brightness(92%) contrast(87%);
-    }
-
-    [data-theme="dark"] .marketplace-nav-item--active .marketplace-nav-item__icon img {
-      filter: brightness(0) saturate(100%) invert(60%) sepia(45%) saturate(500%) hue-rotate(173deg) brightness(95%) contrast(92%);
-    }
-
-    [data-theme="dark"] .marketplace-nav-item:hover .marketplace-nav-item__icon img {
-      filter: brightness(0) saturate(100%) invert(42%) sepia(8%) saturate(550%) hue-rotate(176deg) brightness(93%) contrast(88%);
-    }
-
-    [data-theme="dark"] .marketplace-nav-item--active:hover .marketplace-nav-item__icon img {
-      filter: brightness(0) saturate(100%) invert(60%) sepia(45%) saturate(500%) hue-rotate(173deg) brightness(95%) contrast(92%);
-    }
-
-    [data-theme="dark"] .marketplace-sidebar__profile {
-      border-bottom-color: var(--slate-3);
-    }
-
-    [data-theme="dark"] .marketplace-sidebar__currency {
-      border-top-color: var(--slate-3);
-    }
-
-    .marketplace-sidebar__currency {
-      padding: 16px 24px;
-      border-top: 1px solid var(--ice-3);
-    }
-
-    .currency-display {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .currency-icon {
-      width: 26px;
-      height: 26px;
-      flex-shrink: 0;
-      object-fit: contain;
-    }
-
-    .currency-value {
-      color: var(--text-primary);
-      margin-bottom: 0;
-    }
-
-
-    /* ---------- Main Content Area ---------- */
-
-    .marketplace-main {
-      margin-left: 240px;
-      padding-top: 64px;
-      height: 100vh;
-      overflow-y: auto;
-    }
-
+    /* ===== Inventory-Specific Styles ===== */
 
     /* ---------- Inventory Content ---------- */
 
@@ -345,162 +82,12 @@
     }
 
 
-    /* ---------- Game Card ---------- */
-
-    .game-card {
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .game-card:hover {
-      transform: scale(1.03);
-    }
-
-    .game-card:hover .game-card__thumbnail {
-      box-shadow: 0px 8px 32px var(--shadow-elevation);
-    }
-
-    .game-card:active {
-      transform: scale(0.98);
-    }
-
-    .game-card__thumbnail {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background-color: var(--surface-sunken);
-      border-radius: 14px;
-      overflow: hidden;
-      padding: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: box-shadow 0.2s ease;
-    }
-
-    .game-card__thumbnail img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
-
-    .game-card__info {
-      padding: 10px 0 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .game-card__title {
-      color: var(--text-primary);
-      text-transform: lowercase;
-      margin: 0;
-    }
-
-    .game-card__creator {
-      color: var(--text-tertiary);
-      text-transform: lowercase;
-      margin: 0;
-      font-weight: 500;
-    }
-
-    .game-card__price {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin-top: 5px;
-    }
-
-    .game-card__price-icon {
-      width: 26px;
-      height: 26px;
-      flex-shrink: 0;
-      object-fit: contain;
-    }
-
-    .game-card__price-value {
-      background: linear-gradient(248.52deg, var(--accent-violet) 19.87%, #BFCE82 60.56%, #69B6EC 100.84%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 0;
-    }
-
-
-    /* ---------- Theme Toggle Repositioned ---------- */
-
-    .theme-toggle {
-      left: 252px;
-    }
-
 
     /* ---------- Responsive — Tablet (≤1024px) ---------- */
 
     @media (max-width: 1024px) {
-      .marketplace-sidebar {
-        width: 72px;
-      }
-
-      .marketplace-sidebar__profile {
-        padding: 16px;
-        justify-content: center;
-        gap: 0;
-      }
-
-      .marketplace-avatar {
-        width: 40px;
-        height: 40px;
-      }
-
-      .marketplace-online-dot {
-        width: 14px;
-        height: 14px;
-        top: -2px;
-        right: -1px;
-        border-width: 2px;
-      }
-
-      .marketplace-user-info {
-        display: none;
-      }
-
-      .marketplace-nav-item {
-        justify-content: center;
-        padding: 12px;
-      }
-
-      .marketplace-nav-item__label {
-        display: none;
-      }
-
-      .marketplace-sidebar__currency {
-        padding: 12px;
-        justify-content: center;
-      }
-
-      .currency-value {
-        display: none;
-      }
-
-      .currency-icon {
-        width: 24px;
-        height: 24px;
-      }
-
-      .marketplace-main {
-        margin-left: 72px;
-      }
-
       .inventory-content {
         padding: 32px;
-      }
-
-      .marketplace-nav__links {
-        display: none;
-      }
-
-      .theme-toggle {
-        left: 84px;
       }
     }
 
@@ -508,52 +95,6 @@
     /* ---------- Responsive — Mobile (≤768px) ---------- */
 
     @media (max-width: 768px) {
-      .marketplace-sidebar {
-        position: fixed;
-        top: auto;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        height: 64px;
-        flex-direction: row;
-        border-right: none;
-        border-top: 1px solid var(--border-subtle);
-        z-index: 200;
-      }
-
-      .marketplace-sidebar__profile {
-        display: none;
-      }
-
-      .marketplace-sidebar__nav {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
-        padding: 0;
-        width: 100%;
-      }
-
-      .marketplace-nav-item {
-        flex-direction: column;
-        padding: 8px 0;
-        gap: 4px;
-        font-size: 10px;
-      }
-
-      .marketplace-nav-item__label {
-        display: block;
-      }
-
-      .marketplace-sidebar__currency {
-        display: none;
-      }
-
-      .marketplace-main {
-        margin-left: 0;
-        padding-bottom: 64px;
-      }
-
       .inventory-content {
         padding: 24px 16px;
       }
@@ -576,15 +117,6 @@
       .inventory-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 20px 16px;
-      }
-
-      .marketplace-nav__links {
-        display: none;
-      }
-
-      .theme-toggle {
-        left: 16px;
-        bottom: 80px;
       }
     }
 
@@ -629,10 +161,9 @@
       </a>
 
       <div class="marketplace-nav__links">
-        <a href="#" class="marketplace-nav__link p1">play</a>
         <a href="marketplace.html" class="marketplace-nav__link p1">marketplace</a>
-        <a href="#" class="marketplace-nav__link p1">create</a>
-        <a href="credits.html" class="marketplace-nav__link p1">warps</a>
+        <a href="#" class="marketplace-nav__link p1">creator studio</a>
+        <a href="credits.html" class="marketplace-nav__link p1">buy portals credits</a>
       </div>
 
       <div class="marketplace-nav__auth">
@@ -660,13 +191,13 @@
 
     <!-- Navigation -->
     <nav class="marketplace-sidebar__nav">
-      <a href="marketplace.html" class="marketplace-nav-item p1">
+      <a href="play.html" class="marketplace-nav-item p1">
         <span class="marketplace-nav-item__icon">
-          <img src="assets/nav icons/home.svg" alt="">
+          <img src="assets/nav icons/play.svg" alt="">
         </span>
-        <span class="marketplace-nav-item__label">home</span>
+        <span class="marketplace-nav-item__label">play</span>
       </a>
-      <a href="#" class="marketplace-nav-item p1">
+      <a href="profile.html" class="marketplace-nav-item p1">
         <span class="marketplace-nav-item__icon">
           <img src="assets/nav icons/profile.svg" alt="">
         </span>
@@ -875,7 +406,7 @@
       </div>
 
       <!-- Inventory Grid -->
-      <div class="inventory-grid">
+      <div class="inventory-grid" data-item-overlay>
 
         <article class="game-card">
           <div class="game-card__thumbnail"><img src="assets/inventory/item-01.png" alt="crystal helm"></div>
@@ -1168,6 +699,97 @@
       </div>
 
     </div>
+
+    <!-- ==================== Item Detail Overlay ==================== -->
+    <div class="item-detail-overlay" id="item-detail-overlay" role="dialog" aria-modal="true" aria-label="Item details">
+      <div class="item-detail__backdrop" id="item-detail-backdrop"></div>
+      <div class="item-detail__surface" id="item-detail-surface">
+
+        <!-- Row 1: Header -->
+        <div class="item-detail__header">
+          <button class="item-detail__back" id="item-detail-close">
+            <span class="item-detail__back-icon">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 9L4.5 6L7.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="item-detail__back-text p1">back to items</span>
+          </button>
+        </div>
+
+        <!-- Row 2: Tabs -->
+        <div class="item-detail__tabs">
+          <button class="item-detail__tab h6-bold item-detail__tab--active" data-tab="overview">overview</button>
+          <button class="item-detail__tab h6-bold" data-tab="offers">offers</button>
+          <button class="item-detail__tab h6-bold" data-tab="activity">activity</button>
+        </div>
+
+        <!-- Row 3: Two columns -->
+        <div class="item-detail__body">
+          <!-- Col 1: Image -->
+          <div class="item-detail__image-col">
+            <div class="item-detail__image-container">
+              <img id="item-detail-image" src="" alt="">
+            </div>
+            <div class="item-detail__image-actions">
+              <button class="btn btn-sm btn-subtle">try on</button>
+              <button class="btn btn-sm btn-subtle">2d</button>
+            </div>
+          </div>
+
+          <!-- Col 2: Info -->
+          <div class="item-detail__info-col">
+            <h2 class="item-detail__name h4-bold" id="item-detail-name"></h2>
+            <div class="item-detail__creator">
+              <span class="item-detail__creator-by p2">by</span>
+              <img src="profile-image.jpg" alt="" class="item-detail__creator-avatar" id="item-detail-avatar">
+              <span class="item-detail__creator-name p2" id="item-detail-creator"></span>
+              <svg class="item-detail__creator-verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+              </svg>
+            </div>
+
+            <button class="item-detail__buy-btn btn btn-md btn-primary">buy now</button>
+
+            <div class="item-detail__or-row">
+              <span class="item-detail__or-text p2">or</span>
+              <button class="btn btn-sm btn-secondary">add to cart</button>
+            </div>
+
+            <div class="item-detail__price">
+              <img src="warp.png" alt="warps" class="item-detail__price-icon">
+              <span class="item-detail__price-value h6-bold" id="item-detail-price"></span>
+            </div>
+
+            <div class="item-detail__table">
+              <div class="item-detail__table-row">
+                <span class="item-detail__table-label p2">type</span>
+                <span class="item-detail__table-value p2" id="item-detail-type"></span>
+              </div>
+              <div class="item-detail__table-row">
+                <span class="item-detail__table-label p2">tradeable</span>
+                <span class="item-detail__table-value p2" id="item-detail-tradeable"></span>
+              </div>
+              <div class="item-detail__table-row">
+                <span class="item-detail__table-label p2">rarity</span>
+                <span class="item-detail__table-value p2" id="item-detail-rarity"></span>
+              </div>
+              <div class="item-detail__table-row">
+                <span class="item-detail__table-label p2">created</span>
+                <span class="item-detail__table-value p2" id="item-detail-created"></span>
+              </div>
+              <div class="item-detail__table-row">
+                <span class="item-detail__table-label p2">description</span>
+                <span class="item-detail__table-value p2" id="item-detail-description"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </main>
 
 
@@ -1482,5 +1104,6 @@
       });
     })();
   </script>
+  <script src="item-detail-overlay.js"></script>
 </body>
 </html>

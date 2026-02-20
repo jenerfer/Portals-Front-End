@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Radio & Checkmarks — Portals Style Guide</title>
+  <title>Friends Module — Portals Style Guide</title>
   <link rel="stylesheet" href="../styles.css">
   <script>
     (function(){var t=localStorage.getItem('portals-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
@@ -40,13 +40,13 @@
           </div>
         </details>
 
-        <!-- Input & Selection (active) -->
-        <details class="sidebar-category" open>
+        <!-- Input & Selection -->
+        <details class="sidebar-category">
           <summary>Input & Selection</summary>
           <div class="sidebar-category__content">
             <div class="sidebar-category__inner">
               <a href="buttons.html" class="sidebar-link">Buttons & Toggles</a>
-              <a href="radio.html" class="sidebar-link sidebar-link--active">Radio & Checkmarks</a>
+              <a href="radio.html" class="sidebar-link">Radio & Checkmarks</a>
               <a href="dropdowns.html" class="sidebar-link">Dropdowns</a>
               <a href="#date-picker" class="sidebar-link">Date picker</a>
               <a href="#file-upload" class="sidebar-link">File upload</a>
@@ -96,8 +96,8 @@
           </div>
         </details>
 
-        <!-- Content display -->
-        <details class="sidebar-category">
+        <!-- Content display (active) -->
+        <details class="sidebar-category" open>
           <summary>Content display</summary>
           <div class="sidebar-category__content">
             <div class="sidebar-category__inner">
@@ -107,7 +107,7 @@
               <a href="#list-item" class="sidebar-link">List item</a>
               <a href="#section-heading" class="sidebar-link">Section heading</a>
               <a href="#tile" class="sidebar-link">Tile</a>
-              <a href="friends-module.html" class="sidebar-link">Friends module</a>
+              <a href="friends-module.html" class="sidebar-link sidebar-link--active">Friends module</a>
             </div>
           </div>
         </details>
@@ -133,120 +133,88 @@
     <!-- Main Content -->
     <main class="style-guide__content">
 
-      <!-- ==================== RADIO ==================== -->
-      <section class="style-guide__section" id="radio">
+      <div class="page-header">
+        <h2 class="page-header__title">friends module</h2>
+        <p class="page-header__description">A reusable card component for displaying user connections. Each card shows an avatar, name, optional verified badge, and handle. Used on the friends page and profile connections section. Styles defined globally in styles.css.</p>
+      </div>
 
-        <!-- Page Header -->
-        <div class="page-header">
-          <h2 class="page-header__title">radio & checkmarks</h2>
-          <p class="page-header__description">Radio buttons allow users to select a single option from a group — selecting one automatically deselects the rest. Checkmarks allow users to select multiple options independently. Tapping or clicking the label next to either control should activate it.</p>
-        </div>
+      <!-- ==================== FRIENDS MODULE ==================== -->
+      <section class="style-guide__section" id="friends-module">
 
-        <!-- Boxed Radio Selection -->
+        <!-- Default -->
         <div class="component-display">
-          <div class="component-display__label">Boxed Radio Selection</div>
-          <div class="component-display__row">
+          <div class="component-display__label">default</div>
+          <div class="friends-grid">
 
-            <div class="component-display__column">
-              <div class="radio-group" role="radiogroup" aria-label="Plan selection">
-                <div>
-                  <input class="radio-input" type="radio" id="boxed-A" name="boxed" value="starter">
-                  <label class="radio-boxed" for="boxed-A">
-                    <div class="radio-boxed__text">
-                      <div class="radio-boxed__title">Starter Plan</div>
-                      <div class="radio-boxed__description">Best for individuals starting out with basic features and limited storage.</div>
-                    </div>
-                    <span class="radio-circle"></span>
-                  </label>
+            <div class="friend-card">
+              <img src="../assets/avatars/avatar-01.png" alt="" class="friend-card__avatar">
+              <div class="friend-card__info">
+                <div class="friend-card__name-row">
+                  <span class="friend-card__name">sakura</span>
+                  <svg class="friend-card__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                    <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+                  </svg>
                 </div>
-                <div>
-                  <input class="radio-input" type="radio" id="boxed-B" name="boxed" value="pro" checked>
-                  <label class="radio-boxed" for="boxed-B">
-                    <div class="radio-boxed__text">
-                      <div class="radio-boxed__title">Pro Plan</div>
-                      <div class="radio-boxed__description">Great for growing teams with advanced collaboration tools and priority support.</div>
-                    </div>
-                    <span class="radio-circle"></span>
-                  </label>
-                </div>
-                <div>
-                  <input class="radio-input" type="radio" id="boxed-C" name="boxed" value="enterprise">
-                  <label class="radio-boxed" for="boxed-C">
-                    <div class="radio-boxed__text">
-                      <div class="radio-boxed__title">Enterprise Plan</div>
-                      <div class="radio-boxed__description">Designed for large organisations needing custom integrations and dedicated account management.</div>
-                    </div>
-                    <span class="radio-circle"></span>
-                  </label>
-                </div>
+                <span class="friend-card__handle">@sakuramochi</span>
               </div>
             </div>
 
-          </div>
-        </div>
-
-        <!-- Simple Radio Selection -->
-        <div class="component-display">
-          <div class="component-display__label">Simple Radio Selection</div>
-          <div class="component-display__row">
-
-            <div class="component-display__column">
-              <div class="radio-group" role="radiogroup" aria-label="Notification preference">
-                <div>
-                  <input class="radio-input" type="radio" id="simple-A" name="simple" value="all">
-                  <label class="radio-label" for="simple-A">
-                    <span class="radio-circle"></span>
-                    <span class="radio-label__text">All notifications</span>
-                  </label>
+            <div class="friend-card">
+              <img src="../assets/avatars/avatar-02.png" alt="" class="friend-card__avatar">
+              <div class="friend-card__info">
+                <div class="friend-card__name-row">
+                  <span class="friend-card__name">noctis</span>
                 </div>
-                <div>
-                  <input class="radio-input" type="radio" id="simple-B" name="simple" value="important" checked>
-                  <label class="radio-label" for="simple-B">
-                    <span class="radio-circle"></span>
-                    <span class="radio-label__text">Important only</span>
-                  </label>
-                </div>
-                <div>
-                  <input class="radio-input" type="radio" id="simple-C" name="simple" value="none">
-                  <label class="radio-label" for="simple-C">
-                    <span class="radio-circle"></span>
-                    <span class="radio-label__text">None</span>
-                  </label>
-                </div>
+                <span class="friend-card__handle">@noctislucis</span>
               </div>
             </div>
 
-          </div>
-        </div>
+            <div class="friend-card">
+              <img src="../assets/avatars/avatar-03.png" alt="" class="friend-card__avatar">
+              <div class="friend-card__info">
+                <div class="friend-card__name-row">
+                  <span class="friend-card__name">luna</span>
+                  <svg class="friend-card__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                    <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+                  </svg>
+                </div>
+                <span class="friend-card__handle">@lunastellar</span>
+              </div>
+            </div>
 
-        <!-- Checkmark Selection -->
-        <div class="component-display">
-          <div class="component-display__label">Checkmark Selection</div>
-          <div class="component-display__row">
+            <div class="friend-card">
+              <img src="../assets/avatars/avatar-04.png" alt="" class="friend-card__avatar">
+              <div class="friend-card__info">
+                <div class="friend-card__name-row">
+                  <span class="friend-card__name">zephyr</span>
+                </div>
+                <span class="friend-card__handle">@zephyrwind</span>
+              </div>
+            </div>
 
-            <div class="component-display__column">
-              <div class="check-group" role="group" aria-label="Feature preferences">
-                <div>
-                  <input class="check-input" type="checkbox" id="check-A" name="features" value="notifications">
-                  <label class="check-label" for="check-A">
-                    <span class="check-square"></span>
-                    <span class="check-label__text">All notifications</span>
-                  </label>
+            <div class="friend-card">
+              <img src="../assets/avatars/avatar-05.png" alt="" class="friend-card__avatar">
+              <div class="friend-card__info">
+                <div class="friend-card__name-row">
+                  <span class="friend-card__name">ember</span>
+                  <svg class="friend-card__verified" width="20" height="20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 0C57.3629 3.21842e-07 63.6763 4.49191 66.3503 10.8847C68.2643 10.1769 70.3341 9.79021 72.4942 9.79021C82.2782 9.79021 90.2098 17.7218 90.2098 27.5058C90.2098 29.7038 89.8092 31.8083 89.0775 33.7504C95.4904 36.4152 100 42.7391 100 50.1166C100 57.4939 95.4904 63.8177 89.0775 66.4825C89.8092 68.4247 90.2098 70.5292 90.2098 72.7273C90.2098 82.5113 82.2782 90.4429 72.4942 90.4429C70.3018 90.4429 68.2026 90.0444 66.2647 89.3163C63.5434 95.602 57.2855 100 50 100C42.6545 100 36.3532 95.5294 33.6684 89.1606C31.6208 89.9874 29.3834 90.4429 27.0396 90.4429C17.2556 90.4429 9.32401 82.5113 9.32401 72.7273C9.32401 70.4641 9.74854 68.3001 10.5221 66.3104C4.32268 63.5524 0 57.3394 0 50.1166C0 42.8936 4.32264 36.6804 10.5221 33.9225C9.74859 31.9328 9.32401 29.7689 9.32401 27.5058C9.32401 17.7218 17.2556 9.79021 27.0396 9.79021C29.3518 9.79021 31.5605 10.2333 33.5856 11.039C36.2218 4.56423 42.5779 -3.24429e-07 50 0Z" fill="#6AC1FF"/>
+                    <path d="M73.3464 37.907L44.0844 68.3366L26.6797 51.3454L33.2803 44.9017L43.8725 55.2421L66.5407 31.6699L73.3464 37.907Z" fill="black"/>
+                  </svg>
                 </div>
-                <div>
-                  <input class="check-input" type="checkbox" id="check-B" name="features" value="important" checked>
-                  <label class="check-label" for="check-B">
-                    <span class="check-square"></span>
-                    <span class="check-label__text">Important only</span>
-                  </label>
+                <span class="friend-card__handle">@emberspark</span>
+              </div>
+            </div>
+
+            <div class="friend-card">
+              <img src="../assets/avatars/avatar-06.png" alt="" class="friend-card__avatar">
+              <div class="friend-card__info">
+                <div class="friend-card__name-row">
+                  <span class="friend-card__name">atlas</span>
                 </div>
-                <div>
-                  <input class="check-input" type="checkbox" id="check-C" name="features" value="none">
-                  <label class="check-label" for="check-C">
-                    <span class="check-square"></span>
-                    <span class="check-label__text">None</span>
-                  </label>
-                </div>
+                <span class="friend-card__handle">@atlasworld</span>
               </div>
             </div>
 
