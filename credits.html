@@ -240,72 +240,6 @@
       width: 227px;
     }
 
-    /* ---------- FAQ Accordion ---------- */
-
-    .faq-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .faq-item {
-      border: 1px solid var(--border-subtle);
-      border-radius: 20px;
-      overflow: hidden;
-      transition: box-shadow 0.25s ease, background-color 0.25s ease;
-    }
-
-    .faq-item[open] {
-      box-shadow: 1px 5px 16.1px 0px var(--shadow-elevation);
-      background-color: var(--surface-primary);
-    }
-
-    .faq-item__question {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 20px;
-      cursor: pointer;
-      list-style: none;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 18px;
-      line-height: 33px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: var(--text-quaternary);
-      transition: color 0.15s ease;
-    }
-
-    .faq-item__question::-webkit-details-marker {
-      display: none;
-    }
-
-    .faq-item[open] .faq-item__question {
-      color: var(--text-secondary);
-    }
-
-    .faq-item__chevron {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-      transition: transform 0.25s ease;
-      color: var(--text-quaternary);
-    }
-
-    .faq-item[open] .faq-item__chevron {
-      transform: rotate(180deg);
-    }
-
-    .faq-item__answer {
-      padding: 0 20px 15px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      line-height: 23px;
-      font-weight: 500;
-      color: var(--text-tertiary);
-      margin: 0;
-    }
-
     /* ---------- Small Print ---------- */
 
     .credits-smallprint {
@@ -411,10 +345,6 @@
         width: auto;
         padding: 5px 10px;
       }
-
-      .faq-item__question {
-        font-size: 16px;
-      }
     }
 
 
@@ -431,9 +361,6 @@
 
     @media (prefers-reduced-motion: reduce) {
       .credit-card,
-      .faq-item,
-      .faq-item__chevron,
-      .faq-item__question,
       .marketplace-nav__link,
       .marketplace-nav-item {
         transition: none;
