@@ -57,57 +57,6 @@
       box-shadow: 0 0 0 2px var(--border-focus);
     }
 
-    /* ---------- Filter Tabs ---------- */
-
-    .messages-tabs {
-      display: flex;
-      gap: 24px;
-      margin-bottom: 28px;
-      border-bottom: 1px solid var(--ice-3);
-    }
-
-    .messages-tab {
-      font-family: 'Agrandir Wide', sans-serif;
-      font-size: 20px;
-      line-height: 23px;
-      font-weight: 800;
-      text-transform: lowercase;
-      cursor: pointer;
-      padding-bottom: 12px;
-      border: none;
-      border-bottom: 2px solid transparent;
-      background: none;
-      color: var(--ice-5);
-      transition: color 0.15s ease, border-color 0.15s ease;
-      margin-bottom: -1px;
-    }
-
-    .messages-tab:hover {
-      color: var(--ice-8);
-    }
-
-    .messages-tab--active {
-      color: var(--ice-10);
-      border-bottom-color: var(--ice-10);
-    }
-
-    [data-theme="dark"] .messages-tabs {
-      border-bottom-color: var(--slate-3);
-    }
-
-    [data-theme="dark"] .messages-tab {
-      color: var(--slate-5);
-    }
-
-    [data-theme="dark"] .messages-tab:hover {
-      color: var(--slate-8);
-    }
-
-    [data-theme="dark"] .messages-tab--active {
-      color: var(--slate-10);
-      border-bottom-color: var(--slate-10);
-    }
-
     /* ---------- Actions Bar ---------- */
 
     .messages-actions {
@@ -300,7 +249,7 @@
         width: 100%;
       }
 
-      .messages-tab {
+      .tab-nav__item {
         font-size: 16px;
         line-height: 20px;
       }
@@ -340,7 +289,6 @@
 
     @media (prefers-reduced-motion: reduce) {
       .message-row,
-      .messages-tab,
       .marketplace-nav__link,
       .marketplace-nav-item {
         transition: none;
@@ -449,11 +397,11 @@
       </div>
 
       <!-- Filter Tabs -->
-      <div class="messages-tabs">
-        <button class="messages-tab messages-tab--active" data-tab="inbox">inbox</button>
-        <button class="messages-tab" data-tab="sent">sent</button>
-        <button class="messages-tab" data-tab="news">news</button>
-        <button class="messages-tab" data-tab="archive">archive</button>
+      <div class="tab-nav" style="margin-bottom: 28px;">
+        <button class="tab-nav__item tab-nav__item--active" data-tab="inbox">inbox</button>
+        <button class="tab-nav__item" data-tab="sent">sent</button>
+        <button class="tab-nav__item" data-tab="news">news</button>
+        <button class="tab-nav__item" data-tab="archive">archive</button>
       </div>
 
       <!-- Actions Bar -->
@@ -692,11 +640,11 @@
   <script>
     // ===== Tab Switching =====
     (function () {
-      var tabs = document.querySelectorAll('.messages-tab');
+      var tabs = document.querySelectorAll('.tab-nav__item');
       tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
-          tabs.forEach(function (t) { t.classList.remove('messages-tab--active'); });
-          tab.classList.add('messages-tab--active');
+          tabs.forEach(function (t) { t.classList.remove('tab-nav__item--active'); });
+          tab.classList.add('tab-nav__item--active');
         });
       });
     })();
