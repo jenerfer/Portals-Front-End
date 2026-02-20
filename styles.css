@@ -2865,7 +2865,12 @@ img, svg {
 
 .game-card {
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.5s ease;
+  opacity: 0;
+}
+
+.game-card--visible {
+  opacity: 1;
 }
 
 .game-card:hover {
