@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Avatar — Portals</title>
   <link rel="stylesheet" href="https://jenerfer.github.io/Portals-Design-System/styles.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
   <script>
     (function(){var t=localStorage.getItem('portals-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
   </script>
@@ -36,8 +37,8 @@
       bottom: 40px;
       z-index: 1;
       background: rgb(71 71 71 / 28%);
-      backdrop-filter: blur(17px) saturate(1.8) brightness(1.1);
-      -webkit-backdrop-filter: blur(24px) saturate(1.8) brightness(1.1);
+      backdrop-filter: blur(25px) saturate(1.0) brightness(1.1);
+      -webkit-backdrop-filter: blur(30px) saturate(1.0) brightness(1.1);
       border-radius: 35px;
       box-shadow:
         inset 1px 1px 20px 0px rgb(255 255 255 / 10%),
@@ -69,7 +70,8 @@
     .avatar-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      position: relative;
       flex-shrink: 0;
       margin-bottom: 30px;
     }
@@ -79,6 +81,8 @@
     }
 
     .avatar-header__close {
+      position: absolute;
+      right: 0;
       background: none;
       border: none;
       cursor: pointer;
@@ -114,13 +118,6 @@
       gap: 20px;
       flex-shrink: 0;
       margin-bottom: 40px;
-      overflow-x: auto;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    .avatar-nav::-webkit-scrollbar {
-      display: none;
     }
 
     .avatar-nav__item {
@@ -131,6 +128,11 @@
       gap: 19px;
       cursor: pointer;
       flex-shrink: 0;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .avatar-nav__item:hover {
+      transform: scale(1.08);
     }
 
     .avatar-nav__pill {
@@ -142,7 +144,7 @@
       background: rgba(18, 22, 28, 0.12);
       border-radius: 948px;
       border: 2px solid transparent;
-      color: var(--ice-7, #a9bee1);
+      color: var(--ice-5, #c4d5ed);
       transition: background 0.2s ease, border-color 0.2s ease;
     }
 
@@ -185,7 +187,7 @@
       gap: 26px;
       flex: 1;
       min-height: 0;
-      max-width: 1200px;
+      max-width: 1026px;
       width: 100%;
       margin: 0 auto;
     }
@@ -197,7 +199,9 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      flex-shrink: 0;
+      width: 595px;
+      flex-shrink: 1;
+      padding-bottom: 40px;
     }
 
     .avatar-preview__label {
@@ -210,18 +214,25 @@
     }
 
     .avatar-preview__window {
-      width: 500px;
-      aspect-ratio: 1 / 1;
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      background: rgba(0, 0, 0, 0.04);
+      border-radius: 20px;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      -webkit-mask-image: radial-gradient(ellipse 90% 85% at center, black 65%, transparent 100%);
+      mask-image: radial-gradient(ellipse 90% 85% at center, black 65%, transparent 100%);
     }
 
-    .avatar-preview__window img {
-      max-width: 80%;
-      max-height: 95%;
-      object-fit: contain;
+    .avatar-preview__window model-viewer::part(default-progress-bar) {
+      display: none;
+    }
+
+    .avatar-preview__reset {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      z-index: 1;
     }
 
 
@@ -231,7 +242,8 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      flex: 1;
+      width: 405px;
+      flex-shrink: 1;
       min-height: 0;
     }
 
@@ -268,18 +280,21 @@
 
     .avatar-items__search:focus {
       background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--border-focus);
+      border: 2px solid var(--border-focus);
       color: var(--ice-1);
     }
 
     .avatar-items__grid-wrapper {
       flex: 1;
       overflow-y: auto;
+      overflow-x: hidden;
       min-height: 0;
+      padding-right: 5px;
+      scrollbar-color: rgba(0, 0, 0, 0.03) transparent;
     }
 
     .avatar-items__grid-wrapper::-webkit-scrollbar {
-      width: 6px;
+      width: 3px;
     }
 
     .avatar-items__grid-wrapper::-webkit-scrollbar-track {
@@ -287,12 +302,12 @@
     }
 
     .avatar-items__grid-wrapper::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.03);
       border-radius: 3px;
     }
 
     .avatar-items__grid-wrapper::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(0, 0, 0, 0.06);
     }
 
     .avatar-items__grid {
@@ -339,8 +354,8 @@
       height: 80vh;
       z-index: 11;
       background: rgb(71 71 71 / 40%);
-      backdrop-filter: blur(24px) saturate(1.8) brightness(1.1);
-      -webkit-backdrop-filter: blur(30px) saturate(1.8) brightness(1.1);
+      backdrop-filter: blur(24px) saturate(1.0) brightness(1.1);
+      -webkit-backdrop-filter: blur(30px) saturate(1.0) brightness(1.1);
       border-radius: 30px 30px 0 0;
       box-shadow:
         inset 1px 1px 20px 0px rgb(255 255 255 / 8%),
@@ -535,6 +550,13 @@
         margin-right: -27px;
         padding: 0 27px;
         margin-bottom: 30px;
+        overflow-x: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .avatar-nav::-webkit-scrollbar {
+        display: none;
       }
 
       .avatar-nav__item {
@@ -577,9 +599,7 @@
 
       .avatar-preview__window {
         width: 100%;
-        height: auto;
-        aspect-ratio: 492 / 496;
-        max-height: 100%;
+        height: 300px;
       }
 
       .avatar-items {
@@ -632,11 +652,11 @@
 
     <!-- Header -->
     <div class="avatar-header">
-      <h1 class="avatar-header__title h3">my avatar</h1>
+      <h1 class="avatar-header__title h3-bold">my avatar</h1>
       <input type="text" class="avatar-header__search" placeholder="search">
       <button class="avatar-header__close" id="avatar-close" aria-label="Close">
         <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1 1L19 19M19 1L1 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
     </div>
@@ -746,7 +766,20 @@
       <div class="avatar-preview">
         <span class="avatar-preview__label">my avatar</span>
         <div class="avatar-preview__window">
-          <img src="assets/avatar/avatar.png" alt="My Avatar">
+          <model-viewer
+            id="avatar-viewer"
+            src="assets/avatar/astronaut.glb"
+            camera-controls
+            disable-pan
+            touch-action="pan-y"
+            auto-rotate
+            shadow-intensity="0"
+            environment-image="neutral"
+            camera-orbit="0deg 75deg 105%"
+            field-of-view="30deg"
+            style="width: 100%; height: 100%; --poster-color: transparent;"
+          ></model-viewer>
+          <button class="avatar-preview__reset btn btn-sm btn-subtle" id="reset-view">reset view</button>
         </div>
       </div>
 
@@ -824,6 +857,18 @@
       if (glass) {
         requestAnimationFrame(function () {
           glass.classList.add('avatar-fade--visible');
+        });
+      }
+
+
+      /* ===== Reset View button ===== */
+      var resetBtn = document.getElementById('reset-view');
+      var viewer = document.getElementById('avatar-viewer');
+      if (resetBtn && viewer) {
+        resetBtn.addEventListener('click', function () {
+          viewer.cameraOrbit = '0deg 75deg 105%';
+          viewer.fieldOfView = '30deg';
+          viewer.cameraTarget = 'auto auto auto';
         });
       }
 
