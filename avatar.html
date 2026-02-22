@@ -11,6 +11,13 @@
   </script>
   <style>
 
+    /* ===== Lock to dark text — avatar has no light mode ===== */
+
+    body {
+      --text-primary: var(--ice-13, #F5FAFF);
+      --text-secondary: var(--ice-7, #a9bee1);
+    }
+
     /* ===== Background ===== */
 
     .avatar-bg {
@@ -891,16 +898,10 @@
       var closeBtn = document.getElementById('avatar-close');
       if (closeBtn) {
         closeBtn.addEventListener('click', function () {
-          var glass = document.querySelector('.avatar-fade');
-          if (glass) {
-            glass.classList.remove('avatar-fade--visible');
-            glass.addEventListener('transitionend', function () {
-              if (window.history.length > 1) {
-                window.history.back();
-              } else {
-                window.location.href = 'profile.html';
-              }
-            }, { once: true });
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            window.location.href = 'profile.html';
           }
         });
       }
