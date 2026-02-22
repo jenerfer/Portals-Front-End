@@ -55,13 +55,11 @@
 
     .avatar-fade {
       opacity: 0;
-      filter: blur(10px);
-      transition: opacity 1s ease-out, filter 1s ease-out;
+      transition: opacity 0.7s ease;
     }
 
     .avatar-fade--visible {
       opacity: 1;
-      filter: blur(0px);
     }
 
 
@@ -643,11 +641,12 @@
 </head>
 <body>
 
+  <div class="avatar-fade">
   <!-- Background -->
   <div class="avatar-bg"></div>
 
   <!-- Glass Container -->
-  <div class="avatar-glass avatar-fade">
+  <div class="avatar-glass">
 
     <!-- Header -->
     <div class="avatar-header">
@@ -845,6 +844,7 @@
       </div>
     </div>
   </div>
+  </div>
 
 
   <script>
@@ -854,7 +854,9 @@
       var glass = document.querySelector('.avatar-fade');
       if (glass) {
         requestAnimationFrame(function () {
-          glass.classList.add('avatar-fade--visible');
+          requestAnimationFrame(function () {
+            glass.classList.add('avatar-fade--visible');
+          });
         });
       }
 
