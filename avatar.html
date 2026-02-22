@@ -206,7 +206,7 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        width: 40px;
+        width: 60px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -215,28 +215,24 @@
         cursor: pointer;
         z-index: 2;
         padding: 0;
-        padding-bottom: 30px;
-        color: var(--ice-5, #c4d5ed);
-        opacity: 0;
+        color: var(--ice-4, #dce7f5);
+        opacity: 0.7;
         transition: opacity 0.15s ease;
       }
 
-      .avatar-nav-wrap:hover .avatar-nav__arrow {
+      .avatar-nav__arrow:hover {
         opacity: 1;
+        color: var(--ice-4, #dce7f5);
       }
 
       .avatar-nav__arrow--left {
         left: 0;
-        background: linear-gradient(to right, rgba(18, 22, 28, 0.35) 40%, transparent);
+        background: linear-gradient(to right, rgb(255 255 255 / 17%) 40%, transparent);
       }
 
       .avatar-nav__arrow--right {
         right: 0;
-        background: linear-gradient(to left, rgba(18, 22, 28, 0.35) 40%, transparent);
-      }
-
-      .avatar-nav__arrow:hover {
-        color: var(--ice-4, #dce7f5);
+        background: linear-gradient(to left, rgb(255 255 255 / 17%) 40%, transparent);
       }
 
       .avatar-nav__arrow--hidden {
@@ -245,8 +241,8 @@
       }
 
       .avatar-nav__arrow svg {
-        width: 16px;
-        height: 16px;
+        width: 26px;
+        height: 26px;
       }
     }
 
@@ -571,7 +567,8 @@
 
       .avatar-nav {
         gap: 15px;
-        padding: 0 30px;
+        padding: 14px 30px;
+        justify-content: flex-start;
         overflow-x: auto;
         -ms-overflow-style: none;
         scrollbar-width: none;
@@ -579,6 +576,10 @@
 
       .avatar-nav::-webkit-scrollbar {
         display: none;
+      }
+
+      .avatar-nav__item:hover {
+        transform: none;
       }
 
       .avatar-nav__pill {
@@ -622,7 +623,7 @@
 
       .avatar-nav {
         gap: 16px;
-        padding: 0 27px;
+        padding: 14px 27px;
         overflow-x: auto;
         -ms-overflow-style: none;
         scrollbar-width: none;
@@ -714,7 +715,7 @@
       }
 
       .avatar-nav {
-        padding: 0 20px;
+        padding: 14px 20px;
       }
     }
 
