@@ -772,7 +772,7 @@
             auto-rotate
             shadow-intensity="0"
             environment-image="neutral"
-            camera-orbit="0deg 75deg 100%"
+            camera-orbit="0deg 75deg 120%"
             field-of-view="37deg"
             style="width: 100%; height: 100%; --poster-color: transparent;"
           ></model-viewer>
@@ -850,6 +850,19 @@
   <script>
     (function () {
 
+      /* ===== Random background ===== */
+      var bgs = [
+        'assets/avatar/avatar-bg.jpeg',
+        'assets/avatar/avatar-bg-2.jpg',
+        'assets/avatar/avatar-bg-3.jpg',
+        'assets/avatar/avatar-bg-4.jpg'
+      ];
+      var bgEl = document.querySelector('.avatar-bg');
+      if (bgEl) {
+        bgEl.style.backgroundImage = 'url(' + bgs[Math.floor(Math.random() * bgs.length)] + ')';
+      }
+
+
       /* ===== Fade-in on load ===== */
       var glass = document.querySelector('.avatar-fade');
       if (glass) {
@@ -866,7 +879,7 @@
       var viewer = document.getElementById('avatar-viewer');
       if (resetBtn && viewer) {
         resetBtn.addEventListener('click', function () {
-          viewer.cameraOrbit = '0deg 75deg 100%';
+          viewer.cameraOrbit = '0deg 75deg 120%';
           viewer.fieldOfView = '37deg';
           viewer.cameraTarget = 'auto auto auto';
           viewer.jumpCameraToGoal();
