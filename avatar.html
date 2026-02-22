@@ -876,10 +876,16 @@
       var closeBtn = document.getElementById('avatar-close');
       if (closeBtn) {
         closeBtn.addEventListener('click', function () {
-          if (window.history.length > 1) {
-            window.history.back();
-          } else {
-            window.location.href = 'profile.html';
+          var glass = document.querySelector('.avatar-fade');
+          if (glass) {
+            glass.classList.remove('avatar-fade--visible');
+            glass.addEventListener('transitionend', function () {
+              if (window.history.length > 1) {
+                window.history.back();
+              } else {
+                window.location.href = 'profile.html';
+              }
+            }, { once: true });
           }
         });
       }
