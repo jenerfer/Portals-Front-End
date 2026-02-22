@@ -154,6 +154,7 @@
 
     .avatar-nav__item--active .avatar-nav__pill {
       border-color: var(--blue-1, #6ac1ff);
+      box-shadow: 0 0 12px 2px rgba(106, 193, 255, 0.3);
     }
 
     .avatar-nav__pill svg {
@@ -412,7 +413,7 @@
       line-height: 24px;
       letter-spacing: -0.5px;
       color: var(--ice-4, #dce7f5);
-      width: 120px;
+      width: 240px;
     }
 
     .avatar-overlay__search::placeholder {
@@ -772,8 +773,8 @@
             auto-rotate
             shadow-intensity="0"
             environment-image="neutral"
-            camera-orbit="0deg 75deg 105%"
-            field-of-view="24deg"
+            camera-orbit="0deg 75deg 100%"
+            field-of-view="37deg"
             style="width: 100%; height: 100%; --poster-color: transparent;"
           ></model-viewer>
           <button class="avatar-preview__reset btn btn-sm btn-secondary" id="reset-view">reset view</button>
@@ -863,9 +864,10 @@
       var viewer = document.getElementById('avatar-viewer');
       if (resetBtn && viewer) {
         resetBtn.addEventListener('click', function () {
-          viewer.cameraOrbit = '0deg 75deg 105%';
-          viewer.fieldOfView = '24deg';
+          viewer.cameraOrbit = '0deg 75deg 100%';
+          viewer.fieldOfView = '37deg';
           viewer.cameraTarget = 'auto auto auto';
+          viewer.jumpCameraToGoal();
         });
       }
 
