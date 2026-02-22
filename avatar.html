@@ -857,27 +857,37 @@
   <script>
     (function () {
 
-      /* ===== Random background ===== */
+      /* ===== Random background + fade-in after loaded ===== */
       var bgs = [
         'assets/avatar/avatar-bg.jpeg',
         'assets/avatar/avatar-bg-2.jpg',
         'assets/avatar/avatar-bg-3.jpg',
         'assets/avatar/avatar-bg-4.jpg'
       ];
+      var chosenBg = bgs[Math.floor(Math.random() * bgs.length)];
       var bgEl = document.querySelector('.avatar-bg');
-      if (bgEl) {
-        bgEl.style.backgroundImage = 'url(' + bgs[Math.floor(Math.random() * bgs.length)] + ')';
+      var glass = document.querySelector('.avatar-fade');
+
+      function showPage() {
+        if (glass) {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              glass.classList.add('avatar-fade--visible');
+            });
+          });
+        }
       }
 
-
-      /* ===== Fade-in on load ===== */
-      var glass = document.querySelector('.avatar-fade');
-      if (glass) {
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () {
-            glass.classList.add('avatar-fade--visible');
-          });
-        });
+      if (bgEl) {
+        bgEl.style.backgroundImage = 'url(' + chosenBg + ')';
+        var img = new Image();
+        img.onload = showPage;
+        img.onerror = showPage;
+        img.src = chosenBg;
+        // Fallback — show after 3s regardless
+        setTimeout(showPage, 3000);
+      } else {
+        showPage();
       }
 
 
