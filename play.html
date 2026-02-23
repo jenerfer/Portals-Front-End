@@ -216,6 +216,48 @@
             <path d="M25.3813 11.6429C23.0957 11.6429 22.1612 10.0266 23.2977 8.04408C23.9543 6.89498 23.5629 5.43018 22.4138 4.77355L20.2292 3.52342C19.2316 2.92993 17.9436 3.2835 17.3501 4.28107L17.2112 4.521C16.0748 6.50352 14.2059 6.50352 13.0568 4.521L12.9179 4.28107C12.3496 3.2835 11.0616 2.92993 10.064 3.52342L7.87947 4.77355C6.73036 5.43018 6.33891 6.90761 6.99554 8.05671C8.14465 10.0266 7.21021 11.6429 4.92463 11.6429C3.61136 11.6429 2.52539 12.7163 2.52539 14.0422V16.2646C2.52539 17.5779 3.59873 18.6639 4.92463 18.6639C7.21021 18.6639 8.14465 20.2802 6.99554 22.2627C6.33891 23.4118 6.73036 24.8766 7.87947 25.5332L10.064 26.7834C11.0616 27.3769 12.3496 27.0233 12.9431 26.0257L13.082 25.7858C14.2185 23.8033 16.0874 23.8033 17.2365 25.7858L17.3754 26.0257C17.9689 27.0233 19.2569 27.3769 20.2545 26.7834L22.439 25.5332C23.5881 24.8766 23.9796 23.3992 23.323 22.2627C22.1739 20.2802 23.1083 18.6639 25.3939 18.6639C26.7071 18.6639 27.7931 17.5905 27.7931 16.2646V14.0422C27.7805 12.7289 26.7071 11.6429 25.3813 11.6429ZM15.1529 19.2573C12.8926 19.2573 11.049 17.4137 11.049 15.1534C11.049 12.8931 12.8926 11.0494 15.1529 11.0494C17.4133 11.0494 19.2569 12.8931 19.2569 15.1534C19.2569 17.4137 17.4133 19.2573 15.1529 19.2573Z" fill="currentColor"/>
           </svg>
         </button>
+        <div class="notif-popover" id="notif-popover">
+          <div class="notif-popover__header">
+            <span class="h6-bold">notifications</span>
+            <button class="notif-popover__close" id="notif-close" aria-label="Close">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="notif-popover__row">
+            <img class="notif-popover__avatar" src="assets/avatars/avatar-01.png" alt="">
+            <div class="notif-popover__body">
+              <div class="notif-popover__meta">
+                <span class="p1-xl-bold">friend request</span>
+                <span class="p3" style="color: var(--text-quaternary)">Feb 1, 2024 &nbsp;|&nbsp; 2:14pm</span>
+              </div>
+              <p class="notif-popover__text p2"><span class="p2-bold">zizzle</span> <span class="notif-popover__handle">@zizzle</span> accepted your Connection request.</p>
+              <a href="#" class="btn btn-sm btn-primary">approve request</a>
+            </div>
+          </div>
+          <div class="notif-popover__row">
+            <img class="notif-popover__avatar" src="assets/avatars/avatar-05.png" alt="">
+            <div class="notif-popover__body">
+              <div class="notif-popover__meta">
+                <span class="p1-xl-bold">friend request</span>
+                <span class="p3" style="color: var(--text-quaternary)">Feb 1, 2024 &nbsp;|&nbsp; 2:14pm</span>
+              </div>
+              <p class="notif-popover__text p2"><span class="p2-bold">glimble</span> <span class="notif-popover__handle">@itsglimble</span> accepted your Connection request.</p>
+            </div>
+          </div>
+          <div class="notif-popover__row">
+            <img class="notif-popover__avatar" src="portals-logo.svg" alt="" style="background: var(--surface-sunken); padding: 14px;">
+            <div class="notif-popover__body">
+              <div class="notif-popover__meta">
+                <span class="p1-xl-bold">portals</span>
+                <span class="p3" style="color: var(--text-quaternary)">Feb 1, 2024 &nbsp;|&nbsp; 2:14pm</span>
+              </div>
+              <p class="notif-popover__text p2">You will soon need age verification to use our chat features</p>
+              <a href="#" class="btn btn-sm btn-primary">read more</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -1049,6 +1091,30 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
           navInner.classList.remove('marketplace-nav__inner--logged-in');
         });
       }
+
+      /* Notification popover */
+      var notifBtn = document.getElementById('nav-notif');
+      var notifPopover = document.getElementById('notif-popover');
+      var notifClose = document.getElementById('notif-close');
+
+      if (notifBtn && notifPopover) {
+        notifBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          notifPopover.classList.toggle('notif-popover--open');
+        });
+      }
+
+      if (notifClose) {
+        notifClose.addEventListener('click', function () {
+          notifPopover.classList.remove('notif-popover--open');
+        });
+      }
+
+      document.addEventListener('click', function (e) {
+        if (notifPopover && !notifPopover.contains(e.target) && notifBtn && !notifBtn.contains(e.target)) {
+          notifPopover.classList.remove('notif-popover--open');
+        }
+      });
     })();
   </script>
 </body>
