@@ -39,15 +39,15 @@
     }
 
 .login-bg--login {
-      background-image: url('login-bg.jpeg');
+      background-image: url('assets/auth/login-bg.jpeg');
     }
 
     .login-bg--register {
-      background-image: url('register-bg.jpeg');
+      background-image: url('assets/auth/register-bg.jpeg');
     }
 
     .login-bg--recovery {
-      background-image: url('recovery-bg.jpeg');
+      background-image: url('assets/auth/recovery-bg.jpeg');
     }
 
     .login-bg--active {
@@ -673,7 +673,7 @@
     <div class="login-fade" id="login-fade">
 
       <!-- Portals logo -->
-      <img src="portals-logo.svg" alt="Portals" class="login-logo">
+      <img src="assets/brand/portals-logo.svg" alt="Portals" class="login-logo">
 
       <!-- ===== Login View ===== -->
       <div class="login-view" id="login-view">
@@ -857,10 +857,10 @@
           });
         });
         // Preload the others in the background
-        preloadBg('register-bg.jpeg');
-        preloadBg('recovery-bg.jpeg');
+        preloadBg('assets/auth/register-bg.jpeg');
+        preloadBg('assets/auth/recovery-bg.jpeg');
       };
-      loginImg.src = 'login-bg.jpeg';
+      loginImg.src = 'assets/auth/login-bg.jpeg';
 
       // Fallback: if image takes too long, show UI anyway after 3s
       setTimeout(function () {
